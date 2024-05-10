@@ -139,8 +139,8 @@ const Page = () => {
                     <h5 className={"text-gray-500"}>Products organizations</h5>
 
                     <div className="flex flex-column w-full my-2">
-                        <Dropdown value={Category} onChange={(e) => setSelectedCity(e.value)} options={cities} optionLabel="name"
-                                  placeholder="Select a City" className="w-full md:w-14rem" />
+                        <Dropdown value={selectedCity} onChange={(e) => setSelectedCity(e.value)} options={cities} optionLabel="name"
+                                  placeholder="Category" className="w-full md:w-14rem" />
 
                     </div>
 

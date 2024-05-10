@@ -1,177 +1,176 @@
 "use client"
-import React, {useState} from "react";
-import picture from "../../../public/myimages/image.jpg"
-import Image from "next/image";
-import {Button} from "primereact/button";
-import {InputText} from "primereact/inputtext";
+import React, { useEffect, useState } from 'react';
+import Link from "next/link";
+import { Avatar, Button, List, Skeleton, Typography } from 'antd';
 import { Dialog } from 'primereact/dialog';
-const Collection = ()=>{
+import { Editor } from "primereact/editor";
+import  pic from "../../../public/myimages/image.jpg"
+import { InputText } from 'primereact/inputtext';
+const count = 3;
+const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
+import Image from 'next/image'
+const App = () => {
+    const [initLoading, setInitLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const [data, setData] = useState([]);
+    const [list, setList] = useState([]);
     const [visible, setVisible] = useState(false);
+    const [text, setText] = useState('');
 
-    return(
+    useEffect(() => {
+        fetch(fakeDataUrl)
+            .then((res) => res.json())
+            .then((res) => {
+                setInitLoading(false);
+                setData(res.results);
+                setList(res.results);
+            });
+    }, []);
+
+    const onLoadMore = () => {
+        setLoading(true);
+        setList(
+            data.concat(
+                [...new Array(count)].map(() => ({
+                    loading: true,
+                    name: {},
+                    picture: {},
+                }))
+            )
+        );
+        fetch(fakeDataUrl)
+            .then((res) => res.json())
+            .then((res) => {
+                const newData = data.concat(res.results);
+                setData(newData);
+                setList(newData);
+                setLoading(false);
+                window.dispatchEvent(new Event('resize'));
+            });
+    };
+
+    const loadMore = !initLoading && !loading ? (
+        <div style={{ textAlign: 'center', marginTop: 12, height: 32, lineHeight: '32px' }}>
+            <Button onClick={onLoadMore}>Load more</Button>
+        </div>
+    ) : null;
+
+    return (
         <div>
-        <div className={"flex bg-gray-200 shd justify-around mx-12 px-3 w-full"} style={{boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px", paddingTop: "12px"}}>
-            <div className="w-full bor mx-4 max-w-xs overflow-hidden w-96  rounded-lg shadow-lg dark:bg-gray-800">
-                <img className="object-cover bg-gray-200 w-full h-56"
-                     src="https://media.istockphoto.com/id/1352937979/photo/vegetable-storage.jpg?s=612x612&w=0&k=20&c=j_C4IQaE2sLrrVHO1Zh47Rt5NSPu4Xt2JOXD4vW5qvE="
-                     alt="avatar"
-                    style={{borderRadius: "19px"}}
-                />
-            </div>
-            <Dialog header="Header" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
-                <p className="m-0">
-                     <span className="p-float-label w-full" style={{width : "80%"}}>
-                    <label htmlFor="username">Search</label>
-                        <InputText
-                            id="username"
-                            type="text"
+            <div className={"flex justify-content-between m-4"}>
+                <h3 className={"my-2 font-bold text-4xl"}>Collection</h3>
+                <Link href={"/addtocollection"}>
+                    <Button onClick={() => setVisible(true)} style={{ backgroundColor: 'black', color: 'white' }} primary>
+                        Add Collection
+                    </Button>
 
-                            // value={floatValue}
-                            // onChange={(e) => setFloatValue(e.target.value)}
-                            className={"w-full bg-gray-100"}
-                            placeholder={"Add Collections"}
-
-                        />
-
-                    </span>
-                     <span className="p-float-label w-full" style={{width : "80%", marginTop: "12px"}}>
-                    <label htmlFor="username">Search</label>
-                        <InputText
-                            id="username"
-                            type="text"
-
-                            // value={floatValue}
-                            // onChange={(e) => setFloatValue(e.target.value)}
-                            className={"w-full bg-gray-100"}
-                            placeholder={"Add Collections"}
-
-                        />
-
-                    </span>
-                     <span className="p-float-label w-full" style={{width : "80%", marginTop: "12px"}}>
-                    <label htmlFor="username">Search</label>
-                        <InputText
-                            id="username"
-                            type="text"
-                            // value={floatValue}
-                            // onChange={(e) => setFloatValue(e.target.value)}
-                            className={"w-full bg-gray-100"}
-                            placeholder={"Add Collections"}
-
-                        />
-
-                    </span>
-                </p>
-            </Dialog>
-            <div className="w-full mx-4 max-w-xs overflow-hidden  rounded-lg shadow-lg dark:bg-gray-800">
-                <Image
-                    src={picture}
-                    style={{width: "100%",borderRadius: "18px"}}
-                    width={400}
-                    height={400}
-                    alt="Picture of the author"
-                    className="object-cover bg-gray-200 w-full h-56"
-
-                />
-            </div>
-        </div>
-            <div className={"shadow bg-gray-200"} style={{padding: "25px", boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"}}>
-            <h3 className={"text-center text-5xl text-black  font-bold"} style={{paddingTop: "23px" , fontSize: "32px"}}>Individual Meal Boxes <span className={"text-yellow-500"}>To</span> Buffet-Style in Trays</h3>
-                <div className={"block mx-auto w-96 text-center rounded-full"}>
-                    {/*<span className={" bg-orange-400  rounded py-2  mx-3 text-3xl px-4 text-white pointer  "} style={{paddingTop: "12px" ,paddingBottom: "14px", borderRadius: "20%"}}> </span>*/}
-                    <Button label="Search Office Catering" rounded severity="warning"  style={{paddingTop: "12px" ,paddingBottom: "14px", fontSize: "22px"}}/>
-                </div>
+                </Link>
             </div>
 
-            <div className={"w-full flex"}>
-                    <span className=" flex " style={{width : "100%", marginTop: "22px"}}>
 
-                        <input
-                            type="text"
-                            className={".placeholder-red-600 autofocus"}
-                            name="q"
-                            style={{
-                                width: "90%",
-                                border: "1px solid #918e8e",
-                                color: "#333", // updated text color to a darker gray
-                                background: "#d9d9d9",
-                                height: "40px",
-                                padding: "10px",
-                                borderRadius: "20px",
-                                fontSize: "18px",
+            <div className="flex flex-col justify-center h-full">
+                {/* Table */}
+                <div className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
+                    <header className="px-5 py-4 border-b border-gray-100">
+                        <h2 className="font-semibold text-gray-800"></h2>
+                    </header>
+                    <div className="p-3">
+                        <div className="overflow-x-auto">
+                            <table className="table-auto w-full">
+                                <thead
+                                    className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
+                                <tr>
+                                    <th className="p-2 whitespace-nowrap">
+                                        <div className="font-semibold text-left">
+                                            {/* Add a label for the checkboxes */}
+                                            <input type="checkbox" id="select-all"/>
+                                        </div>
+                                    </th>
+                                    <th className="p-2 whitespace-nowrap">
+                                        <div className="font-semibold text-left">Image</div>
+                                    </th>
+                                    <th className="p-2 whitespace-nowrap">
+                                        <div className="font-semibold text-left">Title</div>
+                                    </th>
+                                    <th className="p-2 whitespace-nowrap">
+                                        <div className="font-semibold text-center">Products</div>
+                                    </th>
+                                    <th className="p-2 whitespace-nowrap">
+                                        <div className="font-semibold text-center">Product Condiation</div>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody className="text-sm divide-y divide-gray-100">
+                                {/* Each row should start with a checkbox cell */}
+                                <tr>
+                                    <td className="p-2 whitespace-nowrap">
+                                        <input type="checkbox"/>
+                                    </td>
+                                    <td className="p-2 whitespace-nowrap">
+                                      <Image src={pic} alt={"image"} width={35} height={30}/>
+                                    </td>
+                                    <td className="p-2 whitespace-nowrap">
+                                        <div className="text-left">Piza</div>
+                                    </td>
+                                    <td className="p-2 whitespace-nowrap">
+                                        <div className="text-center font-medium text-green-500">
+                                            3
+                                        </div>
+                                    </td>
+                                    <td className="p-2 whitespace-nowrap">
+                                        <div className="text-lg text-center">Conditions</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="p-2 whitespace-nowrap">
+                                        <input type="checkbox"/>
+                                    </td>
+                                    <td className="p-2 whitespace-nowrap">
+                                        <Image src={pic} alt={"image"} width={35} height={30}/>
+                                    </td>
+                                    <td className="p-2 whitespace-nowrap">
+                                        <div className="text-left">Piza</div>
+                                    </td>
+                                    <td className="p-2 whitespace-nowrap">
+                                        <div className="text-center font-medium text-green-500">
+                                            3
+                                        </div>
+                                    </td>
+                                    <td className="p-2 whitespace-nowrap">
+                                        <div className="text-lg text-center">Conditions</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="p-2 whitespace-nowrap">
+                                        <input type="checkbox"/>
+                                    </td>
+                                    <td className="p-2 whitespace-nowrap">
+                                        <Image src={pic} alt={"image"} width={35} height={30}/>
+                                    </td>
+                                    <td className="p-2 whitespace-nowrap">
+                                        <div className="text-left">Piza</div>
+                                    </td>
+                                    <td className="p-2 whitespace-nowrap">
+                                        <div className="text-center font-medium text-green-500">
+                                            3
+                                        </div>
+                                    </td>
+                                    <td className="p-2 whitespace-nowrap">
+                                        <div className="text-lg text-center">Conditions</div>
+                                    </td>
+                                </tr>
 
-                            }}
-                            placeholder="Search"
-
-                        />
-
-                        <span className={"text-orange-600 font-bold mt-3 .placeholder-gray-600::placeholder px-2"}>Add Collection</span>
-                {/*<Button label="Submit" onClick={() => setVisible(true)} rounded severity="warning"  style={{marginLeft: "8px", fontSize: "18px"}}/>*/}
-                    </span>
-            </div>
-
-            <div className={"flex flex-wrap "} style={{justifyContent: "space-between"}}>
-
-
-            <div style={{ height: "220px", width: "560px", borderRadius: "12px", marginTop: "34px" }} className={"bg-gray-300"}>
-                <Image
-                    src={picture}
-                    style={{ width: "100%", borderRadius: "18px", height: "170px" }}
-                    alt="Picture of the author"
-                />
-                <div style={{ marginTop: "10px" ,display: "flex" , justifyContent: "space-between" }} className={"mx-4"}>
-                    <div className={" font-bold text-xl  "}>Thai Food</div>
-                    <div className={"text-orange-600 font-bold text-xl underline "} style={{padding: "4px"}}>
-                        <a className={"text-orange-600 font-bold text-xl underline "}>Explore</a>
-                    </div>
-                </div>
-            </div>
-
-            <div style={{ height: "220px", width: "560px", borderRadius: "12px", marginTop: "34px" }} className={"bg-gray-300"}>
-                <Image
-                    src={picture}
-                    style={{ width: "100%", borderRadius: "18px", height: "170px" }}
-                    alt="Picture of the author"
-                />
-                <div style={{ marginTop: "10px" ,display: "flex" , justifyContent: "space-between" }} className={"mx-4"}>
-                    <div className={" font-bold text-xl  "}>Thai Food</div>
-                    <div className={"text-orange-600 font-bold text-xl underline "} style={{padding: "4px"}}>
-                        <a className={"text-orange-600 font-bold text-xl underline "}>Explore</a>
-                    </div>
-                </div>
-            </div>
-
-                <div style={{ height: "220px", width: "560px", borderRadius: "12px", marginTop: "34px" }} className={"bg-gray-300"}>
-                    <Image
-                        src={picture}
-                        style={{ width: "100%", borderRadius: "18px", height: "170px" }}
-                        alt="Picture of the author"
-                    />
-                    <div style={{ marginTop: "10px" ,display: "flex" , justifyContent: "space-between" }} className={"mx-4"}>
-                        <div className={" font-bold text-xl  "}>Thai Food</div>
-                        <div className={"text-orange-600 font-bold text-xl underline "} style={{padding: "4px"}}>
-                            <a className={"text-orange-600 font-bold text-xl underline "}>Explore</a>
+                                </tbody>
+                            </table>
                         </div>
-                    </div>
-                </div>
 
-                <div style={{ height: "220px", width: "560px", borderRadius: "12px", marginTop: "34px" }} className={"bg-gray-300"}>
-                    <Image
-                        src={picture}
-                        style={{ width: "100%", borderRadius: "18px", height: "170px" }}
-                        alt="Picture of the author"
-                    />
-                    <div style={{ marginTop: "10px" ,display: "flex" , justifyContent: "space-between" }} className={"mx-4"}>
-                        <div className={" font-bold text-xl  "}>Thai Food</div>
-                        <div className={"text-orange-600 font-bold text-xl underline "} style={{padding: "4px"}}>
-                            <a className={"text-orange-600 font-bold text-xl underline "}>Explore</a>
-                        </div>
                     </div>
                 </div>
             </div>
+
+
         </div>
+    );
+};
 
-
-    )
-}
-export  default Collection;
+export default App;

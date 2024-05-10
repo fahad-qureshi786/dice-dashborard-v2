@@ -69,12 +69,12 @@ const AppMenu = () => {
                             },
                             {
                                 label: 'Reward Points',
-                                icon: 'pi pi-fw pi-lock',
+
                                 to: '/auth/access'
                             },
                             {
                                 label: 'Store',
-                                icon: 'pi pi-fw pi-lock',
+
                                 to: '/auth/access'
                             },
                         ]

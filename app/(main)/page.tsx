@@ -99,20 +99,17 @@ const Dashboard = () => {
         <>
             <div className="flex flex-wrap justify-content-evenly items-start space-y-4 sm:space-y-0 sm:space-x-4 p-4">
                 {/* First box */}
-                <div
-                    className="w-[600px] h-[300px] p-6 bg-gray-50 border-2 border-orange-500 rounded shadow-md text-center"
-                >
+
+                <div className={"box text-center"}>
+                    <p className="font-bold text-5xl">19200</p>
+                    <span className="block text-xl mt-2 px-6">Total Sales</span>
+                </div>
+                {/* Second box */}
+                <div className={"box text-center"}>
                     <p className="font-bold text-5xl">19200</p>
                     <span className="block text-xl mt-2 px-6">Total Sales</span>
                 </div>
 
-                {/* Second box */}
-                <div
-                    className="w-[600px] h-[300px] p-6 bg-gray-50 border-2 border-orange-500 rounded shadow-md text-center"
-                >
-                    <p className="font-bold text-5xl">250</p>
-                    <span className="block text-xl mt-2">Total Menu Requests</span>
-                </div>
             </div>
             <h2 className="text-4xl lg:ml-20 p-2 font-bold text-gray-600">Upcoming Orders</h2>
             <div className="flex w-full  items-start space-x-4 p-4">

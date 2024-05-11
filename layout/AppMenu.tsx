@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
-import React, { useContext } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import AppMenuitem from './AppMenuitem';
 import { LayoutContext } from './context/layoutcontext';
 import { MenuProvider } from './context/menucontext';
@@ -10,52 +10,44 @@ import { useRouter } from 'next/navigation';
 
 const AppMenu = () => {
     // Session storage for email and password
-    const [storedEmail, setStoredEmail] = useSessionStorage('email', '');
     const [storedPassword, setStoredPassword] = useSessionStorage('password', '');
-    const router = useRouter();
-
-    // Hardcoded credentials (consider replacing with proper authentication methods)
-    const email = 'a@gmail.com';
-    const password = '123';
-
-    // Checking credentials match (consider using actual authentication methods)
-    if (email === storedEmail && password === storedPassword) {
-        console.log('Credentials match!');
-    } else {
-        console.log('');
-    }
-
-    // Context and model initialization
-    const { layoutConfig } = useContext(LayoutContext);
+    const [userDetails, setUserDetails] = useState({
+        username: '',
+        password: ''
+    });
     const model: AppMenuItem[] = [];
 
+    useEffect(()=> {
+        setUserDetails(JSON.parse(sessionStorage.getItem("user")))
+    }, [])
+
     // Populating model based on storedPassword
-    if (storedPassword === 'admin') {
+    if (userDetails.username === 'admin') {
         model.push(
             {
                 label: '',
-                items: [{ label: 'Home', to: '/' }]
+                items: [{icon: 'pi pi-home', label: 'Home', to: '/' }]
             },
             {
                 label: '',
-                items: [{ label: 'Collections', to: '/collections' }]
+                items: [{ icon: 'pi pi-briefcase', label: 'Collections', to: '/collections' }]
             },
             {
                 label: '',
-                items: [{ label: 'Products', to: '/products' }]
+                items: [{ icon: 'pi pi-clone', label: 'Products', to: '/products' }]
             },
             {
+
                 label: '',
-                items: [{ label: 'Invoice', to: '/invoice' }]
+                items: [{ icon: 'pi pi-credit-card', label: 'Invoice', to: '/invoice' }]
             },
 
             {
                 label: '',
                 items: [
-
                     {
+                        icon: 'pi pi-dollar',
                         label: 'Sales and Promotions',
-
                         items: [
                             {
                                 label: 'Discount Codes',
@@ -82,78 +74,79 @@ const AppMenu = () => {
                 ]
             },
             {
-                label: ' ',
-                items: [{ label: 'Client Details', to: '/client-detail' }]
+
+                label: '',
+                items: [{icon: 'pi pi-users', label: 'Client Details', to: '/client-detail' }]
             },
             {
                 label: '',
                 items: [
-
                     {
+                        icon: 'pi pi-book',
                         label: 'Orders',
-
                         items: [
                             {
                                 label: 'Order Requests',
-
                                 to: ''
                             },
                             {
                                 label: 'Change Requests',
-
                                 to: '/auth/error'
                             },
-
-
                         ]
                     },
                 ]
             },
 
             {
+
                 label: '',
-                items: [{ label: 'Feedback', to: '/feedback' }]
+                items: [{icon: 'pi pi-thumbs-up', label: 'Feedback', to: '/feedback' }]
             },
             {
-                label: ' ',
-                items: [{ label: 'Menu Request', to: '/menu-request' }]
+
+                label: '',
+                items: [{ icon: 'pi pi-money-bill', label: 'Menu Request', to: '/menu-request' }]
             },
             {
                 label: '',
                 items: [
 
                     {
+                        icon: 'pi pi-chart-bar',
                         label: 'Reports and Analytics',
-
                         items: [
                             {
+                                icon: 'pi pi-chart-bar',
                                 label: 'Reports',
-
-                                to: ''
+                                to: '/reports'
                             },
                             {
+                                icon: 'pi pi-chart-line',
                                 label: 'Analytics',
-
                                 to: '/auth/error'
                             },
-
-
                         ]
                     },
                 ]
             },
             {
                 label: '',
-                items: [{ label: 'Website', to: '/profile' }]
+                items: [{ icon: 'pi pi-server', label: 'Website', to: '/profile' }]
             },
             {
                 label: '',
-                items: [{ label: 'Resource', to: '/profile' }]
+                items: [{icon: 'pi pi-book', label: 'Resource', to: '/profile' }]
             },
             {
                 label: '',
-                items: [{ label: 'Profile', to: '/profile' }]
+                items: [{icon: 'pi pi-user', label: 'Profile', to: '/profile' }]
+            },
+            {
+                label: '',
+                items: [{ icon: 'pi pi-lock', label: 'Logout', to: '/auth/login' }]
             }
+
         );
     } else if (storedPassword === 'customer') {
         model.push(

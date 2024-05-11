@@ -322,21 +322,22 @@ const Dashboard = () => {
                     </section>
                 </>
 
+                <p>This even clanedar </p>
+
+
 
             </div>
-            <div className={"flex justify-content-evenly w-full my-12"}>
+            <div className={"flex my-8 justify-content-evenly w-full"} style={{alignItems: "center"}}>
 
-                <div className={"w-[60%]"}>
-                    <>
-                        {/* component */}
-                        <section className="antialiased bg-gray-100 text-gray-600 h-screen px-4">
-                            <div className="flex flex-col justify-center h-full">
-                                {/* Table */}
+                <div className={"w-[60%] bg-white mx-4  card"} style={{width: "75%"}}>
+
+                        <section className="antialiased bg-gray-100 text-gray-600 ">
+                            <div className="flex flex-col justify-center ">
                                 <div className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
                                     <header className="px-5 py-4 border-b border-gray-100">
                                         <h2 className="font-semibold text-gray-800">Reminders</h2>
                                     </header>
-                                    <div className="p-3">
+                                    <div className="p-2">
                                         <div className="overflow-x-auto">
                                             <table className="table-auto w-full">
                                                 <thead
@@ -449,11 +450,9 @@ const Dashboard = () => {
                                 </div>
                             </div>
                         </section>
-                    </>
-
-                </div>
-                <div className=" w-[60%] card">
-                    <div className="flex align-items-center justify-content-between mb-4">
+                                    </div>
+                <div className=" w-[40%] card">
+                    <div className="flex align-items-center justify-content-between ">
                         <h5>Notifications</h5>
                         <div>
                             <Button type="button" icon="pi pi-ellipsis-v" rounded text className="p-button-plain" onClick={(event) => menu2.current?.toggle(event)} />

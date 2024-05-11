@@ -3,16 +3,13 @@ import React, { useState } from 'react';
 import { InputText } from "primereact/inputtext";
 import { Calendar } from 'primereact/calendar';
 import {TabPanel, TabView} from "primereact/tabview";
-import Image from "next/image";
-import pic from "../../../public/myimages/image.jpg";
-import {Badge} from "primereact/badge";
 import { Button } from 'primereact/button';
 import { FileUpload } from 'primereact/fileupload';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import Link from 'next/link';
 import { Dialog } from 'primereact/dialog';
-import { Checkbox } from 'antd';
+import { Checkbox } from 'antd'
+
 const Page = () => {
     const data = [
         { item: 'Subtotal', price: '$50.00' },
@@ -72,20 +69,19 @@ Cancel                    </Button>
 
             <div className={"flex justify-content-end space-x-2 m-4"}>
 
-                    <Button onClick={() => setVisible(true)} style={{ backgroundColor: 'black', color: 'white',  margin:"2px" }} primary>
+                    <Button onClick={() => setVisible(true)} style={{ backgroundColor: '#FF8A38', border: "none", color: 'white',  margin:"2px" }} >
                         Create Order
                     </Button>
 
-                <Button onClick={() => setVisible(true)} style={{ backgroundColor: 'gray', color: 'white',  margin:"2px" }} primary>
+                <Button onClick={() => setVisible(true)} style={{ backgroundColor: '#ffa15f', border: "none", color: 'white',  margin:"2px" }} primary>
                     More actions
                 </Button>
-                <Button onClick={() => setVisible(true)} style={{ backgroundColor: 'gray', color: 'white',  margin:"2px" }} primary>
+                <Button onClick={() => setVisible(true)} style={{ backgroundColor: '#ffa15f', border: "none", color: 'white',  margin:"2px" }} primary>
                    Export
                 </Button>
             </div>
 
-        <div className={"card w-full p-2"}>
-            <div className={"flex justify-content-evenly my-4"}>
+            <div className={"flex card justify-content-evenly my-4"}>
                 <div>
                     <div className="flex-auto">
                         <label htmlFor="buttondisplay" className="font-bold  block mb-2">
@@ -140,12 +136,14 @@ Cancel                    </Button>
 
                 </div>
             </div>
+
+
             <div className={"flex justify-content-between w-full"} >
 
                 <div style={{width: "80%"}} >
                     <div className="card">
-                        <TabView>
-                            <TabPanel header="All">
+                        <TabView style={{color: "green-200"}} className={"text-red-300"}>
+                            <TabPanel header="All" >
                                     <div className="flex flex-col justify-center w-full h-full">
                                        <div className={"w-full"}>
                                            <div>
@@ -154,21 +152,21 @@ Cancel                    </Button>
                                                <div className="w-full flex items-center">
                                                    {/* Search input */}
                                                    <span className="p-input-icon-right w-full">
-                <InputText type="text" placeholder="Search" className="w-full" />
+                <InputText type="text" placeholder="Search" className="w-full bg-gray-100" />
                 <i className="pi pi-search" />
             </span>
 
                                                    {/* Button to open file explorer */}
-                                                   <FileUpload mode="basic" chooseLabel="browser" icon="pi pi-folder-open" className={"mx-2"}  />
+                                                   <FileUpload mode="basic" chooseLabel="browser" icon="pi pi-folder-open" className={"mx-2 "}  />
 
                                                </div>
                                            </div>
                                            <div className={"card my-4"}>
                                                <h3>Payment</h3>
-                                               <div className={"card"}>
+                                               <div className={""}>
                                                    <div className="p-d-flex p-jc-center">
                                                        <DataTable value={data} className="p-datatable-striped">
-                                                           <Column field="item" header="Item" />
+                                                           <Column field="item" header="Item"   />
                                                            <Column field="price" header="Price" />
                                                        </DataTable>
                                                    </div>
@@ -256,7 +254,7 @@ Cancel                    </Button>
                 </div>
                 </div>
             </div>
-        </div>
+
         </>
     );
 };

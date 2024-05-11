@@ -4,6 +4,7 @@ import Link from "next/link";
 import {  Button } from 'primereact/button';
 import  pic from "../../../public/myimages/image.jpg";
 import Image from 'next/image';
+import { SplitButton } from 'primereact/splitbutton';
 
 const App = () => {
     const [initLoading, setInitLoading] = useState(true);
@@ -15,6 +16,17 @@ const App = () => {
     const count = 3;
     const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
 
+
+    const items = [
+        {
+            label: 'Active',
+
+        },
+        {
+            label: 'Draft',
+
+        }
+    ];
     useEffect(() => {
         fetch(fakeDataUrl)
             .then((res) => res.json())
@@ -47,29 +59,28 @@ const App = () => {
             });
     };
 
-    const loadMore = !initLoading && !loading ? (
-        <div style={{ textAlign: 'center', marginTop: 12, height: 32, lineHeight: '32px' }}>
-            <Button onClick={onLoadMore}>Load more</Button>
-        </div>
-    ) : null;
+
 
     return (
         <div>
             <div className={"flex justify-content-between m-4"}>
                 <h3 className={"my-2 font-bold text-4xl"}>Collection</h3>
-                <Link href={"/addtocollection"}>
-                    <Button onClick={() => setVisible(true)} style={{ backgroundColor: '#FF8A38', border: "none", color: 'white',  margin:"2px" }} primary>
-                        Add Collection
-                    </Button>
+                <div>
+                    <Link href={"/addtocollection"}>
+                        <Button onClick={() => setVisible(true)} className={"mx-4"} style={{ backgroundColor: '#FF8A38', border: "none", color: 'white'  }} primary>
+                            Add Collection
+                        </Button>
+                    </Link>
+                    <SplitButton label="More action"  model={items} severity="secondary"></SplitButton>
+                </div>
 
-                </Link>
             </div>
 
 
             <div className="flex flex-col justify-center h-full">
                 {/* Table */}
                 <div className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
-                    <header className="px-5 py-4 border-b border-gray-100">
+                    <header className=" border-b border-gray-100">
                         <h2 className="font-semibold text-gray-800"></h2>
                     </header>
                     <div className="p-3">

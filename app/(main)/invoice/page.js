@@ -10,6 +10,9 @@ import { Button } from 'primereact/button';
 import { FileUpload } from 'primereact/fileupload';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import Link from 'next/link';
+import { Dialog } from 'primereact/dialog';
+import { Checkbox } from 'antd';
 const Page = () => {
     const data = [
         { item: 'Subtotal', price: '$50.00' },
@@ -18,12 +21,69 @@ const Page = () => {
         { item: 'Estimate Tax', price: '$2.50' },
         { item: 'Total', price: '$57.50' }
     ];
+   const [visible , setVisible] = useState(false)
     const [placement, SetPlacement] = useState('topLeft');
     const placementChange = (e) => {
         SetPlacement(e.target.value);
     };
     const [date, setDate] = useState(null);
     return (
+        <>
+            <Dialog header="Add your custom item" className={"p-8"} visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
+               <div className={"flex justify-content-evenly  "}>
+                   <div className={"w-8/12 px-2"}>
+                        <span className="p-input-icon-right w-full">
+                <InputText type="text" placeholder="Item Name" className="w-full" />
+                <i className="pi pi-search" />
+            </span>
+                   </div>
+                   <div className={"w-2/12 px-2"}>            <span className="p-input-icon-right w-full">
+                <InputText type="text" placeholder="Price" className="w-full" />
+
+            </span></div>
+                   <div className={"w-2/12 px-2"}>
+                                  <span className="p-input-icon-right w-full">
+                <InputText type="text" placeholder="Quantity" className="w-full" />
+
+            </span>
+                   </div>
+
+
+               </div>
+                <div className={"my-4 "}>
+                    <div><Checkbox >item is textable</Checkbox></div>
+                    <div><Checkbox >item is a physical products</Checkbox></div>
+
+
+                </div>
+
+                <div className={"flex justify-content-end space-x-2 m-4"}>
+
+                    <Button onClick={() => setVisible(true)} style={{ backgroundColor: 'black', color: 'white',  margin:"2px" }} primary>
+                        Add item
+                    </Button>
+
+                    <Button onClick={() => setVisible(true)} style={{ backgroundColor: 'gray', color: 'white',  margin:"2px" }} primary>
+Cancel                    </Button>
+
+                </div>
+
+            </Dialog>
+
+            <div className={"flex justify-content-end space-x-2 m-4"}>
+
+                    <Button onClick={() => setVisible(true)} style={{ backgroundColor: 'black', color: 'white',  margin:"2px" }} primary>
+                        Create Order
+                    </Button>
+
+                <Button onClick={() => setVisible(true)} style={{ backgroundColor: 'gray', color: 'white',  margin:"2px" }} primary>
+                    More actions
+                </Button>
+                <Button onClick={() => setVisible(true)} style={{ backgroundColor: 'gray', color: 'white',  margin:"2px" }} primary>
+                   Export
+                </Button>
+            </div>
+
         <div className={"card w-full p-2"}>
             <div className={"flex justify-content-evenly my-4"}>
                 <div>
@@ -197,6 +257,7 @@ const Page = () => {
                 </div>
             </div>
         </div>
+        </>
     );
 };
 

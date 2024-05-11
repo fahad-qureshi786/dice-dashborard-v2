@@ -93,8 +93,7 @@ const App = () => {
         <div>
             <h3 className={"my-2 font-bold text-4xl"}>Products</h3>
             <div className={"flex justify-content-end  m-4"}>
-
-                <Link href={"/pages/addproducts"}>
+                <Link href={"/addproducts"}>
                     <Button onClick={() => setVisible(true)} style={{ backgroundColor: 'black', color: 'white' }} primary>
                         Add Collection
                     </Button>

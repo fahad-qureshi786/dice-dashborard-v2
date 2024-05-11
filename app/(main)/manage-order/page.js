@@ -1,6 +1,6 @@
 "use client"
 import React from 'react';
-import {  Steps } from 'antd';
+
 
 import {router} from "next/client";
 import {DataTable} from "primereact/datatable";
@@ -46,7 +46,7 @@ const Page = () => {
 
             <h2>Order Status</h2>
 
-        {/*   Steper */}
+
         <div className={"flex"} style={{alignItems: "center", marginTop: "58px", justifyContent: "center"}}>
 
             <div className={"  h-8 -mr-2 bg-orange-500 "} style={{width: "18px", height: "18px" ,background: "#000", borderRadius: "20px"}}></div>

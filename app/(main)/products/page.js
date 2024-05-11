@@ -1,9 +1,8 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import Link from "next/link";
-import { Avatar, Button, List, Skeleton, Typography } from 'antd';
-import { Dialog } from 'primereact/dialog';
-import { Editor } from "primereact/editor";
+import {Button} from 'primereact/button';
+
 import  pic from "../../../public/myimages/image.jpg"
 import { InputText } from 'primereact/inputtext';
 import { Badge } from 'primereact/badge';

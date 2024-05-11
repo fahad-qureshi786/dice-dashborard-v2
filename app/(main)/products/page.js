@@ -94,14 +94,14 @@ const App = () => {
             <h3 className={"my-2 font-bold text-4xl"}>Products</h3>
             <div className={"flex justify-content-end  m-4"}>
                 <Link href={"/addproducts"}>
-                    <Button onClick={() => setVisible(true)} style={{ backgroundColor: 'black', color: 'white' }} primary>
+                    <Button onClick={() => setVisible(true)} style={{ backgroundColor: '#FF8A38', border: "none", color: 'white',  margin:"2px" }} primary>
                         Add Collection
                     </Button>
                 </Link>
-                <Button onClick={() => setVisible(true)} style={{ backgroundColor: 'black', color: 'white' }} primary>
+                <Button onClick={() => setVisible(true)} style={{ backgroundColor: '#ffa15f', border: "none", color: 'white',  margin:"2px" }} primary>
                     Export
                 </Button>
-                <Button onClick={() => setVisible(true)} style={{ backgroundColor: 'black', color: 'white' }} primary>
+                <Button onClick={() => setVisible(true)} style={{ backgroundColor: '#ffa15f', border: "none", color: 'white',  margin:"2px" }} primary>
                 Import
                 </Button>
             </div>

@@ -60,7 +60,7 @@ const App = () => {
             <div className={"flex justify-content-between m-4"}>
                 <h3 className={"my-2 font-bold text-4xl"}>Collection</h3>
                 <Link href={"/addtocollection"}>
-                    <Button onClick={() => setVisible(true)} style={{ backgroundColor: 'black', color: 'white' }} primary>
+                    <Button onClick={() => setVisible(true)} style={{ backgroundColor: '#FF8A38', border: "none", color: 'white',  margin:"2px" }} primary>
                         Add Collection
                     </Button>
 

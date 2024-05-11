@@ -1,9 +1,8 @@
 "use client"
 import React, {useState} from 'react';
-import {Dialog} from "primereact/dialog";
 import {InputText} from "primereact/inputtext";
 import {Editor} from "primereact/editor";
-import {Button} from "antd";
+import {Button} from "primereact/button";
 
 const Page = () => {
 
@@ -13,11 +12,11 @@ const Page = () => {
 
                 <h3>Title</h3>
                 <InputText type="text" placeholder="Add Title " className={"w-full my-2 "} />
-                <h4 className={"text-gray-600"}>Descripation</h4>
+                <h4 className={"text-gray-600"}>Description</h4>
                 <div className="">
                     <Editor value={text} onTextChange={(e) => setText(e.htmlValue)} style={{ height: '320px' }}  className={"border border-2 border-gray-500 rounded-md"}/>
                 </div>
-                <Button onClick={() => setVisible(true)} style={{ backgroundColor: 'black', color: 'white', float: "right", margin: "6px" }} primary>
+                <Button  style={{ backgroundColor: '#FF8A38', border: "none", color: 'white',  margin:"2px", float: "right" }} primary>
                     Add Collection
                 </Button>
 

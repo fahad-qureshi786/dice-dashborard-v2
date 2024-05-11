@@ -2,8 +2,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import { Calendar } from 'primereact/calendar';
 import { useSessionStorage } from 'primereact/hooks';
-
-import { Chart } from 'primereact/chart';
 import {Button} from "primereact/button";
 import {Menu} from "primereact/menu";
 

@@ -1,9 +1,8 @@
 "use client";
 import React, { useState, useRef } from 'react';
-import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Editor } from 'primereact/editor';
-import { Button } from 'antd';
+import { Button } from 'primereact/button';
 import Image from 'next/image';
 import pic from '/public/myimages/image.jpg';
 import { Toast } from 'primereact/toast';
@@ -11,7 +10,6 @@ import { FileUpload } from 'primereact/fileupload';
 import 'primereact/resources/primereact.min.css'; // Prime React CSS
 import 'primereact/resources/themes/saga-blue/theme.css'; // Prime React theme CSS
 import { MultiSelect } from 'primereact/multiselect';
-import { Dialoge } from 'primereact/radiobutton';
 import { Checkbox } from 'primereact/checkbox';
 import { Dropdown } from 'primereact/dropdown';
 const Page = () => {

@@ -21,8 +21,8 @@ const AppTopbar = forwardRef<AppTopbarRef>((props, ref) => {
     return (
         <div className="layout-topbar">
             <Link href="/" className="layout-topbar-logo">
-                <img src={`/layout/images/logo.png`} width="75px"  alt="logo" />
-                {/*<span>SAKAI</span>*/}
+                <img src={`/layout/images/logo.png`} style={{marginLeft: '2rem'}} width="50px" height={"75px"}  alt="logo" />
+                {/*<span>Dice</span>*/}
             </Link>
 
             <button ref={menubuttonRef} type="button" className="p-link layout-menu-button layout-topbar-button" onClick={onMenuToggle}>
@@ -40,12 +40,12 @@ const AppTopbar = forwardRef<AppTopbarRef>((props, ref) => {
                 </button>
                 <button type="button" className="p-link layout-topbar-button">
                     <i className="pi pi-clock"></i>
-                    <span>Profile</span>
+                    <span>Reminders</span>
                 </button>
-                <Link href="/documentation">
+                <Link href="/profile">
                     <button type="button" className="p-link layout-topbar-button">
                         <i className="pi pi-user"></i>
-                        <span>Settings</span>
+                        <span>Profile</span>
                     </button>
                 </Link>
             </div>

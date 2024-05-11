@@ -8,7 +8,6 @@ import { FileUpload } from 'primereact/fileupload';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Dialog } from 'primereact/dialog';
-import { Checkbox } from 'antd'
 
 const Page = () => {
     const data = [
@@ -48,8 +47,6 @@ const Page = () => {
 
                </div>
                 <div className={"my-4 "}>
-                    <div><Checkbox >item is textable</Checkbox></div>
-                    <div><Checkbox >item is a physical products</Checkbox></div>
 
 
                 </div>

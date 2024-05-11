@@ -77,7 +77,7 @@ const Dashboard = () => {
 
     // Function to handle date change in the Calendar
     const handleDateChange = (e) => {
-        setDate(e.value);
+        setDate(e.target.value);
     };
 
     // Function to handle event addition when a date is clicked in the Calendar

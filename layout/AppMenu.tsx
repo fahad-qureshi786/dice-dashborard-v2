@@ -22,7 +22,7 @@ const AppMenu = () => {
     if (email === storedEmail && password === storedPassword) {
         console.log('Credentials match!');
     } else {
-        console.log('Credentials do not match!');
+        console.log('');
     }
 
     // Context and model initialization

@@ -94,7 +94,7 @@ const App = () => {
             <div className={"flex justify-content-end  m-4"}>
                 <Link href={"/addproducts"}>
                     <Button onClick={() => setVisible(true)} style={{ backgroundColor: '#FF8A38', border: "none", color: 'white',  margin:"2px" }} primary>
-                        Add Collection
+                        Add Product
                     </Button>
                 </Link>
                 <Button onClick={() => setVisible(true)} style={{ backgroundColor: '#ffa15f', border: "none", color: 'white',  margin:"2px" }} primary>

@@ -1,14 +1,10 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import Link from "next/link";
-import { Avatar, Button, List, Skeleton, Typography } from 'antd';
-import { Dialog } from 'primereact/dialog';
-import { Editor } from "primereact/editor";
-import  pic from "../../../public/myimages/image.jpg"
-import { InputText } from 'primereact/inputtext';
-const count = 3;
-const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
-import Image from 'next/image'
+import {  Button } from 'primereact/button';
+import  pic from "../../../public/myimages/image.jpg";
+import Image from 'next/image';
+
 const App = () => {
     const [initLoading, setInitLoading] = useState(true);
     const [loading, setLoading] = useState(false);
@@ -16,6 +12,8 @@ const App = () => {
     const [list, setList] = useState([]);
     const [visible, setVisible] = useState(false);
     const [text, setText] = useState('');
+    const count = 3;
+    const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
 
     useEffect(() => {
         fetch(fakeDataUrl)

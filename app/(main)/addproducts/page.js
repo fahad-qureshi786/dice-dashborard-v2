@@ -50,8 +50,10 @@ const Page = () => {
 
 
     return (
-        <div className={"flex w-full justify-content-around  "}>
+        <>
 
+
+        <div className={"flex w-full justify-content-around  "}>
             <div className={"p-2 w-3/4"}>
                 <h3>Title</h3>
                 <InputText type="text" placeholder="Add Title " className={"w-full my-2 "} />
@@ -66,7 +68,7 @@ const Page = () => {
                 <div >
                     <div className={"card my-8 "}>
                         <h4 className={"text-gray-600 my-3"}>Media</h4>
-                        <div className={" flex  justify-content-between "}>
+                        <div className={" flex  justify-content-evenly "}>
                             <div>
                                 <Image src={pic} height={400} width={250} />
                             </div>
@@ -86,7 +88,6 @@ const Page = () => {
                     </div>
                 </div>
             </div>
-
             <div className={"w-1/4"}>
                 <div className={"card"}>
                 <h5 className={"text-gray-500"}>Status</h5>
@@ -170,6 +171,21 @@ const Page = () => {
                 </div>
             </div>
         </div>
+
+            <div className={"flex justify-content-end align-items-end"}>
+               <div>
+                   <Button onClick={() => setVisible(true)} className={"m-2"} style={{ backgroundColor: 'white', color: 'black' }} primary>
+                       Archive
+                   </Button>
+                   <Button onClick={() => setVisible(true)} className={"m-2"} style={{ backgroundColor: 'red', color: 'white' }} >
+                       Delete
+                   </Button>
+                   <Button onClick={() => setVisible(true)} className={"m-2"} style={{ backgroundColor: 'gray', color: 'white' }} >
+                       Save
+                   </Button>
+               </div>
+            </div>
+        </>
     );
 };
 

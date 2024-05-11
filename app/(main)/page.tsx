@@ -1,465 +1,367 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
-import React, {useEffect, useRef, useState} from 'react';
-import { Calendar } from 'primereact/calendar';
-import { useSessionStorage } from 'primereact/hooks';
-import {Button} from "primereact/button";
-import {Menu} from "primereact/menu";
+import {Button} from 'primereact/button';
+import {Chart} from 'primereact/chart';
+import {Column} from 'primereact/column';
+import {DataTable} from 'primereact/datatable';
+import {Menu} from 'primereact/menu';
+import React, {useContext, useEffect, useRef, useState} from 'react';
+import {ProductService} from '../../demo/service/ProductService';
+import {LayoutContext} from '../../layout/context/layoutcontext';
+import Link from 'next/link';
+import {Demo} from '@/types';
+import {ChartData, ChartOptions} from 'chart.js';
+import {CustomerService} from "@/demo/service/CustomerService";
 
-
+const lineData: { datasets: ({ backgroundColor: string; borderColor: string; tension: number; data: number[]; label: string; fill: boolean } | { backgroundColor: string; borderColor: string; tension: number; data: number[]; label: string; fill: boolean })[]; labels: string[] } = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [
+        {
+            label: 'First Dataset',
+            data: [65, 59, 80, 81, 56, 55, 40],
+            fill: false,
+            backgroundColor: '#2f4860',
+            borderColor: '#2f4860',
+            tension: 0.4
+        },
+        {
+            label: 'Second Dataset',
+            data: [28, 48, 40, 19, 86, 27, 90],
+            fill: false,
+            backgroundColor: '#00bb7e',
+            borderColor: '#00bb7e',
+            tension: 0.4
+        }
+    ]
+};
 
 const Dashboard = () => {
-    const menu2 = useRef<Menu>(null);    const [chartData, setChartData] = useState({});
-    const [chartOptions, setChartOptions] = useState({});
+    const [products, setProducts] = useState<Demo.Product[]>([]);
+    const menu1 = useRef<Menu>(null);
+    const menu2 = useRef<Menu>(null);
+    const [lineOptions, setLineOptions] = useState<ChartOptions>({});
+    const {layoutConfig} = useContext(LayoutContext);
 
-    useEffect(() => {
-        const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--text-color');
-        const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-        const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-        const data = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [
-                {
-                    label: 'First Dataset',
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                    fill: false,
-                    borderColor: documentStyle.getPropertyValue('--blue-500'),
-                    tension: 0.4
-                },
-                {
-                    label: 'Second Dataset',
-                    data: [28, 48, 40, 19, 86, 27, 90],
-                    fill: false,
-                    borderColor: documentStyle.getPropertyValue('--pink-500'),
-                    tension: 0.4
-                }
-            ]
-        };
-        const options = {
-            maintainAspectRatio: false,
-            aspectRatio: 0.6,
+    const applyLightTheme = () => {
+        const lineOptions: ChartOptions = {
             plugins: {
                 legend: {
                     labels: {
-                        color: textColor
+                        color: '#495057'
                     }
                 }
             },
             scales: {
                 x: {
                     ticks: {
-                        color: textColorSecondary
+                        color: '#495057'
                     },
                     grid: {
-                        color: surfaceBorder
+                        color: '#ebedef'
                     }
                 },
                 y: {
                     ticks: {
-                        color: textColorSecondary
+                        color: '#495057'
                     },
                     grid: {
-                        color: surfaceBorder
+                        color: '#ebedef'
                     }
                 }
             }
         };
 
-        setChartData(data);
-        setChartOptions(options);
+        setLineOptions(lineOptions);
+    };
+
+    const [customers3, setCustomers3] = useState<Demo.Customer[]>([]);
+
+
+    const applyDarkTheme = () => {
+        const lineOptions = {
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#ebedef'
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#ebedef'
+                    },
+                    grid: {
+                        color: 'rgba(160, 167, 181, .3)'
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: '#ebedef'
+                    },
+                    grid: {
+                        color: 'rgba(160, 167, 181, .3)'
+                    }
+                }
+            }
+        };
+
+        setLineOptions(lineOptions);
+    };
+
+    useEffect(() => {
+        ProductService.getProductsSmall().then((data) => setProducts(data));
     }, []);
 
-
-    // State and hooks
-    const [date, setDate] = useState(null);
-    const [events, setEvents] = useState([]);
-    const [storedPassword, setStoredPassword] = useSessionStorage('password', '');
-
-    // Function to handle date change in the Calendar
-    const handleDateChange = (e) => {
-        setDate(e.target.value);
+    const headerTemplate = (data: Demo.Customer) => {
+        return (
+            <React.Fragment>
+                <span className="font-bold ml-2">{data.representative.name}</span>
+            </React.Fragment>
+        );
     };
+    const footerTemplate = (data: Demo.Customer) => {
+        return (
+            <React.Fragment>
+                <td colSpan={4} style={{ textAlign: 'right' }} className="text-bold pr-6">
+                    Total Customers
+                </td>
+                <td>{calculateCustomerTotal(data.representative.name)}</td>
+            </React.Fragment>
+        );
+    };
+    const calculateCustomerTotal = (name: string) => {
+        let total = 0;
 
-    // Function to handle event addition when a date is clicked in the Calendar
-    const handleEventAddition = (e) => {
-        const title = prompt('Enter event title:');
-        if (title) {
-            const newEvent = {
-                title,
-                date: e.value,
-            };
-            setEvents((prevEvents) => [...prevEvents, newEvent]);
+        if (customers3) {
+            for (let customer of customers3) {
+                if (customer.representative.name === name) {
+                    total++;
+                }
+            }
         }
+
+        return total;
+    };
+    const countryBodyTemplate = (rowData: Demo.Customer) => {
+        return (
+            <React.Fragment>
+                <img alt="flag" src={`/demo/images/flag/flag_placeholder.png`} className={`flag flag-${rowData.country.code}`} width={30} />
+                <span style={{ marginLeft: '.5em', verticalAlign: 'middle' }}>{rowData.country.name}</span>
+            </React.Fragment>
+        );
+    };
+    const statusBodyTemplate = (rowData: Demo.Customer) => {
+        return <span className={`customer-badge status-${rowData.status}`}>{rowData.status}</span>;
     };
 
-    // JSX for the Dashboard component
+    useEffect(() => {
+        if (layoutConfig.colorScheme === 'light') {
+            applyLightTheme();
+        } else {
+            applyDarkTheme();
+        }
+    }, [layoutConfig.colorScheme]);
+
+    const formatCurrency = (value: number) => {
+        return value?.toLocaleString('en-US', {
+            style: 'currency',
+            currency: 'USD'
+        });
+    };
+
     return (
-        <>
-            <div className="flex flex-wrap justify-content-evenly items-start space-y-4 sm:space-y-0 sm:space-x-4 p-4">
-                {/* First box */}
-
-                <div className={"box text-center"}>
-                    <p className="font-bold text-5xl">19200</p>
-                    <span className="block text-xl mt-2 px-6">Total Sales</span>
-                </div>
-                {/* Second box */}
-                <div className={"box text-center"}>
-                    <p className="font-bold text-5xl">19200</p>
-                    <span className="block text-xl mt-2 px-6">Total Sales</span>
-                </div>
-
-            </div>
-            <h2 className="text-4xl lg:ml-20 p-2 font-bold text-gray-600">Upcoming Orders</h2>
-            <div className="flex w-full  items-start space-x-4 p-4">
-
-                {/* Calendar on the left */}
-                <div className=" h-[400px] p-6 bg-gray-50 border-2 border-orange-500 rounded shadow-md" style={{width: "65%"}}>
-                    <Calendar value={date} onChange={handleDateChange} inline showWeek onSelect={handleEventAddition} />
-                </div>
-
-                {/* Box to display events on the right */}
-                <div className=" h-[400px] p-4 mx-4 bg-gray-50 border-2 border-orange-500 rounded " style={{width: "35%"}}>
-                    <h3 className="text-xl font-bold mb-4">Events</h3>
-                    {/* Render the list of events */}
-                    <div className="  overflow-y-auto max-h-[300px]">
-                        {events.length > 0 ? (
-                            <ul>
-                                {events.map((event, index) => (
-                                    <li key={index} className="px-2">
-                                        <p className="font-semibold ">{event.title}</p>
-                                        <p className="text-sm text-gray-500">{event.date && event.date.toLocaleDateString()}</p>
-                                    </li>
-                                ))}
-                            </ul>
-                        ) : (
-                            <p>No events to display</p>
-                        )}
+        <div className="grid">
+            <div className="col-12 lg:col-6 xl:col-3">
+                <div className="card mb-0">
+                    <div className="flex justify-content-between mb-3">
+                        <div>
+                            <span className="block text-500 font-medium mb-3">Total Sales</span>
+                            <div className="text-900 font-medium text-xl">152</div>
+                        </div>
+                        <div className="flex align-items-center justify-content-center bg-blue-100 border-round"
+                             style={{width: '2.5rem', height: '2.5rem'}}>
+                            <i className="pi pi-shopping-cart text-blue-500 text-xl"/>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div>
-                <h2 className={"text-5xl my-6 "}>New Feedbacks</h2>
-                <>
-                    {/* component */}
-                    <section className="antialiased bg-gray-100 text-gray-600  px-4">
-                        <div className="flex flex-col justify-center h-full">
-                            {/* Table */}
-                            <div className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
-
-                                <div className="p-3">
-                                    <div className="overflow-x-auto">
-                                        <table className="table-auto w-full">
-                                            <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
-                                            <tr>
-                                                <th className="p-2 whitespace-nowrap">
-                                                    <div className="font-semibold text-left">Name</div>
-                                                </th>
-                                                <th className="p-2 whitespace-nowrap">
-                                                    <div className="font-semibold text-left">Email</div>
-                                                </th>
-                                                <th className="p-2 whitespace-nowrap">
-                                                    <div className="font-semibold text-left">Spent</div>
-                                                </th>
-                                                <th className="p-2 whitespace-nowrap">
-                                                    <div className="font-semibold text-center">Country</div>
-                                                </th>
-                                            </tr>
-                                            </thead>
-                                            <tbody className="text-sm divide-y divide-gray-100">
-                                            <tr>
-                                                <td className="p-2 whitespace-nowrap">
-                                                    <div className="flex items-center">
-                                                        <div className="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3">
-                                                            <img
-                                                                className="rounded-full"
-                                                                src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-05.jpg"
-                                                                width={40}
-                                                                height={40}
-                                                                alt="Alex Shatov"
-                                                            />
-                                                        </div>
-                                                        <div className="font-medium text-gray-800">
-                                                            Alex Shatov
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td className="p-2 whitespace-nowrap">
-                                                    <div className="text-left">alexshatov@gmail.com</div>
-                                                </td>
-                                                <td className="p-2 whitespace-nowrap">
-                                                    <div className="text-left font-medium text-green-500">
-                                                        $2,890.66
-                                                    </div>
-                                                </td>
-                                                <td className="p-2 whitespace-nowrap">
-                                                    <div className="text-lg text-center">🇺🇸</div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="p-2 whitespace-nowrap">
-                                                    <div className="flex items-center">
-                                                        <div className="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3">
-                                                            <img
-                                                                className="rounded-full"
-                                                                src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-06.jpg"
-                                                                width={40}
-                                                                height={40}
-                                                                alt="Philip Harbach"
-                                                            />
-                                                        </div>
-                                                        <div className="font-medium text-gray-800">
-                                                            Philip Harbach
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td className="p-2 whitespace-nowrap">
-                                                    <div className="text-left">philip.h@gmail.com</div>
-                                                </td>
-                                                <td className="p-2 whitespace-nowrap">
-                                                    <div className="text-left font-medium text-green-500">
-                                                        $2,767.04
-                                                    </div>
-                                                </td>
-                                                <td className="p-2 whitespace-nowrap">
-                                                    <div className="text-lg text-center">🇩🇪</div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="p-2 whitespace-nowrap">
-                                                    <div className="flex items-center">
-                                                        <div className="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3">
-                                                            <img
-                                                                className="rounded-full"
-                                                                src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-07.jpg"
-                                                                width={40}
-                                                                height={40}
-                                                                alt="Mirko Fisuk"
-                                                            />
-                                                        </div>
-                                                        <div className="font-medium text-gray-800">
-                                                            Mirko Fisuk
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td className="p-2 whitespace-nowrap">
-                                                    <div className="text-left">mirkofisuk@gmail.com</div>
-                                                </td>
-                                                <td className="p-2 whitespace-nowrap">
-                                                    <div className="text-left font-medium text-green-500">
-                                                        $2,996.00
-                                                    </div>
-                                                </td>
-                                                <td className="p-2 whitespace-nowrap">
-                                                    <div className="text-lg text-center">🇫🇷</div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="p-2 whitespace-nowrap">
-                                                    <div className="flex items-center">
-                                                        <div className="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3">
-                                                            <img
-                                                                className="rounded-full"
-                                                                src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-08.jpg"
-                                                                width={40}
-                                                                height={40}
-                                                                alt="Olga Semklo"
-                                                            />
-                                                        </div>
-                                                        <div className="font-medium text-gray-800">
-                                                            Olga Semklo
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td className="p-2 whitespace-nowrap">
-                                                    <div className="text-left">olga.s@cool.design</div>
-                                                </td>
-                                                <td className="p-2 whitespace-nowrap">
-                                                    <div className="text-left font-medium text-green-500">
-                                                        $1,220.66
-                                                    </div>
-                                                </td>
-                                                <td className="p-2 whitespace-nowrap">
-                                                    <div className="text-lg text-center">🇮🇹</div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="p-2 whitespace-nowrap">
-                                                    <div className="flex items-center">
-                                                        <div className="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3">
-                                                            <img
-                                                                className="rounded-full"
-                                                                src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-09.jpg"
-                                                                width={40}
-                                                                height={40}
-                                                                alt="Burak Long"
-                                                            />
-                                                        </div>
-                                                        <div className="font-medium text-gray-800">
-                                                            Burak Long
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td className="p-2 whitespace-nowrap">
-                                                    <div className="text-left">longburak@gmail.com</div>
-                                                </td>
-                                                <td className="p-2 whitespace-nowrap">
-                                                    <div className="text-left font-medium text-green-500">
-                                                        $1,890.66
-                                                    </div>
-                                                </td>
-                                                <td className="p-2 whitespace-nowrap">
-                                                    <div className="text-lg text-center">🇬🇧</div>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </>
-
-                <p>This even clanedar </p>
-
-
-
-            </div>
-            <div className={"flex my-8 justify-content-evenly w-full"} style={{alignItems: "center"}}>
-
-                <div className={"w-[60%] bg-white mx-4  card"} style={{width: "75%"}}>
-
-                        <section className="antialiased bg-gray-100 text-gray-600 ">
-                            <div className="flex flex-col justify-center ">
-                                <div className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
-                                    <header className="px-5 py-4 border-b border-gray-100">
-                                        <h2 className="font-semibold text-gray-800">Reminders</h2>
-                                    </header>
-                                    <div className="p-2">
-                                        <div className="overflow-x-auto">
-                                            <table className="table-auto w-full">
-                                                <thead
-                                                    className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
-                                                <tr>
-                                                    <th className="p-2 whitespace-nowrap">
-                                                        <div className="font-semibold text-left">
-                                                            {/* Add a label for the checkboxes */}
-                                                            <input type="checkbox" id="select-all"/>
-                                                        </div>
-                                                    </th>
-                                                    <th className="p-2 whitespace-nowrap">
-                                                        <div className="font-semibold text-left">Email</div>
-                                                    </th>
-                                                    <th className="p-2 whitespace-nowrap">
-                                                        <div className="font-semibold text-left">Price</div>
-                                                    </th>
-                                                    <th className="p-2 whitespace-nowrap">
-                                                        <div className="font-semibold text-center">Country</div>
-                                                    </th>
-                                                </tr>
-                                                </thead>
-                                                <tbody className="text-sm divide-y divide-gray-100">
-                                                {/* Each row should start with a checkbox cell */}
-                                                <tr>
-                                                    <td className="p-2 whitespace-nowrap">
-                                                        <input type="checkbox"/>
-                                                    </td>
-                                                    <td className="p-2 whitespace-nowrap">
-                                                        <div className="text-left">alexshatov@gmail.com</div>
-                                                    </td>
-                                                    <td className="p-2 whitespace-nowrap">
-                                                        <div className="text-left font-medium text-green-500">
-                                                            $2,890.66
-                                                        </div>
-                                                    </td>
-                                                    <td className="p-2 whitespace-nowrap">
-                                                        <div className="text-lg text-center">🇺🇸</div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td className="p-2 whitespace-nowrap">
-                                                        <input type="checkbox"/>
-                                                    </td>
-                                                    <td className="p-2 whitespace-nowrap">
-                                                        <div className="text-left">philip.h@gmail.com</div>
-                                                    </td>
-                                                    <td className="p-2 whitespace-nowrap">
-                                                        <div className="text-left font-medium text-green-500">
-                                                            $2,767.04
-                                                        </div>
-                                                    </td>
-                                                    <td className="p-2 whitespace-nowrap">
-                                                        <div className="text-lg text-center">🇩🇪</div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td className="p-2 whitespace-nowrap">
-                                                        <input type="checkbox"/>
-                                                    </td>
-                                                    <td className="p-2 whitespace-nowrap">
-                                                        <div className="text-left">mirkofisuk@gmail.com</div>
-                                                    </td>
-                                                    <td className="p-2 whitespace-nowrap">
-                                                        <div className="text-left font-medium text-green-500">
-                                                            $2,996.00
-                                                        </div>
-                                                    </td>
-                                                    <td className="p-2 whitespace-nowrap">
-                                                        <div className="text-lg text-center">🇫🇷</div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td className="p-2 whitespace-nowrap">
-                                                        <input type="checkbox"/>
-                                                    </td>
-                                                    <td className="p-2 whitespace-nowrap">
-                                                        <div className="text-left">olga.s@cool.design</div>
-                                                    </td>
-                                                    <td className="p-2 whitespace-nowrap">
-                                                        <div className="text-left font-medium text-green-500">
-                                                            $1,220.66
-                                                        </div>
-                                                    </td>
-                                                    <td className="p-2 whitespace-nowrap">
-                                                        <div className="text-lg text-center">🇮🇹</div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td className="p-2 whitespace-nowrap">
-                                                        <input type="checkbox"/>
-                                                    </td>
-                                                    <td className="p-2 whitespace-nowrap">
-                                                        <div className="text-left">longburak@gmail.com</div>
-                                                    </td>
-                                                    <td className="p-2 whitespace-nowrap">
-                                                        <div className="text-left font-medium text-green-500">
-                                                            $1,890.66
-                                                        </div>
-                                                    </td>
-                                                    <td className="p-2 whitespace-nowrap">
-                                                        <div className="text-lg text-center">🇬🇧</div>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                                    </div>
-                <div className=" w-[40%] card">
-                    <div className="flex align-items-center justify-content-between ">
-                        <h5>Notifications</h5>
+            <div className="col-12 lg:col-6 xl:col-3">
+                <div className="card mb-0">
+                    <div className="flex justify-content-between mb-3">
                         <div>
-                            <Button type="button" icon="pi pi-ellipsis-v" rounded text className="p-button-plain" onClick={(event) => menu2.current?.toggle(event)} />
+                            <span className="block text-500 font-medium mb-3">Upcoming Orders</span>
+                            <div className="text-900 font-medium text-xl">$2.100</div>
+                        </div>
+                        <div className="flex align-items-center justify-content-center bg-orange-100 border-round"
+                             style={{width: '2.5rem', height: '2.5rem'}}>
+                            <i className="pi pi-map-marker text-white text-xl"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="col-12 lg:col-6 xl:col-3">
+                <div className="card mb-0">
+                    <div className="flex justify-content-between mb-3">
+                        <div>
+                            <span className="block text-500 font-medium mb-3">Total Menu Requests</span>
+                            <div className="text-900 font-medium text-xl">28441</div>
+                        </div>
+                        <div className="flex align-items-center justify-content-center bg-cyan-100 border-round"
+                             style={{width: '2.5rem', height: '2.5rem'}}>
+                            <i className="pi pi-inbox text-cyan-500 text-xl"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="col-12 lg:col-6 xl:col-3">
+                <div className="card mb-0">
+                    <div className="flex justify-content-between mb-3">
+                        <div>
+                            <span className="block text-500 font-medium mb-3">Total Customers</span>
+                            <div className="text-900 font-medium text-xl">152 Unread</div>
+                        </div>
+                        <div className="flex align-items-center justify-content-center bg-purple-100 border-round"
+                             style={{width: '2.5rem', height: '2.5rem'}}>
+                            <i className="pi pi-comment text-purple-500 text-xl"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="col-12 xl:col-6">
+                <div className="card">
+                    <h5>Upcoming Orders</h5>
+                    <DataTable value={products} rows={5} paginator responsiveLayout="scroll">
+                        <Column header="Image"
+                                body={(data) => <img className="shadow-2" src={`/demo/images/product/${data.image}`}
+                                                     alt={data.image} width="50"/>}/>
+                        <Column field="name" header="Name" sortable style={{width: '35%'}}/>
+                        <Column field="price" header="Price" sortable style={{width: '35%'}}
+                                body={(data) => formatCurrency(data.price)}/>
+                        <Column
+                            header="View"
+                            style={{width: '15%'}}
+                            body={() => (
+                                <>
+                                    <Button icon="pi pi-search text-white" text/>
+                                </>
+                            )}
+                        />
+                    </DataTable>
+                </div>
+                <div className="card">
+                    <div className="flex justify-content-between align-items-center mb-5">
+                        <h5>Reminders</h5>
+                        <div>
+                            <Button type="button" icon="pi pi-ellipsis-v" rounded text className="p-button-plain text-white"
+                                    onClick={(event) => menu1.current?.toggle(event)}/>
+                            <Menu
+                                ref={menu1}
+                                popup
+                                model={[
+                                    {label: 'Add New', icon: 'pi pi-fw pi-plus'},
+                                    {label: 'Remove', icon: 'pi pi-fw pi-minus'}
+                                ]}
+                            />
+                        </div>
+                    </div>
+                    <ul className="list-none p-0 m-0">
+                        <li className="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
+                            <div>
+                                <span className="text-900 font-medium mr-2 mb-1 md:mb-0">Space T-Shirt</span>
+                                <div className="mt-1 text-600">Clothing</div>
+                            </div>
+                            <div className="mt-2 md:mt-0 flex align-items-center">
+                                <div className="surface-300 border-round overflow-hidden w-10rem lg:w-6rem"
+                                     style={{height: '8px'}}>
+                                    <div className="bg-orange-500 h-full" style={{width: '50%'}}/>
+                                </div>
+                                <span className="text-orange-500 ml-3 font-medium">%50</span>
+                            </div>
+                        </li>
+                        <li className="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
+                            <div>
+                                <span className="text-900 font-medium mr-2 mb-1 md:mb-0">Portal Sticker</span>
+                                <div className="mt-1 text-600">Accessories</div>
+                            </div>
+                            <div className="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
+                                <div className="surface-300 border-round overflow-hidden w-10rem lg:w-6rem"
+                                     style={{height: '8px'}}>
+                                    <div className="bg-cyan-500 h-full" style={{width: '16%'}}/>
+                                </div>
+                                <span className="text-cyan-500 ml-3 font-medium">%16</span>
+                            </div>
+                        </li>
+                        <li className="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
+                            <div>
+                                <span className="text-900 font-medium mr-2 mb-1 md:mb-0">Supernova Sticker</span>
+                                <div className="mt-1 text-600">Accessories</div>
+                            </div>
+                            <div className="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
+                                <div className="surface-300 border-round overflow-hidden w-10rem lg:w-6rem"
+                                     style={{height: '8px'}}>
+                                    <div className="bg-pink-500 h-full" style={{width: '67%'}}/>
+                                </div>
+                                <span className="text-pink-500 ml-3 font-medium">%67</span>
+                            </div>
+                        </li>
+                        <li className="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
+                            <div>
+                                <span className="text-900 font-medium mr-2 mb-1 md:mb-0">Wonders Notebook</span>
+                                <div className="mt-1 text-600">Office</div>
+                            </div>
+                            <div className="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
+                                <div className="surface-300 border-round overflow-hidden w-10rem lg:w-6rem"
+                                     style={{height: '8px'}}>
+                                    <div className="bg-green-500 h-full" style={{width: '35%'}}/>
+                                </div>
+                                <span className="text-green-500 ml-3 font-medium">%35</span>
+                            </div>
+                        </li>
+                        <li className="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
+                            <div>
+                                <span className="text-900 font-medium mr-2 mb-1 md:mb-0">Mat Black Case</span>
+                                <div className="mt-1 text-600">Accessories</div>
+                            </div>
+                            <div className="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
+                                <div className="surface-300 border-round overflow-hidden w-10rem lg:w-6rem"
+                                     style={{height: '8px'}}>
+                                    <div className="bg-purple-500 h-full" style={{width: '75%'}}/>
+                                </div>
+                                <span className="text-purple-500 ml-3 font-medium">%75</span>
+                            </div>
+                        </li>
+                        <li className="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
+                            <div>
+                                <span className="text-900 font-medium mr-2 mb-1 md:mb-0">Robots T-Shirt</span>
+                                <div className="mt-1 text-600">Clothing</div>
+                            </div>
+                            <div className="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
+                                <div className="surface-300 border-round overflow-hidden w-10rem lg:w-6rem"
+                                     style={{height: '8px'}}>
+                                    <div className="bg-teal-500 h-full" style={{width: '40%'}}/>
+                                </div>
+                                <span className="text-teal-500 ml-3 font-medium">%40</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div className="col-12 xl:col-6">
+                <div className="card">
+                    <div className="flex align-items-center justify-content-between mb-4">
+                        <h5>Notifications and Tasks</h5>
+                        <div>
+                            <Button type="button" icon="pi pi-ellipsis-v" rounded text className="p-button-plain text-white"
+                                    onClick={(event) => menu2.current?.toggle(event)}/>
                             <Menu
                                 ref={menu2}
                                 popup
                                 model={[
-                                    { label: 'Add New', icon: 'pi pi-fw pi-plus' },
-                                    { label: 'Remove', icon: 'pi pi-fw pi-minus' }
+                                    {label: 'Add New', icon: 'pi pi-fw pi-plus'},
+                                    {label: 'Remove', icon: 'pi pi-fw pi-minus'}
                                 ]}
                             />
                         </div>
@@ -468,8 +370,9 @@ const Dashboard = () => {
                     <span className="block text-600 font-medium mb-3">TODAY</span>
                     <ul className="p-0 mx-0 mt-0 mb-4 list-none">
                         <li className="flex align-items-center py-2 border-bottom-1 surface-border">
-                            <div className="w-3rem h-3rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
-                                <i className="pi pi-dollar text-xl text-blue-500" />
+                            <div
+                                className="w-3rem h-3rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
+                                <i className="pi pi-dollar text-xl text-blue-500"/>
                             </div>
                             <span className="text-900 line-height-3">
                                 Richard Jones
@@ -480,8 +383,9 @@ const Dashboard = () => {
                             </span>
                         </li>
                         <li className="flex align-items-center py-2">
-                            <div className="w-3rem h-3rem flex align-items-center justify-content-center bg-orange-100 border-circle mr-3 flex-shrink-0">
-                                <i className="pi pi-download text-xl text-orange-500" />
+                            <div
+                                className="w-3rem h-3rem flex align-items-center justify-content-center bg-orange-100 border-circle mr-3 flex-shrink-0">
+                                <i className="pi pi-download text-xl text-orange-500"/>
                             </div>
                             <span className="text-700 line-height-3">
                                 Your request for withdrawal of <span className="text-blue-500 font-medium">2500$</span> has been initiated.
@@ -492,8 +396,9 @@ const Dashboard = () => {
                     <span className="block text-600 font-medium mb-3">YESTERDAY</span>
                     <ul className="p-0 m-0 list-none">
                         <li className="flex align-items-center py-2 border-bottom-1 surface-border">
-                            <div className="w-3rem h-3rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
-                                <i className="pi pi-dollar text-xl text-blue-500" />
+                            <div
+                                className="w-3rem h-3rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
+                                <i className="pi pi-dollar text-xl text-blue-500"/>
                             </div>
                             <span className="text-900 line-height-3">
                                 Keyser Wick
@@ -504,8 +409,9 @@ const Dashboard = () => {
                             </span>
                         </li>
                         <li className="flex align-items-center py-2 border-bottom-1 surface-border">
-                            <div className="w-3rem h-3rem flex align-items-center justify-content-center bg-pink-100 border-circle mr-3 flex-shrink-0">
-                                <i className="pi pi-question text-xl text-pink-500" />
+                            <div
+                                className="w-3rem h-3rem flex align-items-center justify-content-center bg-pink-100 border-circle mr-3 flex-shrink-0">
+                                <i className="pi pi-question text-xl text-pink-500"/>
                             </div>
                             <span className="text-900 line-height-3">
                                 Jane Davis
@@ -514,11 +420,28 @@ const Dashboard = () => {
                         </li>
                     </ul>
                 </div>
+                <div
+                    className="px-4 py-5 shadow-2 flex flex-column md:flex-row md:align-items-center justify-content-between mb-3"
+                    style={{
+                        borderRadius: '1rem',
+                        background: 'linear-gradient(0deg, rgba(0, 123, 255, 0.5), rgba(0, 123, 255, 0.5)), linear-gradient(92.54deg, #1C80CF 47.88%, #FFFFFF 100.01%)'
+                    }}
+                >
+                    <div>
+                        <div className="text-blue-100 font-medium text-xl mt-2 mb-3">TAKE THE NEXT STEP</div>
+                        <div className="text-white font-medium text-5xl">View Website Analytics</div>
+                    </div>
+                    <div className="mt-4 mr-auto md:mt-0 md:mr-0">
+                        <Link href="https://blocks.primereact.org"
+                              className="p-button font-bold px-5 py-3 p-button-warning text-white p-button-rounded p-button-raised">
+                            Visit Now
+                        </Link>
+                    </div>
+                </div>
             </div>
+            <h3>Feedback List</h3>
 
-
-
-        </>
+        </div>
     );
 };
 

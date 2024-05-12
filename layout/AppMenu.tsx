@@ -16,9 +16,14 @@ const AppMenu = () => {
         password: ''
     });
     const model: AppMenuItem[] = [];
+    const router = useRouter();
 
     useEffect(()=> {
-        setUserDetails(JSON.parse(sessionStorage.getItem("user")))
+        if(!sessionStorage.getItem("user")){
+            router.push("/auth/login")
+        }else{
+            setUserDetails(JSON.parse(sessionStorage.getItem("user")))
+        }
     }, [])
 
     // Populating model based on storedPassword

@@ -115,13 +115,10 @@ const App = () => {
                 <TabView>
                     <TabPanel header="All">
                         <p className="m-0">
-                            <div className="flex flex-col justify-center h-full">
+                            <div className="flex flex-col justify-center">
                                 {/* Table */}
                                 <div className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
-                                    <header className="px-5 py-4 border-b border-gray-100">
-                                        <h2 className="font-semibold text-gray-800"></h2>
-                                    </header>
-                                    <div className="p-3">
+                                    <div>
                                         <div className="overflow-x-auto">
                                             <table className="table-auto w-full">
                                                 <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
@@ -211,10 +208,7 @@ const App = () => {
                             <div className="flex flex-col justify-center h-full">
                                 {/* Table */}
                                 <div className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
-                                    <header className="px-5 py-4 border-b border-gray-100">
-                                        <h2 className="font-semibold text-gray-800"></h2>
-                                    </header>
-                                    <div className="p-3">
+                                    <div className="">
                                         <div className="overflow-x-auto">
                                             <table className="table-auto w-full">
                                                 <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">

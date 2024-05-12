@@ -44,17 +44,8 @@ const Page = () => {
         <header className="px-5  border-b border-gray-100">
             <h2 className="font-semibold text-gray-800">Customers</h2>
         </header>
-            <div className="flex flex-col justify-content-end mb-4">
-                <Button style={{ backgroundColor: '#ffa15f',   border: "none", color: 'white',  margin:"2px" }} primary>
-                    Get Reward
-                </Button>
-            </div>
-
         <div className="flex  flex-col justify-center h-full">
-
             <div className="w-full  max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
-
-
                 <div className={"card  flex  align-items-center text-xl"}>
                     <h4 className={"text-gray-800 mx-2 "} style={{margin: "5px"}}>920 <span className={"text-gray-500"}>Customer</span></h4>
                     <h4 className={"text-gray-800 mx-2 "} style={{margin: "5px"}}>100% <span className={"text-gray-500"}>of yours Customer base</span></h4>
@@ -82,6 +73,9 @@ const Page = () => {
                                 <th className="p-2 whitespace-nowrap">
                                     <div className="font-semibold text-center">Last Order Date</div>
                                 </th>
+                                <th className="p-2 whitespace-nowrap">
+                                    <div className="font-semibold text-center">View</div>
+                                </th>
                             </tr>
                             </thead>
                             <tbody className="text-sm divide-y divide-gray-100">
@@ -92,31 +86,10 @@ const Page = () => {
                                 <td className="p-2 whitespace-nowrap">New York, NY</td>
                                 <td className="p-2 whitespace-nowrap text-center">10</td>
                                 <td className="p-2 whitespace-nowrap text-center">$500.00</td>
-                                <td className="p-2 whitespace-nowrap text-center">2024-05-10</td>
-                            </tr>
-                            <tr>
-                                <td className="p-2 whitespace-nowrap">John Doe</td>
-                                <td className="p-2 whitespace-nowrap">ABC Inc.</td>
-                                <td className="p-2 whitespace-nowrap">New York, NY</td>
-                                <td className="p-2 whitespace-nowrap text-center">10</td>
-                                <td className="p-2 whitespace-nowrap text-center">$500.00</td>
-                                <td className="p-2 whitespace-nowrap text-center">2024-05-10</td>
-                            </tr>
-                            <tr>
-                                <td className="p-2 whitespace-nowrap">John Doe</td>
-                                <td className="p-2 whitespace-nowrap">ABC Inc.</td>
-                                <td className="p-2 whitespace-nowrap">New York, NY</td>
-                                <td className="p-2 whitespace-nowrap text-center">10</td>
-                                <td className="p-2 whitespace-nowrap text-center">$500.00</td>
-                                <td className="p-2 whitespace-nowrap text-center">2024-05-10</td>
-                            </tr>
-                            <tr>
-                                <td className="p-2 whitespace-nowrap">Jane Smith</td>
-                                <td className="p-2 whitespace-nowrap">XYZ Corporation</td>
-                                <td className="p-2 whitespace-nowrap">Los Angeles, CA</td>
-                                <td className="p-2 whitespace-nowrap text-center">5</td>
-                                <td className="p-2 whitespace-nowrap text-center">$300.00</td>
-                                <td className="p-2 whitespace-nowrap text-center">2024-05-08</td>
+                                <td className="">2024-05-10</td>
+                                <td className="p-2 whitespace-nowrap text-center">
+                                    <Button  label="Client View"  raised severity="warning" className={"sticky "} style={{marginTop: "14px" , backgroundColor: "#ff8a38"}}/>
+                                </td>
                             </tr>
                             {/* Add more dummy data as needed */}
                             </tbody>

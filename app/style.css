@@ -27,4 +27,8 @@
     background : #FF8A38;
     border: none;
 }
+.custom-knob .p-knob-value {
+    stroke: #FF8A38;
+}
+
 /* Home Design */

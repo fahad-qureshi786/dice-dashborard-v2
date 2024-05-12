@@ -60,17 +60,17 @@ const AppMenu = () => {
                             {
                                 label: 'Discount Codes',
 
-                                to: ''
+                                to: '/discount-code'
                             },
                             {
                                 label: 'Promotions',
 
-                                to: '/auth/error'
+                                to: '/promotion'
                             },
                             {
                                 label: 'Reward Points',
 
-                                to: '/auth/access'
+                                to: '/reward'
                             },
                             {
                                 label: 'Store',

@@ -45,10 +45,18 @@ const AppMenu = () => {
             {
                 label: '',
                 items: [
+
                     {
                         icon: 'pi pi-dollar',
-                        label: 'Sales and Promotions',
+                        label: 'Sales and Discount',
+                        to: '/sales-and-discount',
+
                         items: [
+                            {
+                                label: 'Sales',
+
+                                to: '/sales-promotions'
+                            },
                             {
                                 label: 'Discount Codes',
 

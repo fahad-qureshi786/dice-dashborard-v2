@@ -39,37 +39,95 @@ const Page = () => {
     ];
 
     return (
-        <div>
-            <h2 className={"font-bold  "} >Clients Details</h2>
-            <div style={{ paddingTop: "33px", alignItems: "center" }} className={"flex w-full item-center "}>
-                <div className={"w-full"}>
-                    <span className=" w-full" style={{ width: "80%" }}>
-                        <InputText
-                            id="username"
-                            type="text"
-                            // value={floatValue}
-                            // onChange={(e) => setFloatValue(e.target.value)}
-                            className={"w-full"}
-                            placeholder={"Search via email, name or contact number..."}
-                            style={{backgroundColor: "#e3e3e3"}}
-                        />
-                    </span>
-                </div>
-                <div className={"mx-3  text-xl text-orange-400  w-[20%] pointer font-semibold  "} style={{ width: "20%", cursor: "pointer" }}>
-                    <Button label="Submit" raised severity="warning" className={"sticky "} style={{right: "30px"}}/>
-                </div>
+
+        <>
+        <header className="px-5  border-b border-gray-100">
+            <h2 className="font-semibold text-gray-800">Customers</h2>
+        </header>
+            <div className="flex flex-col justify-content-end mb-4">
+                <Button style={{ backgroundColor: '#ffa15f',   border: "none", color: 'white',  margin:"2px" }} primary>
+                    Get Reward
+                </Button>
             </div>
 
-            <div style={{ paddingTop: "45px", alignItems: "center" , width: "90%" }}>
-                <DataTable value={clients} tableStyle={{ minWidth: '50rem' }}>
-                    <Column field="clientName" header="Client Name"  />
-                    <Column field="clientHistory" header="Client History" />
-                    <Column field="email" header="Email" />
-                    <Column field="orderHistory" header="Order History" />
-                </DataTable>
-            </div>
+        <div className="flex  flex-col justify-center h-full">
 
+            <div className="w-full  max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
+
+
+                <div className={"card  flex  align-items-center text-xl"}>
+                    <h4 className={"text-gray-800 mx-2 "} style={{margin: "5px"}}>920 <span className={"text-gray-500"}>Customer</span></h4>
+                    <h4 className={"text-gray-800 mx-2 "} style={{margin: "5px"}}>100% <span className={"text-gray-500"}>of yours Customer base</span></h4>
+                </div>
+                <div className="p-3 card my-2">
+                    <div className="overflow-x-auto">
+                        <table className="table-auto w-full">
+                            <thead className="text-md font-semibold uppercase text-gray-400 bg-gray-50">
+                            <tr>
+                                <th className="p-2 whitespace-nowrap">
+                                    <div className="font-semibold text-left">Name</div>
+                                </th>
+                                <th className="p-2 whitespace-nowrap">
+                                    <div className="font-semibold text-left">Company</div>
+                                </th>
+                                <th className="p-2 whitespace-nowrap">
+                                    <div className="font-semibold text-left">City, State</div>
+                                </th>
+                                <th className="p-2 whitespace-nowrap">
+                                    <div className="font-semibold text-center">Number of Orders</div>
+                                </th>
+                                <th className="p-2 whitespace-nowrap">
+                                    <div className="font-semibold text-center">Total Amount Spent</div>
+                                </th>
+                                <th className="p-2 whitespace-nowrap">
+                                    <div className="font-semibold text-center">Last Order Date</div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody className="text-sm divide-y divide-gray-100">
+                            {/* Dummy data */}
+                            <tr>
+                                <td className="p-2 whitespace-nowrap">John Doe</td>
+                                <td className="p-2 whitespace-nowrap">ABC Inc.</td>
+                                <td className="p-2 whitespace-nowrap">New York, NY</td>
+                                <td className="p-2 whitespace-nowrap text-center">10</td>
+                                <td className="p-2 whitespace-nowrap text-center">$500.00</td>
+                                <td className="p-2 whitespace-nowrap text-center">2024-05-10</td>
+                            </tr>
+                            <tr>
+                                <td className="p-2 whitespace-nowrap">John Doe</td>
+                                <td className="p-2 whitespace-nowrap">ABC Inc.</td>
+                                <td className="p-2 whitespace-nowrap">New York, NY</td>
+                                <td className="p-2 whitespace-nowrap text-center">10</td>
+                                <td className="p-2 whitespace-nowrap text-center">$500.00</td>
+                                <td className="p-2 whitespace-nowrap text-center">2024-05-10</td>
+                            </tr>
+                            <tr>
+                                <td className="p-2 whitespace-nowrap">John Doe</td>
+                                <td className="p-2 whitespace-nowrap">ABC Inc.</td>
+                                <td className="p-2 whitespace-nowrap">New York, NY</td>
+                                <td className="p-2 whitespace-nowrap text-center">10</td>
+                                <td className="p-2 whitespace-nowrap text-center">$500.00</td>
+                                <td className="p-2 whitespace-nowrap text-center">2024-05-10</td>
+                            </tr>
+                            <tr>
+                                <td className="p-2 whitespace-nowrap">Jane Smith</td>
+                                <td className="p-2 whitespace-nowrap">XYZ Corporation</td>
+                                <td className="p-2 whitespace-nowrap">Los Angeles, CA</td>
+                                <td className="p-2 whitespace-nowrap text-center">5</td>
+                                <td className="p-2 whitespace-nowrap text-center">$300.00</td>
+                                <td className="p-2 whitespace-nowrap text-center">2024-05-08</td>
+                            </tr>
+                            {/* Add more dummy data as needed */}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
+
+
+        </>
     );
 };
 

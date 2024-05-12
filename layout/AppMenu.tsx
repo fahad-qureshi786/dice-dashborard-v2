@@ -151,10 +151,10 @@ const AppMenu = () => {
                 label: '',
                 items: [{icon: 'pi pi-book', label: 'Resource', to: '/profile' }]
             },
-            {
-                label: '',
-                items: [{icon: 'pi pi-user', label: 'Profile', to: '/profile' }]
-            },
+            // {
+            //     label: '',
+            //     items: [{icon: 'pi pi-user', label: 'Profile', to: '/profile' }]
+            // },
             {
                 label: '',
                 items: [{ icon: 'pi pi-lock', label: 'Logout', to: '/auth/login' }]

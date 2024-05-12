@@ -24,13 +24,10 @@ const Page = () => {
                     <h1>My Profile</h1>
                 </div>
                 <div>
-                    <Dropdown
-                        value={selectedRole}
-                        options={userRoles}
-                        onChange={(e) => setSelectedRole(e.value)}
-                        placeholder="Select Role"
-                        className={"sticky"}
-                    />
+                    <div>
+                        <Button onClick={() => setVisible(true)}  label="Edit Profile" raised severity="warning" className={"sticky "} />
+                    </div>
+
                 </div>
             </div>
 

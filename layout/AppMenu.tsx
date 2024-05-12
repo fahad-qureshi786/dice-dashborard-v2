@@ -100,11 +100,11 @@ const AppMenu = () => {
                         items: [
                             {
                                 label: 'Order Requests',
-                                to: ''
+                                to: '/order-request'
                             },
                             {
                                 label: 'Change Requests',
-                                to: '/auth/error'
+                                to: '/order-change-req'
                             },
                         ]
                     },

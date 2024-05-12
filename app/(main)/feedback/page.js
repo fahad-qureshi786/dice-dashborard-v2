@@ -1,204 +1,111 @@
 import React from 'react';
-import { InputText } from "primereact/inputtext";
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import {Button} from "primereact/button";
+import { Dropdown } from 'primereact/dropdown';
+import { Button } from 'primereact/button';
 
-const Page = () => {
-    const clients = [
+const MenuRequests = () => {
+    // Sample menu requests data
+    const menuRequestsData = [
         {
-            key: '3',
-            clientName: 'Bob Johnson',
-            clientHistory: 'Returning customer',
-            email: 'bobjohnson@example.com',
-            respond: ( <div className={"flex mx-2"}>
-                <div >
-                    <Button
-                        rounded
-                        label="Manage"
-                        raised
-                        severity="warning"
-                        className={"sticky "}
-                        style={{ right: "30px", marginTop: "14px", marginRight: "3px", backgroundColor: "#ff8a38" }}
-                    />
-
-
-                </div>
-
-                <div >
-                    <Button
-                        rounded
-                        label="Manage"
-                        raised
-                        severity="warning"
-                        className={"sticky "}
-                        style={{ right: "30px", marginTop: "14px", backgroundColor: "#ff8a38" }}
-                    />
-
-
-                </div>
-            </div>),
-            orderHistory: (
-                <div>
-                    <div className={"flex"}>
-                        <Button
-                            rounded
-                            label="Manage"
-                            raised
-                            severity="warning"
-                            className={"sticky "}
-                            style={{ right: "30px", marginTop: "14px", backgroundColor: "#ff8a38" }}
-                        />
-
-
-                    </div>
-                </div>
-            ),
+            dateTime: "2024-05-10 10:30 AM",
+            name: "John Doe",
+            company: "ABC Inc.",
+            headcount: 50,
+            budget: "$2000",
+            cuisinePreferences: "Italian, Mexican",
+            requestedOrderDate: "2024-05-15",
+            status: "New"
         },
         {
-            key: '3',
-            clientName: 'Bob Johnson',
-            clientHistory: 'Returning customer',
-            email: 'bobjohnson@example.com',
-            respond: ( <div className={"flex mx-2"}>
-                <div >
-                    <Button
-                        rounded
-                        label="Manage"
-                        raised
-                        severity="warning"
-                        className={"sticky "}
-                        style={{ right: "30px", marginTop: "14px", marginRight: "3px", backgroundColor: "#ff8a38" }}
-                    />
-
-
-                </div>
-
-                <div >
-                    <Button
-                        rounded
-                        label="Manage"
-                        raised
-                        severity="warning"
-                        className={"sticky "}
-                        style={{ right: "30px", marginTop: "14px", backgroundColor: "#ff8a38" }}
-                    />
-
-
-                </div>
-            </div>),
-            orderHistory: (
-                <div>
-                    <div className={"flex"}>
-                        <Button
-                            rounded
-                            label="Manage"
-                            raised
-                            severity="warning"
-                            className={"sticky "}
-                            style={{ right: "30px", marginTop: "14px", backgroundColor: "#ff8a38" }}
-                        />
-
-
-                    </div>
-                </div>
-            ),
+            dateTime: "2024-05-08 09:45 AM",
+            name: "Jane Smith",
+            company: "XYZ Corporation",
+            headcount: 30,
+            budget: "$1500",
+            cuisinePreferences: "Asian, Mediterranean",
+            requestedOrderDate: "2024-05-20",
+            status: "Resolved"
         },
-        {
-            key: '3',
-            clientName: 'Bob Johnson',
-            clientHistory: 'Returning customer',
-            email: 'bobjohnson@example.com',
-            respond: ( <div className={"flex mx-2"}>
-                <div >
-                    <Button
-                        rounded
-                        label="Manage"
-                        raised
-                        severity="warning"
-                        className={"sticky "}
-                        style={{ right: "30px", marginTop: "14px", marginRight: "3px", backgroundColor: "#ff8a38" }}
-                    />
+        // Add more menu requests data as needed
+    ];
 
+    // Sample statuses for the dropdown
+    const statuses = [
+        { label: 'New (unopened)', value: 'New' },
+        { label: 'Resolved (menus uploaded)', value: 'Resolved' },
+        { label: 'OP (order placed)', value: 'OP' },
+        { label: 'Abandoned', value: 'Abandoned' }
+    ];
 
-                </div>
-
-                <div >
-                    <Button
-                        rounded
-                        label="Manage"
-                        raised
-                        severity="warning"
-                        className={"sticky "}
-                        style={{ right: "30px", marginTop: "14px", backgroundColor: "#ff8a38" }}
-                    />
-
-
-                </div>
-            </div>),
-            orderHistory: (
-                <div>
-                    <div className={"flex"}>
-                        <Button
-                            rounded
-                            label="Manage"
-                            raised
-                            severity="warning"
-                            className={"sticky "}
-                            style={{ right: "30px", marginTop: "14px", backgroundColor: "#ff8a38" }}
-                        />
-
-
-                    </div>
-                </div>
-            ),
-        },
-
+    // Sample actions for the dropdown
+    const actions = [
+        { label: 'Upload Menus', value: 'upload_menus' },
+        { label: 'Mark as Resolved', value: 'mark_resolved' }
     ];
 
     return (
-        <div>
-            <h2 className={"font-bold  "} >Customers Feedback Portal</h2>
-            <div style={{ paddingTop: "33px", alignItems: "center" }} className={"flex w-full item-center "}>
-                <div className={"w-full"}>
-                    <span className=" w-full" style={{ width: "80%" }}>
-                        <InputText
-                            id="username"
-                            type="text"
-                            // value={floatValue}
-                            // onChange={(e) => setFloatValue(e.target.value)}
-                            className={"w-full"}
-                            placeholder={"Search via client email, order number"}
-                            style={{backgroundColor: "#d9d9d9"}}
-                        />
-                    </span>
-                </div>
-                <div className={"mx-3  text-xl text-orange-400  w-[20%] pointer font-semibold  "} style={{ width: "20%", cursor: "pointer" }}>
-                    <Button label="Submit" raised severity="warning" className={"sticky "} style={{right: "30px"}}/>
+        <div className="flex flex-col justify-center h-full">
+            {/* Table */}
+            <div className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
+                <header className="px-5 py-4 border-b border-gray-100">
+                    <h2 className="font-semibold text-gray-800">Menu Requests</h2>
+                </header>
+                <div className="p-3">
+                    <div className="overflow-x-auto">
+                        <table className="table-auto w-full">
+                            <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
+                            <tr>
+                                <th className="p-2 whitespace-nowrap">
+                                    <div className="font-semibold text-center">Date and Time Request Was Made</div>
+                                </th>
+                                <th className="p-2 whitespace-nowrap">
+                                    <div className="font-semibold text-left">Name</div>
+                                </th>
+                                <th className="p-2 whitespace-nowrap">
+                                    <div className="font-semibold text-left">Company</div>
+                                </th>
+                                <th className="p-2 whitespace-nowrap">
+                                    <div className="font-semibold text-center">Headcount</div>
+                                </th>
+                                <th className="p-2 whitespace-nowrap">
+                                    <div className="font-semibold text-center">Budget</div>
+                                </th>
+                                <th className="p-2 whitespace-nowrap">
+                                    <div className="font-semibold text-left">Cuisine Preferences</div>
+                                </th>
+                                <th className="p-2 whitespace-nowrap">
+                                    <div className="font-semibold text-center">Requested Order Date</div>
+                                </th>
+
+                            </tr>
+                            </thead>
+                            <tbody className="text-sm divide-y divide-gray-100">
+                            {/* Menu requests data */}
+                            {menuRequestsData.map((request, index) => (
+                                <tr key={index}>
+                                    <td className="p-2 whitespace-nowrap text-center">{request.dateTime}</td>
+                                    <td className="p-2 whitespace-nowrap">{request.name}</td>
+                                    <td className="p-2 whitespace-nowrap">{request.company}</td>
+                                    <td className="p-2 whitespace-nowrap text-center">{request.headcount}</td>
+                                    <td className="p-2 whitespace-nowrap text-center">{request.budget}</td>
+                                    <td className="p-2 whitespace-nowrap">{request.cuisinePreferences}</td>
+                                    <td className="p-2 whitespace-nowrap text-center">{request.requestedOrderDate}</td>
+                                    <td className="p-2 whitespace-nowrap text-center">
+                                        {/* Dropdown for status */}
+                                        {/*<Dropdown options={statuses} value={request.status} />*/}
+                                    </td>
+                                    <td className="p-2 whitespace-nowrap text-center">
+                                        {/* Dropdown for actions */}
+                                        {/*<Dropdown options={actions} placeholder="Select an action" />*/}
+                                    </td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-
-            <div style={{
-                paddingTop: "45px",
-                paddingBottom: "20px",
-                marginTop: "32px",
-                alignItems: "center",
-                width: "90%",
-                borderRadius: "12px",
-                border: "solid 2px #ff8a38"}}
-
-                 className={"border-2 "}>
-                <DataTable value={clients} tableStyle={{ minWidth: '50rem' }}>
-                    <Column field="email" header="Customer Eamil"  />
-                    <Column field="feedback" header="Feedback" />
-                    <Column field="date" header="Date" />
-                    <Column field="respond" header="Operations" />
-
-                </DataTable>
-            </div>
-
         </div>
     );
-};
+}
 
-export default Page;
+export default MenuRequests;

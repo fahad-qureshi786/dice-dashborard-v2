@@ -90,7 +90,7 @@ const App = () => {
     ];
     return (
         <div>
-            <h3 className={"my-2 font-bold text-4xl"}>Promos and Discounts</h3>
+            <h3 className={"my-2 font-bold text-4xl"}>Sales</h3>
             <div className={"flex justify-content-end  m-4"}>
                 <Link href={"/create-discount"}>
                     <Button onClick={() => setVisible(true)} style={{ backgroundColor: '#FF8A38', border: "none", color: 'white',  margin:"2px" }} primary>

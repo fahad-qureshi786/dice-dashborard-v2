@@ -104,13 +104,6 @@ const App = () => {
                 Import
                 </Button>
             </div>
-
-
-
-
-
-
-
             <div className="card">
             <TabView>
             <TabPanel header="All">
@@ -118,9 +111,6 @@ const App = () => {
                 <div className="flex flex-col justify-center h-full">
                     {/* Table */}
                     <div className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
-                        <header className="px-5 py-4 border-b border-gray-100">
-                            <h2 className="font-semibold text-gray-800"></h2>
-                        </header>
                         <div className="p-3">
                             <div className="overflow-x-auto">
                                 <table className="table-auto w-full">
@@ -133,10 +123,7 @@ const App = () => {
                                             </div>
                                         </th>
                                         <th className="p-2 whitespace-nowrap">
-                                            <div className="font-semibold text-left">Image</div>
-                                        </th>
-                                        <th className="p-2 whitespace-nowrap">
-                                            <div className="font-semibold text-left">Products</div>
+                                            <div className="font-semibold text-left">Product Name</div>
                                         </th>
                                         <th className="p-2 whitespace-nowrap">
                                             <div className="font-semibold text-center">Status</div>
@@ -156,6 +143,9 @@ const App = () => {
                                         <th className="p-2 whitespace-nowrap">
                                             <div className="font-semibold text-center">Vendor</div>
                                         </th>
+                                        <th className="p-2 whitespace-nowrap">
+                                            <div className="font-semibold text-center">Operations</div>
+                                        </th>
                                     </tr>
                                     </thead>
                                     <tbody className="text-sm divide-y divide-gray-100">
@@ -165,15 +155,13 @@ const App = () => {
                                             <td className="p-2 whitespace-nowrap">
                                                 <input type="checkbox"/>
                                             </td>
-                                            <td className="p-2 whitespace-nowrap">
-                                                {/* Use Image component from Next.js */}
-                                                <Image src={pic} alt="Product" width={35} height={30}/>
-                                            </td>
-                                            <td className="p-2 whitespace-nowrap">
+                                            <td className="p-2 d-flex flex justify-content-start align-items-center">
+                                                <div className={"p-2"}>
+                                                    <img style={{borderRadius: '10px'}} src={"/myimages/image.jpg"} alt="Product" width={35} height={30}/>
+                                                </div>
                                                 <div className="text-left">{row.product}</div>
                                             </td>
                                             <td className="p-2 whitespace-nowrap">
-                                                {/* Use Prime React Badge component */}
                                                 <div className="text-center">
                                                     <Badge value="Active" severity="success"/>
                                                 </div>
@@ -192,6 +180,9 @@ const App = () => {
                                             </td>
                                             <td className="p-2 whitespace-nowrap">
                                                 <div className="text-center">{row.vendor}</div>
+                                            </td>
+                                            <td className="p-2 whitespace-nowrap">
+                                                <span className={"pa pa-icon"}></span>
                                             </td>
                                         </tr>
                                     ))}
@@ -204,14 +195,11 @@ const App = () => {
                 </div>
             </p>
             </TabPanel>
-            <TabPanel header="Active" className={"text-gray-200"}>
+            <TabPanel header="Active" >
             <p className="m-0">
                 <div className="flex flex-col justify-center h-full">
                     {/* Table */}
                     <div className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
-                        <header className="px-5 py-4 border-b border-gray-100">
-                            <h2 className="font-semibold text-gray-800"></h2>
-                        </header>
                         <div className="p-3">
                             <div className="overflow-x-auto">
                                 <table className="table-auto w-full">
@@ -224,10 +212,7 @@ const App = () => {
                                             </div>
                                         </th>
                                         <th className="p-2 whitespace-nowrap">
-                                            <div className="font-semibold text-left">Image</div>
-                                        </th>
-                                        <th className="p-2 whitespace-nowrap">
-                                            <div className="font-semibold text-left">Products</div>
+                                            <div className="font-semibold text-left">Product Name</div>
                                         </th>
                                         <th className="p-2 whitespace-nowrap">
                                             <div className="font-semibold text-center">Status</div>
@@ -247,6 +232,9 @@ const App = () => {
                                         <th className="p-2 whitespace-nowrap">
                                             <div className="font-semibold text-center">Vendor</div>
                                         </th>
+                                        <th className="p-2 whitespace-nowrap">
+                                            <div className="font-semibold text-center">Operations</div>
+                                        </th>
                                     </tr>
                                     </thead>
                                     <tbody className="text-sm divide-y divide-gray-100">
@@ -256,15 +244,13 @@ const App = () => {
                                             <td className="p-2 whitespace-nowrap">
                                                 <input type="checkbox"/>
                                             </td>
-                                            <td className="p-2 whitespace-nowrap">
-                                                {/* Use Image component from Next.js */}
-                                                <Image src={pic} alt="Product" width={35} height={30}/>
-                                            </td>
-                                            <td className="p-2 whitespace-nowrap">
+                                            <td className="p-2 d-flex flex justify-content-start align-items-center">
+                                                <div className={"p-2"}>
+                                                    <img style={{borderRadius: '10px'}} src={"/myimages/image.jpg"} alt="Product" width={35} height={30}/>
+                                                </div>
                                                 <div className="text-left">{row.product}</div>
                                             </td>
                                             <td className="p-2 whitespace-nowrap">
-                                                {/* Use Prime React Badge component */}
                                                 <div className="text-center">
                                                     <Badge value="Active" severity="success"/>
                                                 </div>
@@ -284,6 +270,9 @@ const App = () => {
                                             <td className="p-2 whitespace-nowrap">
                                                 <div className="text-center">{row.vendor}</div>
                                             </td>
+                                            <td className="p-2 whitespace-nowrap">
+                                                <span className={"pa pa-icon"}></span>
+                                            </td>
                                         </tr>
                                     ))}
                                     </tbody>
@@ -291,8 +280,7 @@ const App = () => {
                             </div>
 
                         </div>
-                    </div>
-                </div>
+                    </div>                </div>
             </p>
             </TabPanel>
             <TabPanel header="Draft">

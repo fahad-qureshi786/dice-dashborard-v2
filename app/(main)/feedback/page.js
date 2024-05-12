@@ -1,8 +1,10 @@
-import React from 'react';
-import { Dropdown } from 'primereact/dropdown';
-import { Button } from 'primereact/button';
+"use client"
+import React, {useState} from 'react';
+import {Calendar} from "primereact/calendar";
 
 const MenuRequests = () => {
+    const [date, setDate] = useState(null);
+
     // Sample menu requests data
     const menuRequestsData = [
         {
@@ -25,21 +27,6 @@ const MenuRequests = () => {
             requestedOrderDate: "2024-05-20",
             status: "Resolved"
         },
-        // Add more menu requests data as needed
-    ];
-
-    // Sample statuses for the dropdown
-    const statuses = [
-        { label: 'New (unopened)', value: 'New' },
-        { label: 'Resolved (menus uploaded)', value: 'Resolved' },
-        { label: 'OP (order placed)', value: 'OP' },
-        { label: 'Abandoned', value: 'Abandoned' }
-    ];
-
-    // Sample actions for the dropdown
-    const actions = [
-        { label: 'Upload Menus', value: 'upload_menus' },
-        { label: 'Mark as Resolved', value: 'mark_resolved' }
     ];
 
     return (
@@ -47,8 +34,64 @@ const MenuRequests = () => {
             {/* Table */}
             <div className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
                 <header className="px-5 py-4 border-b border-gray-100">
-                    <h2 className="font-semibold text-gray-800">Menu Requests</h2>
+                    <h2 className="font-semibold text-gray-800">Feedback</h2>
                 </header>
+                <div className={"flex card justify-content-evenly my-4"}>
+                    <div>
+                        <div className="flex-auto">
+                            <label htmlFor="buttondisplay" className="font-bold  block mb-2">
+                                Select Date
+                            </label>
+                        </div>
+                        <Calendar value={date} onChange={(e) => setDate(e.target.value)} showIcon  />
+                    </div>
+                    <div>
+                        <span className={"font-semibold"}>Total Order</span>
+                        <div>
+                            <span className={"text-4xl font-bold text-gray-500"}>34</span>
+                            <span className={"text-green-400 mx-2"}>100%</span>
+                            <i className=" pi pi-arrow-up text-green-400 ml-2"></i>
+                        </div>
+
+                    </div>
+                    <div>
+                        <span className={"font-semibold"}>Ordered Items</span>
+                        <div>
+                            <span className={"text-4xl font-bold text-gray-500"}>34</span>
+                            <span className={"text-green-400 mx-2"}>100%</span>
+                            <i className=" pi pi-arrow-up text-green-400 ml-2"></i>
+                        </div>
+
+                    </div>
+                    <div>
+                        <span className={"font-semibold"}>Returns</span>
+                        <div>
+                            <span className={"text-4xl font-bold text-gray-500"}>34</span>
+                            <span className={"text-green-400 mx-2"}>100%</span>
+                            <i className=" pi pi-arrow-up text-green-400 ml-2"></i>
+                        </div>
+
+                    </div>
+                    <div>
+                        <span className={"font-semibold"}>Fulfilled Orders</span>
+                        <div>
+                            <span className={"text-4xl font-bold text-gray-500"}>14</span>
+                            <span className={"text-red-400 mx-2"}>10%</span>
+                            <i className=" pi pi-arrow-down text-red-400 ml-2"></i>
+                        </div>
+
+                    </div>
+                    <div>
+                        <span className={"font-semibold"}>Delivered Orders</span>
+                        <div>
+                            <span className={"text-4xl font-bold text-gray-500"}>54</span>
+                            <span className={"text-green-400 mx-2"}>100%</span>
+                            <i className=" pi pi-arrow-up text-green-400 ml-2"></i>
+                        </div>
+
+                    </div>
+                </div>
+
                 <div className="p-3">
                     <div className="overflow-x-auto">
                         <table className="table-auto w-full">

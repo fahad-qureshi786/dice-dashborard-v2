@@ -89,7 +89,7 @@ const page = () => {
                             {menuRequestsData.map((request, index) => (
                                 <tr key={index}>
                                     <td className="p-2 whitespace-nowrap text-center">
-                                        <Image src={pic} alt={"pic"} width={43} />
+                                        <img style={{borderRadius: '10px'}} src={"/myimages/image.jpg"} alt={"pic"} width={43} />
                                     </td>
                                     <td className="p-2 whitespace-nowrap">{request.name}</td>
                                     {/*<td className="p-2 whitespace-nowrap">{request.company}</td>*/}

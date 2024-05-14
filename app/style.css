@@ -31,4 +31,7 @@
     stroke: #FF8A38;
 }
 
+.p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+    background: #FF8A38 !important;
+}
 /* Home Design */

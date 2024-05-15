@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { InputText } from "primereact/inputtext";
 import { Calendar } from 'primereact/calendar';
 import {TabPanel, TabView} from "primereact/tabview";
@@ -8,14 +8,72 @@ import { FileUpload } from 'primereact/fileupload';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Dialog } from 'primereact/dialog';
+import html2canvas from "html2canvas";
 
+import {  Dropdown,  Space } from 'antd';
+import  jsPDF from "jspdf";
 const Page = () => {
+
+
+    const downloadPDF = () => {
+        const input = pdfRef.current;
+        html2canvas(input).then((canvas) => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF('p', 'mm', 'a4', true);
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = pdf.internal.pageSize.getHeight();
+            const imgWidth = canvas.width;
+            const imgHeight = canvas.height;
+            const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+            const imgX = (pdfWidth - imgWidth * ratio) / 2;
+            const imgY = 30;
+            pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+            pdf.save('invoice.pdf');
+        });
+    };
+    const pdfRef = useRef()
     const data = [
-        { item: 'Subtotal', price: '$50.00' },
-        { item: 'Add Discount', price: '$0.00' },
-        { item: 'Add Shopping and Delivery', price: '$5.00' },
-        { item: 'Estimate Tax', price: '$2.50' },
-        { item: 'Total', price: '$57.50' }
+        {
+            invoiceNumber: '001',
+            orderDate: '2024-05-15',
+            customerName: 'John Doe',
+            company: 'ABC Corporation',
+            orderTotal: '$100.00',
+            paymentStatus: 'Paid'
+        },
+        {
+            invoiceNumber: '002',
+            orderDate: '2024-07-15',
+            customerName: 'Doe',
+            company: 'xyz Corporation',
+            orderTotal: '$100.00',
+            paymentStatus: 'unpaid'
+        }
+    ];
+
+    const items = [
+        {
+            key: '1',
+            label: <div> <span className="p-input-icon-right w-full">
+                <InputText type="text" placeholder="Add Note here" className="w-full"
+                           onClick={(e) => e.stopPropagation()}
+                />
+            </span>
+               </div>
+            ,
+        },
+        {
+            key: '2',
+            label:  <Button  className={"bg-orange-400 text-white my-2"} primary>
+                Update
+            </Button>,
+        },
+        {
+            key: '3',
+            label: (
+               ``
+            ),
+        },
     ];
    const [visible , setVisible] = useState(false)
     const [placement, SetPlacement] = useState('topLeft');
@@ -135,7 +193,7 @@ Cancel                    </Button>
             </div>
 
 
-            <div className={"flex justify-content-between w-full"} >
+            <div className={"flex justify-content-between w-full"} ref={pdfRef} >
 
                 <div style={{width: "80%"}} >
                     <div className="card">
@@ -163,8 +221,12 @@ Cancel                    </Button>
                                                <div className={""}>
                                                    <div className="p-d-flex p-jc-center">
                                                        <DataTable value={data} className="p-datatable-striped">
-                                                           <Column field="item" header="Item"   />
-                                                           <Column field="price" header="Price" />
+                                                           <Column field="invoiceNumber" header="Invoice number"   />
+                                                           <Column field="orderDate" header="Order date"   />
+                                                           <Column field="customerName" header="Customer name"   />
+                                                           <Column field="company" header="Company" />
+                                                           <Column field="orderTotal" header="Order total" />
+                                                           <Column field="paymentStatus" header="Payment status" />
                                                        </DataTable>
                                                    </div>
                                                </div>
@@ -214,8 +276,20 @@ Cancel                    </Button>
                 <div style={{width: "30%"}} className={"mx-2"} >
                     <div className="card mb-4">
                     <div className={"flex justify-content-between mb-4"}>
-                        <span>Name</span>
-                        <span>   <i className=" pi pi-pencil  ml-2"></i></span>
+                        <span>Add Notes</span>
+                        <Dropdown
+                            menu={{
+                                items,
+                            }}
+                            trigger={['click']}
+                        >
+                            <a onClick={(e) => e.preventDefault()}>
+                                <Space>
+                                    <span>   <i className=" pi pi-pencil text-orange-400 ml-2" onClick={(e) => e.preventDefault()}></i></span>
+
+                                </Space>
+                            </a>
+                        </Dropdown>
                     </div>
                         <span className={"text-gray-700 font-bold "} style={{paddingTop: "12px"}}>No notes</span>
                     </div>
@@ -252,6 +326,7 @@ Cancel                    </Button>
                 </div>
             </div>
 
+            <button onClick={downloadPDF}>download</button>
         </>
     );
 };

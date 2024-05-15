@@ -9,13 +9,15 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Dialog } from 'primereact/dialog';
 import html2canvas from "html2canvas";
-
 import {  Dropdown,  Space } from 'antd';
 import  jsPDF from "jspdf";
+
+
 const Page = () => {
 
-
+// for pdf downlaod
     const downloadPDF = () => {
+
         const input = pdfRef.current;
         html2canvas(input).then((canvas) => {
             const imgData = canvas.toDataURL('image/png');
@@ -76,11 +78,13 @@ const Page = () => {
         },
     ];
    const [visible , setVisible] = useState(false)
-    const [placement, SetPlacement] = useState('topLeft');
-    const placementChange = (e) => {
-        SetPlacement(e.target.value);
-    };
-    const [date, setDate] = useState(null);
+    // const [placement, setPlacement] = useState('topLeft');
+    // const [dateRange, setDateRange] = useState([null, null]);
+    // const placementChange = (e) => {
+    //     SetPlacement(e.target.value);
+    // };
+
+    const [dates, setDates] = useState(null);
     return (
         <>
             <Dialog header="Add your custom item" className={"p-8"} visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
@@ -143,7 +147,11 @@ Cancel                    </Button>
                             Select Date
                         </label>
                     </div>
-                    <Calendar value={date} onChange={(e) => setDate(e.value)} showIcon  />
+
+                    <Calendar value={dates} id="buttondisplay" placeholder={"Start - End"} onChange={(e) => setDates(e.value)} selectionMode="range" readOnlyInput hideOnRangeSelection />
+
+
+
                 </div>
                 <div>
                     <span className={"font-semibold"}>Total Order</span>

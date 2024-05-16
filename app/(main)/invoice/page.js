@@ -109,10 +109,7 @@ const Page = () => {
 
                </div>
                 <div className={"my-4 "}>
-
-
-                </div>
-
+               </div>
                 <div className={"flex justify-content-end space-x-2 m-4"}>
 
                     <Button onClick={() => setVisible(true)} style={{ backgroundColor: 'black', color: 'white',  margin:"2px" }} primary>
@@ -120,12 +117,11 @@ const Page = () => {
                     </Button>
 
                     <Button onClick={() => setVisible(true)} style={{ backgroundColor: 'gray', color: 'white',  margin:"2px" }} primary>
-Cancel                    </Button>
+                    Cancel
+                    </Button>
 
                 </div>
-
             </Dialog>
-
             <div className={"flex justify-content-end space-x-2 m-4"}>
 
                     <Button onClick={() => setVisible(true)} style={{ backgroundColor: '#FF8A38', border: "none", color: 'white',  margin:"2px" }} >
@@ -139,7 +135,6 @@ Cancel                    </Button>
                    Export
                 </Button>
             </div>
-
             <div className={"flex card justify-content-evenly my-4"}>
                 <div>
                     <div className="flex-auto">
@@ -147,11 +142,7 @@ Cancel                    </Button>
                             Select Date
                         </label>
                     </div>
-
                     <Calendar value={dates} id="buttondisplay" placeholder={"Start - End"} onChange={(e) => setDates(e.value)} selectionMode="range" readOnlyInput hideOnRangeSelection />
-
-
-
                 </div>
                 <div>
                     <span className={"font-semibold"}>Total Order</span>
@@ -199,8 +190,6 @@ Cancel                    </Button>
 
                 </div>
             </div>
-
-
             <div className={"flex justify-content-between w-full"} ref={pdfRef} >
 
                 <div style={{width: "80%"}} >
@@ -333,7 +322,6 @@ Cancel                    </Button>
                 </div>
                 </div>
             </div>
-
             <button onClick={downloadPDF}>download</button>
         </>
     );

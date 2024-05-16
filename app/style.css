@@ -31,12 +31,6 @@
     stroke: #FF8A38;
 }
 
-/*.p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {*/
-/*    background: #FF8A38 !important;*/
-/*}*/
-/*.rs-date-range-input{*/
-/*    padding: 5px;*/
-/*    width: 80%;*/
-/*    margin: 2px;*/
-/*}*/
-/* Home Design */
+.p-rating .p-rating-item.p-rating-item-active .p-rating-icon {
+    color: #FF8A38;
+}

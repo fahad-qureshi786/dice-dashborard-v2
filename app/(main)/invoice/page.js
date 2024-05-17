@@ -9,7 +9,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Dialog } from 'primereact/dialog';
 import html2canvas from "html2canvas";
-import {  Dropdown,  Space } from 'antd';
+
 import  jsPDF from "jspdf";
 
 
@@ -271,25 +271,25 @@ const Page = () => {
                     </div>
                 </div>
                 <div style={{width: "30%"}} className={"mx-2"} >
-                    <div className="card mb-4">
-                    <div className={"flex justify-content-between mb-4"}>
-                        <span>Add Notes</span>
-                        <Dropdown
-                            menu={{
-                                items,
-                            }}
-                            trigger={['click']}
-                        >
-                            <a onClick={(e) => e.preventDefault()}>
-                                <Space>
-                                    <span>   <i className=" pi pi-pencil text-orange-400 ml-2" onClick={(e) => e.preventDefault()}></i></span>
+                    {/*<div className="card mb-4">*/}
+                    {/*<div className={"flex justify-content-between mb-4"}>*/}
+                    {/*    <span>Add Notes</span>*/}
+                    {/*    <Dropdown*/}
+                    {/*        menu={{*/}
+                    {/*            items,*/}
+                    {/*        }}*/}
+                    {/*        trigger={['click']}*/}
+                    {/*    >*/}
+                    {/*        <a onClick={(e) => e.preventDefault()}>*/}
+                    {/*            <Space>*/}
+                    {/*                <span>   <i className=" pi pi-pencil text-orange-400 ml-2" onClick={(e) => e.preventDefault()}></i></span>*/}
 
-                                </Space>
-                            </a>
-                        </Dropdown>
-                    </div>
-                        <span className={"text-gray-700 font-bold "} style={{paddingTop: "12px"}}>No notes</span>
-                    </div>
+                    {/*            </Space>*/}
+                    {/*        </a>*/}
+                    {/*    </Dropdown>*/}
+                    {/*</div>*/}
+                    {/*    <span className={"text-gray-700 font-bold "} style={{paddingTop: "12px"}}>No notes</span>*/}
+                    {/*</div>*/}
 
                 <div  >
                     <div className="card my-4">

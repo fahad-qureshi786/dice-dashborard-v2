@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dropdown } from 'primereact/dropdown';
 import pic from  "/public/myimages/image.jpg";
-import Image from "next/Image"
+
 import {Badge} from "primereact/badge";
 const page = () => {
     // Sample menu requests data
@@ -89,7 +89,7 @@ const page = () => {
                             {menuRequestsData.map((request, index) => (
                                 <tr key={index}>
                                     <td className="p-2 whitespace-nowrap text-center">
-                                        <Image src={pic} alt={"pic"} width={43} />
+                                        <img src={pic} alt={"pic"} width={43} />
                                     </td>
                                     <td className="p-2 whitespace-nowrap">{request.name}</td>
                                     {/*<td className="p-2 whitespace-nowrap">{request.company}</td>*/}

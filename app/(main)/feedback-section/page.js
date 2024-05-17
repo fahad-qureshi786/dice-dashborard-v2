@@ -4,8 +4,7 @@ import {InputTextarea} from "primereact/inputtextarea";
 import {Toast} from "primereact/toast";
 import {FileUpload} from "primereact/fileupload";
 import {Button} from "primereact/button";
-import Image from "next/image";
-import picture from "../../../public/myimages/image.jpg";
+
 
 const Page = () => {
 

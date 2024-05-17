@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button} from "primereact/button";
+
 import img1 from "../../../public/myimages/pic (1).png";
 import img2 from "../../../public/myimages/pic (2).png";
 import Image from "next/image";

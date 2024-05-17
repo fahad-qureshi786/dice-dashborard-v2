@@ -86,11 +86,15 @@ const Dashboard = () => {
     };
 
     useEffect(() => {
-        if(!sessionStorage.getItem("user")){
+        // Handle user authentication (replace with your preferred logic)
+        const isLoggedIn = sessionStorage.getItem('user') !== null;
+        if (!isLoggedIn) {
             router.push('/auth/login');
-        }else{
-            ProductService.getProductsSmall().then((data) => setProducts(data));
+            return;
         }
+
+        // Fetch data on successful authentication
+        ProductService.getProductsSmall().then((data) => setProducts(data));
     }, []);
 
     const headerTemplate = (data: Demo.Customer) => {

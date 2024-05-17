@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import AppMenuitem from './AppMenuitem';
 import { LayoutContext } from './context/layoutcontext';
 import { MenuProvider } from './context/menucontext';
@@ -18,7 +18,7 @@ const AppMenu = () => {
     const model: AppMenuItem[] = [];
     const router = useRouter();
 
-    useEffect(()=> {
+    useEffect(() => {
         const storedUser = sessionStorage.getItem("user");
         if (storedUser) {
             setUserDetails(JSON.parse(storedUser));
@@ -35,7 +35,7 @@ const AppMenu = () => {
         model.push(
             {
                 label: '',
-                items: [{icon: 'pi pi-home', label: 'Home', to: '/' }]
+                items: [{ icon: 'pi pi-home', label: 'Home', to: '/' }]
             },
             {
                 label: '',
@@ -93,7 +93,7 @@ const AppMenu = () => {
             {
 
                 label: '',
-                items: [{icon: 'pi pi-users', label: 'Client Details', to: '/client-detail' }]
+                items: [{ icon: 'pi pi-users', label: 'Client Details', to: '/client-detail' }]
             },
             {
                 label: '',
@@ -118,7 +118,7 @@ const AppMenu = () => {
             {
 
                 label: '',
-                items: [{icon: 'pi pi-thumbs-up', label: 'Feedback', to: '/feedback' }]
+                items: [{ icon: 'pi pi-thumbs-up', label: 'Feedback', to: '/feedback' }]
             },
             {
 
@@ -153,11 +153,11 @@ const AppMenu = () => {
             },
             {
                 label: '',
-                items: [{icon: 'pi pi-book', label: 'Resource', to: '/profile' }]
+                items: [{ icon: 'pi pi-book', label: 'Resource', to: '/profile' }]
             },
             {
                 label: '',
-                items: [{icon: 'pi pi-cog', label: 'Settings', to: '/setting' }]
+                items: [{ icon: 'pi pi-cog', label: 'Settings', to: '/setting' }]
             },
             {
                 label: '',
@@ -203,7 +203,7 @@ const AppMenu = () => {
         <MenuProvider>
             <ul className="layout-menu">
                 {model.map((item, i) => (
-                    !item.separator ? (
+                    !item.seperator ? (
                         <AppMenuitem item={item} root={true} index={i} key={item.label} />
                     ) : (
                         <li className="menu-separator" key={i} />

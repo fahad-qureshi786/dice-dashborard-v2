@@ -19,12 +19,16 @@ const AppMenu = () => {
     const router = useRouter();
 
     useEffect(()=> {
-        if(!sessionStorage.getItem("user")){
-            router.push("/auth/login")
-        }else{
-            setUserDetails(JSON.parse(sessionStorage.getItem("user")))
+        const storedUser = sessionStorage.getItem("user");
+        if (storedUser) {
+            setUserDetails(JSON.parse(storedUser));
+        } else {
+            // Handle the case where "user" is not stored in sessionStorage
+            // For example, redirect the user to the login page
+            router.push("/auth/login");
         }
-    }, [])
+    }, []);
+
 
     // Populating model based on storedPassword
     if (userDetails.username === 'admin') {

@@ -36,63 +36,63 @@ const MenuRequests = () => {
                 <header className="px-5 py-4 border-b border-gray-100">
                     <h2 className="font-semibold text-gray-800">Feedback</h2>
                 </header>
-                <div className={"flex card justify-content-evenly my-4"}>
-                    <div>
-                        <div className="flex-auto">
-                            <label htmlFor="buttondisplay" className="font-bold  block mb-2">
-                                Select Date
-                            </label>
-                        </div>
-                        <Calendar value={date} onChange={(e) => setDate(e.target.value)} showIcon  />
-                    </div>
-                    <div>
-                        <span className={"font-semibold"}>Total Order</span>
-                        <div>
-                            <span className={"text-4xl font-bold text-gray-500"}>34</span>
-                            <span className={"text-green-400 mx-2"}>100%</span>
-                            <i className=" pi pi-arrow-up text-green-400 ml-2"></i>
-                        </div>
+                {/*<div className={"flex card justify-content-evenly my-4"}>*/}
+                {/*    <div>*/}
+                {/*        <div className="flex-auto">*/}
+                {/*            <label htmlFor="buttondisplay" className="font-bold  block mb-2">*/}
+                {/*                Select Date*/}
+                {/*            </label>*/}
+                {/*        </div>*/}
+                {/*        <Calendar value={date} onChange={(e) => setDate(e.target.value)} showIcon  />*/}
+                {/*    </div>*/}
+                {/*    <div>*/}
+                {/*        <span className={"font-semibold"}>Total Order</span>*/}
+                {/*        <div>*/}
+                {/*            <span className={"text-4xl font-bold text-gray-500"}>34</span>*/}
+                {/*            <span className={"text-green-400 mx-2"}>100%</span>*/}
+                {/*            <i className=" pi pi-arrow-up text-green-400 ml-2"></i>*/}
+                {/*        </div>*/}
 
-                    </div>
-                    <div>
-                        <span className={"font-semibold"}>Ordered Items</span>
-                        <div>
-                            <span className={"text-4xl font-bold text-gray-500"}>34</span>
-                            <span className={"text-green-400 mx-2"}>100%</span>
-                            <i className=" pi pi-arrow-up text-green-400 ml-2"></i>
-                        </div>
+                {/*    </div>*/}
+                {/*    <div>*/}
+                {/*        <span className={"font-semibold"}>Ordered Items</span>*/}
+                {/*        <div>*/}
+                {/*            <span className={"text-4xl font-bold text-gray-500"}>34</span>*/}
+                {/*            <span className={"text-green-400 mx-2"}>100%</span>*/}
+                {/*            <i className=" pi pi-arrow-up text-green-400 ml-2"></i>*/}
+                {/*        </div>*/}
 
-                    </div>
-                    <div>
-                        <span className={"font-semibold"}>Returns</span>
-                        <div>
-                            <span className={"text-4xl font-bold text-gray-500"}>34</span>
-                            <span className={"text-green-400 mx-2"}>100%</span>
-                            <i className=" pi pi-arrow-up text-green-400 ml-2"></i>
-                        </div>
+                {/*    </div>*/}
+                {/*    <div>*/}
+                {/*        <span className={"font-semibold"}>Returns</span>*/}
+                {/*        <div>*/}
+                {/*            <span className={"text-4xl font-bold text-gray-500"}>34</span>*/}
+                {/*            <span className={"text-green-400 mx-2"}>100%</span>*/}
+                {/*            <i className=" pi pi-arrow-up text-green-400 ml-2"></i>*/}
+                {/*        </div>*/}
 
-                    </div>
-                    <div>
-                        <span className={"font-semibold"}>Fulfilled Orders</span>
-                        <div>
-                            <span className={"text-4xl font-bold text-gray-500"}>14</span>
-                            <span className={"text-red-400 mx-2"}>10%</span>
-                            <i className=" pi pi-arrow-down text-red-400 ml-2"></i>
-                        </div>
+                {/*    </div>*/}
+                {/*    <div>*/}
+                {/*        <span className={"font-semibold"}>Fulfilled Orders</span>*/}
+                {/*        <div>*/}
+                {/*            <span className={"text-4xl font-bold text-gray-500"}>14</span>*/}
+                {/*            <span className={"text-red-400 mx-2"}>10%</span>*/}
+                {/*            <i className=" pi pi-arrow-down text-red-400 ml-2"></i>*/}
+                {/*        </div>*/}
 
-                    </div>
-                    <div>
-                        <span className={"font-semibold"}>Delivered Orders</span>
-                        <div>
-                            <span className={"text-4xl font-bold text-gray-500"}>54</span>
-                            <span className={"text-green-400 mx-2"}>100%</span>
-                            <i className=" pi pi-arrow-up text-green-400 ml-2"></i>
-                        </div>
+                {/*    </div>*/}
+                {/*    <div>*/}
+                {/*        <span className={"font-semibold"}>Delivered Orders</span>*/}
+                {/*        <div>*/}
+                {/*            <span className={"text-4xl font-bold text-gray-500"}>54</span>*/}
+                {/*            <span className={"text-green-400 mx-2"}>100%</span>*/}
+                {/*            <i className=" pi pi-arrow-up text-green-400 ml-2"></i>*/}
+                {/*        </div>*/}
 
-                    </div>
-                </div>
+                {/*    </div>*/}
+                {/*</div>*/}
 
-                <div className="p-3">
+                <div className="p-3 card">
                     <div className="overflow-x-auto">
                         <table className="table-auto w-full">
                             <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">

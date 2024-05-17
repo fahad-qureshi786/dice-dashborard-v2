@@ -9,7 +9,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Dialog } from 'primereact/dialog';
 import html2canvas from "html2canvas";
-
+import {Dropdown } from "primereact/dropdown"
 import  jsPDF from "jspdf";
 
 
@@ -78,6 +78,7 @@ const Page = () => {
         },
     ];
    const [visible , setVisible] = useState(false)
+   const [pencilvisible , setPencilvisible] = useState(false)
     // const [placement, setPlacement] = useState('topLeft');
     // const [dateRange, setDateRange] = useState([null, null]);
     // const placementChange = (e) => {
@@ -122,6 +123,20 @@ const Page = () => {
 
                 </div>
             </Dialog>
+
+            {/* This is my pincil icon */}
+            <Dialog header="Add your custom item" className={"p-8"} visible={pencilvisible} style={{ width: '50vw' }} onHide={() => setPencilvisible(false)}>
+
+                <InputText type="text" placeholder="Search" className="w-full my-4" />
+                <div className={"flex justify-content-center "}>
+                    <Button onClick={() => setVisible(true)} children={"text-center"} style={{ backgroundColor: 'oragne', color: 'white',  margin:"2px" }} primary>
+                        Update
+                    </Button>
+                </div>
+
+
+            </Dialog>
+
             <div className={"flex justify-content-end space-x-2 m-4"}>
 
                     <Button onClick={() => setVisible(true)} style={{ backgroundColor: '#FF8A38', border: "none", color: 'white',  margin:"2px" }} >
@@ -271,58 +286,39 @@ const Page = () => {
                     </div>
                 </div>
                 <div style={{width: "30%"}} className={"mx-2"} >
-                    {/*<div className="card mb-4">*/}
-                    {/*<div className={"flex justify-content-between mb-4"}>*/}
-                    {/*    <span>Add Notes</span>*/}
-                    {/*    <Dropdown*/}
-                    {/*        menu={{*/}
-                    {/*            items,*/}
-                    {/*        }}*/}
-                    {/*        trigger={['click']}*/}
-                    {/*    >*/}
-                    {/*        <a onClick={(e) => e.preventDefault()}>*/}
-                    {/*            <Space>*/}
-                    {/*                <span>   <i className=" pi pi-pencil text-orange-400 ml-2" onClick={(e) => e.preventDefault()}></i></span>*/}
-
-                    {/*            </Space>*/}
-                    {/*        </a>*/}
-                    {/*    </Dropdown>*/}
-                    {/*</div>*/}
-                    {/*    <span className={"text-gray-700 font-bold "} style={{paddingTop: "12px"}}>No notes</span>*/}
-                    {/*</div>*/}
-
-                <div  >
-                    <div className="card my-4">
-                        <div className={"flex justify-content-between mb-4"}>
-                            <span>Customer</span>
-                            <span>   <i className=" pi pi-pencil  ml-2"></i></span>
-                        </div>
-                        <InputText type="text" placeholder="Search" className="w-full" />
-
+                    <div className="card mb-4">
+                    <div className={"flex justify-content-between mb-4"}>
+                        <span>Add Notes</span>
+                        <i className=" pi pi-pencil  ml-2" onClick={() => setPencilvisible(true)}></i>
                     </div>
-                </div>
-                <div  >
-                    <div className="card my-4">
+                        <span className={"text-gray-700 font-bold "} style={{paddingTop: "12px"}}>No notes</span>
+                    </div>
+                    <div className="card mb-4">
                         <div className={"flex justify-content-between mb-4"}>
                             <span>Market</span>
-                            <span>   <i className=" pi pi-pencil  ml-2"></i></span>
+                            <i className=" pi pi-pencil  ml-2" onClick={() => setPencilvisible(true)}></i>
                         </div>
                         <span className={"text-gray-700 font-bold "} style={{paddingTop: "12px"}}>Pricing</span>
                     </div>
-                </div>
-                <div  >
-                    <div className="card my-4">
+                    <div className="card mb-4">
+                        <div className={"flex justify-content-between mb-4"}>
+                            <span>Customer</span>
+                            <i className=" pi pi-pencil  ml-2" onClick={() => setPencilvisible(true)}></i>
+                        </div>
+                        <span className={"text-gray-700 font-bold "} style={{paddingTop: "12px"}}>customer </span>
+                    </div>
+                    <div className="card mb-4">
                         <div className={"flex justify-content-between mb-4"}>
                             <span>Tags</span>
-                            <span>   <i className=" pi pi-pencil  ml-2"></i></span>
+                            <i className=" pi pi-pencil  ml-2" onClick={() => setPencilvisible(true)}></i>
                         </div>
-                        <InputText type="text" placeholder="" className="w-full" />
-
+                        <span className={"text-gray-700 font-bold "} style={{paddingTop: "12px"}}>No notes</span>
                     </div>
-                </div>
+
+
                 </div>
             </div>
-            <button onClick={downloadPDF}>download</button>
+            <Button onClick={downloadPDF} className={"m-2"}>Download invoice</Button>
         </>
     );
 };

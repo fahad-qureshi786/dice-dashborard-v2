@@ -30,8 +30,8 @@ const MenuRequests = () => {
 
     // Sample statuses for the dropdown
     const statuses = [
-        { label: 'New (unopened)', value: 'New' },
-        { label: 'Resolved (menus uploaded)', value: 'Resolved' },
+        { label: 'New', value: 'New' },
+        { label: 'Resolved', value: 'Resolved' },
         { label: 'OP (order placed)', value: 'OP' },
         { label: 'Abandoned', value: 'Abandoned' }
     ];
@@ -75,12 +75,12 @@ const MenuRequests = () => {
                                 <th className="p-2 whitespace-nowrap">
                                     <div className="font-semibold text-center">Requested Order Date</div>
                                 </th>
-                                {/*<th className="p-2 whitespace-nowrap">*/}
-                                {/*    <div className="font-semibold text-center">Status</div>*/}
-                                {/*</th>*/}
-                                {/*<th className="p-2 whitespace-nowrap">*/}
-                                {/*    <div className="font-semibold text-center">Actions</div>*/}
-                                {/*</th>*/}
+                                <th className="p-2 whitespace-nowrap">
+                                    <div className="font-semibold text-center">Status</div>
+                                </th>
+                                <th className="p-2 whitespace-nowrap">
+                                    <div className="font-semibold text-center">Actions</div>
+                                </th>
                             </tr>
                             </thead>
                             <tbody className="text-sm divide-y divide-gray-100">
@@ -94,14 +94,14 @@ const MenuRequests = () => {
                                     <td className="p-2 whitespace-nowrap text-center">{request.budget}</td>
                                     <td className="p-2 whitespace-nowrap">{request.cuisinePreferences}</td>
                                     <td className="p-2 whitespace-nowrap text-center">{request.requestedOrderDate}</td>
-                                    {/*<td className="p-2 whitespace-nowrap text-center">*/}
-                                    {/*    /!* Dropdown for status *!/*/}
-                                    {/*    <Dropdown options={statuses} value={request.status} />*/}
-                                    {/*</td>*/}
-                                    {/*<td className="p-2 whitespace-nowrap text-center">*/}
-                                    {/*    /!* Dropdown for actions *!/*/}
-                                    {/*    <Dropdown options={actions} placeholder="Select an action" />*/}
-                                    {/*</td>*/}
+                                    <td className="p-2 whitespace-nowrap text-center">
+                                        {/* Dropdown for status */}
+                                        <Dropdown options={statuses} value={request.status} />
+                                    </td>
+                                    <td className="p-2 whitespace-nowrap text-center">
+                                        {/* Dropdown for actions */}
+                                        <Dropdown options={actions} placeholder="Select action" />
+                                    </td>
                                 </tr>
                             ))}
                             </tbody>

@@ -1,5 +1,4 @@
 "use client"
-
 import React, { useEffect, useState } from 'react';
 import AppMenuitem from './AppMenuitem';
 import { MenuProvider } from './context/menucontext';
@@ -8,7 +7,6 @@ import { useSessionStorage } from 'primereact/hooks';
 import { useRouter } from 'next/navigation';
 
 const AppMenu = () => {
-    // Session storage for email and password
     const [storedPassword, setStoredPassword] = useSessionStorage('password', '');
     const [userDetails, setUserDetails] = useState({
         username: '',
@@ -22,13 +20,10 @@ const AppMenu = () => {
         if (storedUser) {
             setUserDetails(JSON.parse(storedUser));
         } else {
-            // Handle the case where "user" is not stored in sessionStorage
-            // For example, redirect the user to the login page
             router.push("/auth/login");
         }
     }, []);
 
-    // Populating model based on storedPassword
     if (userDetails.username === 'admin') {
         model.push(
             { label: '', items: [{ icon: 'pi pi-home', label: 'Home', to: '/' }] },
@@ -96,27 +91,17 @@ const AppMenu = () => {
         );
     }
 
-    // Rendering the AppMenu component
     return (
         <MenuProvider>
             <ul className="layout-menu">
                 {model.map((item, i) => (
-                    !item.separator ? (
-                        <AppMenuitem item={item} root={true} index={i} key={item.label} />
+                    !item?.seperator ? (
+                        <AppMenuitem item={item} root={true} index={i} key={i} />
                     ) : (
                         <li className="menu-separator" key={i} />
                     )
                 ))}
             </ul>
-            {/* <button
-                className="absolute bottom-0 text-center text-white"
-                onClick={() => {
-                    setStoredPassword('');
-                    router.push('/auth/login');
-                }}
-            >
-                Logout
-            </button> */}
         </MenuProvider>
     );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dropdown } from 'primereact/dropdown';
 import pic from  "/public/myimages/image.jpg";
-import Image from "next/Image"
+
 import {Badge} from "primereact/badge";
 const page = () => {
     // Sample menu requests data

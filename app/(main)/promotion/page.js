@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from "next/Image"
+
 import {Badge}  from "primereact/badge"
 const Page = () => {
 

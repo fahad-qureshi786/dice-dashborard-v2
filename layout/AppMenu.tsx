@@ -75,7 +75,7 @@ const AppMenu = () => {
                 ]
             },
             { label: '', items: [{ icon: 'pi pi-server', label: 'Website', to: '/profile' }] },
-            { label: '', items: [{ icon: 'pi pi-book', label: 'Resource', to: '/profile' }] },
+            { label: '', items: [{ icon: 'pi pi-book', label: 'Resource', to: '/vendor' }] },
             { label: '', items: [{ icon: 'pi pi-cog', label: 'Settings', to: '/setting' }] },
             { label: '', items: [{ icon: 'pi pi-lock', label: 'Logout', to: '/auth/login' }] }
         );

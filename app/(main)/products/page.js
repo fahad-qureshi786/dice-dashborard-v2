@@ -15,43 +15,9 @@ const App = () => {
     const [visible, setVisible] = useState(false);
     const [text, setText] = useState('');
 
-    useEffect(() => {
-        fetch(fakeDataUrl)
-            .then((res) => res.json())
-            .then((res) => {
-                setInitLoading(false);
-                setData(res.results);
-                setList(res.results);
-            });
-    }, []);
 
-    const onLoadMore = () => {
-        setLoading(true);
-        setList(
-            data.concat(
-                [...new Array(count)].map(() => ({
-                    loading: true,
-                    name: {},
-                    picture: {},
-                }))
-            )
-        );
-        fetch(fakeDataUrl)
-            .then((res) => res.json())
-            .then((res) => {
-                const newData = data.concat(res.results);
-                setData(newData);
-                setList(newData);
-                setLoading(false);
-                window.dispatchEvent(new Event('resize'));
-            });
-    };
 
-    const loadMore = !initLoading && !loading ? (
-        <div style={{ textAlign: 'center', marginTop: 12, height: 32, lineHeight: '32px' }}>
-            <Button onClick={onLoadMore}>Load more</Button>
-        </div>
-    ) : null;
+
 
     const tableData = [
         {
@@ -292,12 +258,6 @@ const App = () => {
                 </TabPanel>
             </TabView>
             </div>
-
-
-
-
-
-
 
         </div>
     );

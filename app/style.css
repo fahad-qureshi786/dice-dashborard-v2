@@ -34,3 +34,6 @@
 .p-rating .p-rating-item.p-rating-item-active .p-rating-icon {
     color: #FF8A38;
 }
+.p-accordion-header-text, .p-accordion-toggle-icon {
+    color : #7a7979 !important;
+}

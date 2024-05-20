@@ -7,6 +7,7 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { FileUpload } from 'primereact/fileupload';
+import { Accordion, AccordionTab } from 'primereact/accordion';
 
 const Page = () => {
     const [notification, setNotification] = useState(false);
@@ -64,6 +65,8 @@ const Page = () => {
                     <Button label="Add User" onClick={() => setVisible(true)} raised severity="warning" className={"sticky "} style={{ marginTop: "14px", backgroundColor: "#ff8a38" }} />
                 </div>
             </div>
+            <Accordion activeIndex={0}>
+                <AccordionTab className={"text-red-400"} header="Settings">
             <h3 className="text-5xl text-gray-800 flex align-items-center ">Settings <span className="w-full my-4 px-2 ">
                 <InputSwitch id="masterToggle" checked={masterToggle} onChange={(e) => handleMasterToggleChange(e.value)} />
             </span></h3>
@@ -77,7 +80,38 @@ const Page = () => {
                 <label htmlFor="darkMode" className="mr-2 text-2xl">Dark Mode</label>
                 <InputSwitch id="darkMode" className={""} checked={darkMode} onChange={(e) => setDarkMode(e.value)} />
             </div>
+                </AccordionTab>
+                <AccordionTab header="General">
+            <h3 className="text-5xl text-gray-800 flex align-items-center ">General <span className="w-full my-4 px-2 ">
+                <InputSwitch id="masterToggle" checked={masterToggle} onChange={(e) => handleMasterToggleChange(e.value)} />
+            </span></h3>
 
+            <div className="w-full my-4 px-4 flex justify-content-between">
+                <label htmlFor="notification" className="mr-2 text-2xl">Notifications</label>
+                <InputSwitch id="notification" checked={notification} onChange={(e) => setNotification(e.value)} />
+            </div>
+
+            <div className="w-full flex my-4 px-4 justify-content-between">
+                <label htmlFor="darkMode" className="mr-2 text-2xl">Dark Mode</label>
+                <InputSwitch id="darkMode" className={""} checked={darkMode} onChange={(e) => setDarkMode(e.value)} />
+            </div>
+                </AccordionTab>
+                <AccordionTab header="Security">
+            <h3 className="text-5xl text-gray-800 flex align-items-center ">Security <span className="w-full my-4 px-2 ">
+                <InputSwitch id="masterToggle" checked={masterToggle} onChange={(e) => handleMasterToggleChange(e.value)} />
+            </span></h3>
+
+            <div className="w-full my-4 px-4 flex justify-content-between">
+                <label htmlFor="notification" className="mr-2 text-2xl">Notifications</label>
+                <InputSwitch id="notification" checked={notification} onChange={(e) => setNotification(e.value)} />
+            </div>
+
+            <div className="w-full flex my-4 px-4 justify-content-between">
+                <label htmlFor="darkMode" className="mr-2 text-2xl">Dark Mode</label>
+                <InputSwitch id="darkMode" className={""} checked={darkMode} onChange={(e) => setDarkMode(e.value)} />
+            </div>
+                </AccordionTab>
+            </Accordion>
             {/* Dialog Box */}
             <Dialog header="Add User" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
                 <div className="p-fluid">

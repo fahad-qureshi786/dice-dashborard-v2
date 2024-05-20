@@ -2,13 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import Link from "next/link";
 import {Button} from 'primereact/button';
-
 import  pic from "../../../public/myimages/image.jpg"
-import { InputText } from 'primereact/inputtext';
 import { Badge } from 'primereact/badge';
 const count = 3;
 const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
-import Image from 'next/image'
 import { TabView, TabPanel } from 'primereact/tabview';
 const App = () => {
     const [initLoading, setInitLoading] = useState(true);
@@ -288,7 +285,7 @@ const App = () => {
 
             </p>
             </TabPanel>
-                <TabPanel header="Archive">
+            <TabPanel header="Archive">
                     <p className="m-0">
 
                     </p>

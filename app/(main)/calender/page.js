@@ -1,71 +1,84 @@
-// "use client";
-// import { Eventcalendar, getJson, setOptions, Toast } from '@mobiscroll/react-lite';
-// import { useCallback, useEffect, useMemo, useState } from 'react';
-//
-// setOptions({
-//     theme: 'ios',
-//     themeVariant: 'light'
-// });
-//
-// function App() {
-//     const [myEvents, setEvents] = useState([]);
-//     const [isToastOpen, setToastOpen] = useState(false);
-//     const [toastMessage, setToastMessage] = useState();
-//
-//     const myView = useMemo(
-//         () => ({
-//             calendar: { type: 'month' },
-//             agenda: { type: 'month' },
-//         }),
-//         [],
-//     );
-//
-//     const handleToastClose = useCallback(() => {
-//         setToastOpen(false);
-//     }, []);
-//
-//     const handleEventClick = useCallback((args) => {
-//         setToastMessage(args.event.title);
-//         setToastOpen(true);
-//     }, []);
-//
-//     useEffect(() => {
-//         getJson(
-//             'https://trial.mobiscroll.com/events/?vers=5',
-//             (events) => {
-//                 setEvents(events);
-//             },
-//             'jsonp',
-//         );
-//     }, []);
-//
-//     return (
-//         <>
-//             <Eventcalendar
-//                 clickToCreate={false}
-//                 dragToCreate={false}
-//                 dragToMove={false}
-//                 dragToResize={false}
-//                 eventDelete={false}
-//                 data={myEvents}
-//                 view={myView}
-//                 onEventClick={handleEventClick}
-//             />
-//             <Toast message={toastMessage} isOpen={isToastOpen} onClose={handleToastClose} />
-//         </>
-//     );
-// }
-//
-// export default App;
+"use client";
 
-import React from 'react';
+import { useState } from 'react';
+import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import format from 'date-fns/format';
+import parse from 'date-fns/parse';
+import startOfWeek from 'date-fns/startOfWeek';
+import getDay from 'date-fns/getDay';
+import enUS from 'date-fns/locale/en-US';
+import { Dialog } from 'primereact/dialog';
+import { Button } from 'primereact/button';
+import { InputText } from 'primereact/inputtext';
 
-const Page = () => {
+
+const locales = {
+    'en-US': enUS,
+};
+
+const localizer = dateFnsLocalizer({
+    format,
+    parse,
+    startOfWeek,
+    getDay,
+    locales,
+});
+
+const CalendarComponent = () => {
+    const [events, setEvents] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [eventText, setEventText] = useState('');
+
+    const handleSelectSlot = (slotInfo) => {
+        setSelectedDate(slotInfo.start);
+        setShowModal(true);
+    };
+
+    const handleAddEvent = () => {
+        setEvents([
+            ...events,
+            {
+                title: eventText,
+                start: selectedDate,
+                end: selectedDate,
+            },
+        ]);
+        setShowModal(false);
+        setEventText('');
+    };
+
     return (
-        <div>
-            this is Calendar
-        </div>
+        <>
+            <Calendar
+                localizer={localizer}
+                events={events}
+                startAccessor="start"
+                endAccessor="end"
+                style={{ height: 500 }}
+                selectable
+                onSelectSlot={handleSelectSlot}
+            />
+
+            <Dialog visible={showModal} onHide={() => setShowModal(false)} header="Add Event" style={{ width: '50vw' }}>
+                <div className="p-fluid">
+                    <div className="p-field">
+                        <label htmlFor="eventText">Event Text</label>
+                        <InputText
+                            id="eventText"
+                            value={eventText}
+                            onChange={(e) => setEventText(e.target.value)}
+                        />
+                    </div>
+                    <div className="p-field">
+                        <Button label="Save Changes" className={"my-2 "} onClick={handleAddEvent} />
+                        <Button label="Close" onClick={() => setShowModal(false)} className="p-button-secondary font-semibold my-2" />
+                    </div>
+                </div>
+            </Dialog>
+        </>
     );
 };
 
-export default Page;
+export default CalendarComponent;

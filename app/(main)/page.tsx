@@ -11,7 +11,8 @@ import Link from 'next/link';
 import {Demo} from '@/types';
 import {ChartOptions} from 'chart.js';
 import { useRouter } from 'next/navigation';
-
+import { TabView, TabPanel } from 'primereact/tabview';
+import  Calendar from "../(main)/calender/page"
 
 const Dashboard = () => {
     const [products, setProducts] = useState<Demo.Product[]>([]);
@@ -210,9 +211,14 @@ const Dashboard = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-12 xl:col-6">
+<div className="col-12 xl:col-12">
+
+
+
                         <div className="card">
                             <h5>Upcoming Orders</h5>
+                            <TabView>
+                              <TabPanel header={"List View"}>
                             <DataTable value={products} rows={5} paginator responsiveLayout="scroll">
                                 <Column header="Image"
                                         body={(data) => <img className="shadow-2" src={`/demo/images/product/${data.image}`}
@@ -230,7 +236,14 @@ const Dashboard = () => {
                                     )}
                                 />
                             </DataTable>
+                              </TabPanel>
+                                <TabPanel header={"Calendar View"}>
+                                    <Calendar/>
+                                </TabPanel>
+                            </TabView>
                         </div>
+</div>
+                    <div className="col-12 xl:col-6">
                         <div className="card">
                             <div className="flex justify-content-between align-items-center mb-5">
                                 <h5>Reminders</h5>

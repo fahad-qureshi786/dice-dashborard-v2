@@ -14,7 +14,7 @@ import { useRouter } from 'next/navigation';
 import { TabView, TabPanel } from 'primereact/tabview';
 import  Calendar from "../(main)/calender/page"
 import {Badge} from "primereact/badge";
-
+import { Dialog } from 'primereact/dialog';
 const Dashboard = () => {
     const [products, setProducts] = useState<Demo.Product[]>([]);
     const menu1 = useRef<Menu>(null);
@@ -23,6 +23,8 @@ const Dashboard = () => {
     const {layoutConfig} = useContext(LayoutContext);
     const [customers3, setCustomers3] = useState<Demo.Customer[]>([]);
     const router = useRouter()
+    const [visible, setVisible] = useState(false);
+
 
 
     const tableData = [
@@ -32,7 +34,7 @@ const Dashboard = () => {
             status: 'Active',
             inventory: '58%',
             salesChannels: '21/5/2024',
-            market: 'US',
+            market: <div onClick={() => setVisible(true)} > <Link href={"#"} className={"font-bold text-orange-500 "}>View detail</Link> </div>,
             category: 'Food',
             vendor: 'Local Vendor',
         },
@@ -42,7 +44,7 @@ const Dashboard = () => {
             status: 'Active',
             inventory: '58%',
             salesChannels: '21/5/2024',
-            market: 'US',
+            market: <div onClick={() => setVisible(true)}> <Link href={"#"} className={"font-bold text-orange-500 "}>View detail</Link> </div>,
             category: 'Food',
             vendor: 'Local Vendor',
         },
@@ -52,7 +54,7 @@ const Dashboard = () => {
             status: 'Active',
             inventory: '58%',
             salesChannels: '21/5/2024',
-            market: 'US',
+            market: <div onClick={() => setVisible(true)} > <Link href={"#"} className={"font-bold text-orange-500 "}>View detail</Link> </div>,
             category: 'Food',
             vendor: 'Local Vendor',
         },
@@ -280,9 +282,9 @@ const Dashboard = () => {
                                           <th className="p-2 whitespace-nowrap">
                                               <div className="font-semibold text-center">Order date</div>
                                           </th>
-                                          {/*<th className="p-2 whitespace-nowrap">*/}
-                                          {/*    <div className="font-semibold text-center">Market</div>*/}
-                                          {/*</th>*/}
+                                          <th className="p-2 whitespace-nowrap">
+                                              <div className="font-semibold text-center">Detail</div>
+                                          </th>
                                           {/*<th className="p-2 whitespace-nowrap">*/}
                                           {/*    <div className="font-semibold text-center">Category</div>*/}
                                           {/*</th>*/}
@@ -318,9 +320,9 @@ const Dashboard = () => {
                                               <td className="p-2 whitespace-nowrap">
                                                   <div className="text-center">{row.salesChannels}</div>
                                               </td>
-                                              {/*<td className="p-2 whitespace-nowrap">*/}
-                                              {/*    <div className="text-center">{row.market}</div>*/}
-                                              {/*</td>*/}
+                                              <td className="p-2 whitespace-nowrap">
+                                                  <div className="text-center">{row.market}</div>
+                                              </td>
                                               {/*<td className="p-2 whitespace-nowrap">*/}
                                               {/*    <div className="text-center">{row.category}</div>*/}
                                               {/*</td>*/}
@@ -469,75 +471,68 @@ const Dashboard = () => {
                         </div>
                     </div>
                     <div className="col-12 xl:col-6">
-                        <div className="card">
-                            <div className="flex align-items-center justify-content-between mb-4">
+                        <div className="card overflow-y-scroll " style={{height: "50%"}}>
+                            <div className="flex align-items-center sticky justify-content-between mb-4">
                                 <h5>Notifications and Tasks</h5>
-                                <div>
-                                    <Button type="button" icon="pi pi-ellipsis-v" rounded text className="p-button-plain text-white"
-                                            onClick={(event) => menu2.current?.toggle(event)}/>
-                                    <Menu
-                                        ref={menu2}
-                                        popup
-                                        model={[
-                                            {label: 'Add New', icon: 'pi pi-fw pi-plus'},
-                                            {label: 'Remove', icon: 'pi pi-fw pi-minus'}
-                                        ]}
-                                    />
-                                </div>
+                                {/*<div>*/}
+                                {/*    <Button type="button" icon="pi pi-ellipsis-v" rounded text className="p-button-plain text-white"*/}
+                                {/*            onClick={(event) => menu2.current?.toggle(event)}/>*/}
+                                {/*    <Menu*/}
+                                {/*        ref={menu2}*/}
+                                {/*        popup*/}
+                                {/*        model={[*/}
+                                {/*            {label: 'Add New', icon: 'pi pi-fw pi-plus'},*/}
+                                {/*            {label: 'Remove', icon: 'pi pi-fw pi-minus'}*/}
+                                {/*        ]}*/}
+                                {/*    />*/}
+                                {/*</div>*/}
                             </div>
 
-                            <span className="block text-600 font-medium mb-3">TODAY</span>
+                            {/*<span className="block text-600 font-medium mb-3">TODAY</span>*/}
                             <ul className="p-0 mx-0 mt-0 mb-4 list-none">
                                 <li className="flex align-items-center py-2 border-bottom-1 surface-border">
                                     <div
                                         className="w-3rem h-3rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
-                                        <i className="pi pi-dollar text-xl text-blue-500"/>
+                                        <i className="pi pi-bell text-xl text-orange-500"/>
                                     </div>
-                                    <span className="text-900 line-height-3">
+                                    <span className="text-900 font-bold line-height-3">
                                 Richard Jones
-                                <span className="text-700">
+                                <span className="text-700 font-semibold">
                                     {' '}
                                     has purchased a blue t-shirt for <span className="text-blue-500">79$</span>
                                 </span>
                             </span>
                                 </li>
-                                <li className="flex align-items-center py-2">
-                                    <div
-                                        className="w-3rem h-3rem flex align-items-center justify-content-center bg-orange-100 border-circle mr-3 flex-shrink-0">
-                                        <i className="pi pi-download text-xl text-orange-500"/>
-                                    </div>
-                                    <span className="text-700 line-height-3">
-                                Your request for withdrawal of <span className="text-blue-500 font-medium">2500$</span> has been initiated.
-                            </span>
-                                </li>
-                            </ul>
-
-                            <span className="block text-600 font-medium mb-3">YESTERDAY</span>
-                            <ul className="p-0 m-0 list-none">
                                 <li className="flex align-items-center py-2 border-bottom-1 surface-border">
                                     <div
                                         className="w-3rem h-3rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
-                                        <i className="pi pi-dollar text-xl text-blue-500"/>
+                                        <i className="pi pi-bell text-xl text-orange-500"/>
                                     </div>
-                                    <span className="text-900 line-height-3">
-                                Keyser Wick
-                                <span className="text-700">
+                                    <span className="text-900 font-bold line-height-3">
+                                Richard Jones
+                                <span className="text-700 font-semibold">
                                     {' '}
-                                    has purchased a black jacket for <span className="text-blue-500">59$</span>
+                                    has purchased a blue t-shirt for <span className="text-blue-500">79$</span>
                                 </span>
                             </span>
                                 </li>
                                 <li className="flex align-items-center py-2 border-bottom-1 surface-border">
                                     <div
-                                        className="w-3rem h-3rem flex align-items-center justify-content-center bg-pink-100 border-circle mr-3 flex-shrink-0">
-                                        <i className="pi pi-question text-xl text-pink-500"/>
+                                        className="w-3rem h-3rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
+                                        <i className="pi pi-bell text-xl text-orange-500"/>
                                     </div>
-                                    <span className="text-900 line-height-3">
-                                Jane Davis
-                                <span className="text-700"> has posted a new questions about your product.</span>
+                                    <span className="text-900 font-bold line-height-3">
+                                Richard Jones
+                                <span className="text-700 font-semibold">
+                                    {' '}
+                                    has purchased a blue t-shirt for <span className="text-blue-500">79$</span>
+                                </span>
                             </span>
                                 </li>
+
                             </ul>
+
+
                         </div>
                         <div
                             className="px-4 py-5 shadow-2 flex flex-column md:flex-row md:align-items-center justify-content-between mb-3"
@@ -559,6 +554,17 @@ const Dashboard = () => {
                         </div>
                     </div>
                     <h3>Feedback List</h3>
+
+
+
+                    <Dialog header="Header" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
+                        <p className="m-0">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+                    </Dialog>
                 </>
             }
 

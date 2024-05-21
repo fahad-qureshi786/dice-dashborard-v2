@@ -47,7 +47,7 @@ const AppMenu = () => {
                     },
                 ]
             },
-            { label: '', items: [{ icon: 'pi pi-users', label: 'Client Details', to: '/client-detail' }] },
+            { label: '', items: [{ icon: 'pi pi-users', label: 'Customer', to: '/client-detail' }] },
             {
                 label: '', items: [
                     {

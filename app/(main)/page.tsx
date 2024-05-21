@@ -13,6 +13,7 @@ import {ChartOptions} from 'chart.js';
 import { useRouter } from 'next/navigation';
 import { TabView, TabPanel } from 'primereact/tabview';
 import  Calendar from "../(main)/calender/page"
+import {Badge} from "primereact/badge";
 
 const Dashboard = () => {
     const [products, setProducts] = useState<Demo.Product[]>([]);
@@ -22,6 +23,44 @@ const Dashboard = () => {
     const {layoutConfig} = useContext(LayoutContext);
     const [customers3, setCustomers3] = useState<Demo.Customer[]>([]);
     const router = useRouter()
+
+
+    const tableData = [
+        {
+            image: '1',
+            product: '123244345',
+            status: 'Active',
+            inventory: '58%',
+            salesChannels: '21/5/2024',
+            market: 'US',
+            category: 'Food',
+            vendor: 'Local Vendor',
+        },
+        {
+            image: '1',
+            product: '123244345',
+            status: 'Active',
+            inventory: '58%',
+            salesChannels: '21/5/2024',
+            market: 'US',
+            category: 'Food',
+            vendor: 'Local Vendor',
+        },
+        {
+            image: '1',
+            product: '123244345',
+            status: 'Active',
+            inventory: '58%',
+            salesChannels: '21/5/2024',
+            market: 'US',
+            category: 'Food',
+            vendor: 'Local Vendor',
+        },
+
+
+
+    ];
+
     const applyLightTheme = () => {
         const lineOptions: ChartOptions = {
             plugins: {
@@ -219,23 +258,110 @@ const Dashboard = () => {
                             <h5>Upcoming Orders</h5>
                             <TabView>
                               <TabPanel header={"List View"}>
-                            <DataTable value={products} rows={5} paginator responsiveLayout="scroll">
-                                <Column header="Image"
-                                        body={(data) => <img className="shadow-2" src={`/demo/images/product/${data.image}`}
-                                                             alt={data.image} width="50"/>}/>
-                                <Column field="name" header="Name" sortable style={{width: '35%'}}/>
-                                <Column field="price" header="Price" sortable style={{width: '35%'}}
-                                        body={(data) => formatCurrency(data.price)}/>
-                                <Column
-                                    header="View"
-                                    style={{width: '15%'}}
-                                    body={() => (
-                                        <>
-                                            <Button icon="pi pi-search text-white" text/>
-                                        </>
-                                    )}
-                                />
-                            </DataTable>
+
+                                  <table className="table-auto w-full">
+                                      <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
+                                      <tr>
+                                          <th className="p-2 whitespace-nowrap">
+                                              <div className="font-semibold text-left">
+                                                  {/* Add a label for the checkboxes */}
+                                                  <input type="checkbox" id="select-all"/>
+                                              </div>
+                                          </th>
+                                          <th className="p-2 whitespace-nowrap">
+                                              <div className="font-semibold text-left">Order Number</div>
+                                          </th>
+                                          <th className="p-2 whitespace-nowrap">
+                                              <div className="font-semibold text-center">Status</div>
+                                          </th>
+                                          <th className="p-2 whitespace-nowrap">
+                                              <div className="font-semibold text-center">Total Amount</div>
+                                          </th>
+                                          <th className="p-2 whitespace-nowrap">
+                                              <div className="font-semibold text-center">Order date</div>
+                                          </th>
+                                          {/*<th className="p-2 whitespace-nowrap">*/}
+                                          {/*    <div className="font-semibold text-center">Market</div>*/}
+                                          {/*</th>*/}
+                                          {/*<th className="p-2 whitespace-nowrap">*/}
+                                          {/*    <div className="font-semibold text-center">Category</div>*/}
+                                          {/*</th>*/}
+                                          {/*<th className="p-2 whitespace-nowrap">*/}
+                                          {/*    <div className="font-semibold text-center">Vendor</div>*/}
+                                          {/*</th>*/}
+                                          {/*<th className="p-2 whitespace-nowrap">*/}
+                                          {/*    <div className="font-semibold text-center">Operations</div>*/}
+                                          {/*</th>*/}
+                                      </tr>
+                                      </thead>
+                                      <tbody className="text-sm divide-y divide-gray-100">
+                                      {/* Loop through table data and render each row */}
+                                      {tableData.map((row, index) => (
+                                          <tr key={index}>
+                                              <td className="p-2 whitespace-nowrap">
+                                                  <input type="checkbox"/>
+                                              </td>
+                                              <td className="p-2 d-flex flex justify-content-start align-items-center">
+                                                  <div className={"p-2"}>
+                                                      {/*<img style={{borderRadius: '10px'}} src={"/myimages/image.jpg"} alt="Product" width={35} height={30}/>*/}
+                                                  </div>
+                                                  <div className="text-left">{row.product}</div>
+                                              </td>
+                                              <td className="p-2 whitespace-nowrap">
+                                                  <div className="text-center">
+                                                      <Badge value="Active" severity="success"/>
+                                                  </div>
+                                              </td>
+                                              <td className="p-2 whitespace-nowrap">
+                                                  <div className="text-center">{row.inventory}</div>
+                                              </td>
+                                              <td className="p-2 whitespace-nowrap">
+                                                  <div className="text-center">{row.salesChannels}</div>
+                                              </td>
+                                              {/*<td className="p-2 whitespace-nowrap">*/}
+                                              {/*    <div className="text-center">{row.market}</div>*/}
+                                              {/*</td>*/}
+                                              {/*<td className="p-2 whitespace-nowrap">*/}
+                                              {/*    <div className="text-center">{row.category}</div>*/}
+                                              {/*</td>*/}
+                                              {/*<td className="p-2 whitespace-nowrap">*/}
+                                              {/*    <div className="text-center">{row.vendor}</div>*/}
+                                              {/*</td>*/}
+                                              {/*<td className="p-2 whitespace-nowrap">*/}
+                                              {/*    <span className={"pa pa-icon"}></span>*/}
+                                              {/*</td>*/}
+                                          </tr>
+                                      ))}
+                                      </tbody>
+                                  </table>
+
+
+                            {/*<DataTable value={products} rows={5} paginator responsiveLayout="scroll">*/}
+                            {/*    <Column header="Order Number"*/}
+                            {/*            body={(data) => <img className="shadow-2" src={`/demo/images/product/${data.image}`}*/}
+                            {/*                                 alt={data.image} width="50"/>}/>*/}
+                            {/*    <Column field="name" header="Status" sortable style={{width: '35%'}}/>*/}
+                            {/*    <Column field="price" header="Total Amount" sortable style={{width: '35%'}}*/}
+                            {/*            body={(data) => formatCurrency(data.price)}/>*/}
+                            {/*    <Column*/}
+                            {/*        header="Order date"*/}
+                            {/*        style={{width: '15%'}}*/}
+                            {/*        body={() => (*/}
+                            {/*            <>*/}
+                            {/*                <Button icon="pi pi-search text-white" text/>*/}
+                            {/*            </>*/}
+                            {/*        )}*/}
+                            {/*    />*/}
+                            {/*    <Column*/}
+                            {/*        header="View"*/}
+                            {/*        style={{width: '15%'}}*/}
+                            {/*        body={() => (*/}
+                            {/*            <>*/}
+                            {/*                <Button icon="pi pi-search text-white" text/>*/}
+                            {/*            </>*/}
+                            {/*        )}*/}
+                            {/*    />*/}
+                            {/*</DataTable>*/}
                               </TabPanel>
                                 <TabPanel header={"Calendar View"}>
                                     <Calendar/>

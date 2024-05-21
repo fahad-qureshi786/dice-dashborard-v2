@@ -5,21 +5,23 @@ import React from 'react';
 import { Dropdown } from 'primereact/dropdown';
 import Link from "next/link";
 import {Button} from "primereact/button";
+import { InputText } from 'primereact/inputtext';
+import { InputTextarea } from 'primereact/inputtextarea';
 import {Dialog} from "primereact/dialog"
 const ProductTable = () => {
+    const [selectedCity, setSelectedCity] = useState(null);
+    const cities = [
+        { name: 'Vendor', code: '' },
+        { name: 'Drivers', code: '' }
+
+    ];
 
     const tableDataD = [
         {
-            name: 'Pizza Place',
-            location: 'New York, NY',
-            cuisine: 'Italian',
-            vendorDetails: 'Details about Pizza Place',
-            pocName: 'John Doe',
-            pocNumber: '123-456-7890',
-            restaurantNumber: '101',
-            menu: 'Pizza, Pasta, Salad',
-            pastOrders: 'Order 1, Order 2',
-            upcomingOrders: 'Order 3, Order 4',
+            name: 'POC Name',
+            location: 'Poc Number',
+            cuisine: 'Restaurant number',
+
         },
         {
             name: 'Burger Joint',
@@ -123,6 +125,10 @@ const ProductTable = () => {
 
             <h3 className={"my-2 font-bold text-4xl"}>Resources</h3>
             <div className={"flex justify-content-end  m-4"}>
+                <div className=" mx-4 flex justify-content-center">
+                    <Dropdown value={selectedCity} onChange={(e) => setSelectedCity(e.value)} options={cities} optionLabel="name"
+                              placeholder="Vendor" className="w-full md:w-14rem" />
+                </div>
                 <Link href={""}>
                     <Button onClick={() => setVisible(true)} style={{ backgroundColor: '#FF8A38', border: "none", color: 'white',  margin:"2px" }} primary>
                         Add Resource
@@ -193,14 +199,53 @@ const ProductTable = () => {
         </table>
 
             <div className=" flex justify-content-center">
-                <Dialog header="Header" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
-                    <p className="m-0">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                </Dialog>
+                <div>
+                    {/*<Button label="Show Dialog" icon="pi pi-external-link" onClick={() => setVisible(true)} />*/}
+                    <Dialog header="Vendor Details" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
+                        <div className="p-fluid">
+                            <div className="p-field my-2 ">
+                                <label htmlFor="name" className={"py-2"}>Name</label>
+                                <InputText id="name" />
+                            </div>
+                            <div className="p-field my-2">
+                                <label htmlFor="location">Location (city, state)</label>
+                                <InputText id="location" className={"mb-2"} />
+                            </div>
+                            <div className="p-field my-2">
+                                <label htmlFor="cuisine">Cuisine</label>
+                                <InputText id="cuisine" />
+                            </div>
+                            <div className="p-field my-2">
+                                <label htmlFor="details">Vendor details</label>
+                                <InputTextarea id="details" rows={3} />
+                            </div>
+                            <div className="p-field my-2">
+                                <label htmlFor="pocName">POC name</label>
+                                <InputText id="pocName" />
+                            </div>
+                            <div className="p-field my-2">
+                                <label htmlFor="pocNumber">POC number</label>
+                                <InputText id="pocNumber" />
+                            </div>
+                            <div className="p-field my-2">
+                                <label htmlFor="restaurantNumber">Restaurant number</label>
+                                <InputText id="restaurantNumber" />
+                            </div>
+                            <div className="p-field my-2">
+                                <label htmlFor="menu">Menu</label>
+                                <InputTextarea id="menu" rows={3} />
+                            </div>
+                        </div>
+                        <div className={"flex justify-content-center "}>
+                            <Button onClick={() => setVisible(true)} style={{ backgroundColor: '#FF8A38', border: "none", color: 'white',  margin:"2px" }} primary>
+                                Submit
+                            </Button>
+
+
+                        </div>
+
+                    </Dialog>
+                </div>
             </div>
     </div>
     );

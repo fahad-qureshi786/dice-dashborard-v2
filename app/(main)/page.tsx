@@ -472,7 +472,7 @@ const Dashboard = () => {
                     </div>
                     <div className="col-12 xl:col-6">
                         <div className="card overflow-y-scroll " style={{height: "50%"}}>
-                            <div className="flex align-items-center sticky justify-content-between mb-4">
+                            <div className="flex align-items-center justify-content-between mb-4">
                                 <h5>Notifications and Tasks</h5>
                                 {/*<div>*/}
                                 {/*    <Button type="button" icon="pi pi-ellipsis-v" rounded text className="p-button-plain text-white"*/}
@@ -558,12 +558,14 @@ const Dashboard = () => {
 
 
                     <Dialog header="Header" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
-                        <p className="m-0">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
+                       <div>
+                           <div className={"flex my-4 p-4 justify-content-between"} >
+                               <span>Order Number: 232323</span>
+                               <span>Card Number:343434</span>
+
+
+                           </div>
+                       </div>
                     </Dialog>
                 </>
             }

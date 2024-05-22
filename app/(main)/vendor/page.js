@@ -89,10 +89,10 @@ const ProductTable = () => {
 
             <h3 className={"my-2 font-bold text-4xl"}>Resources</h3>
             <div className={"flex justify-content-end  m-4"}>
-                <div className=" mx-4 flex justify-content-center">
-                    <Dropdown value={selectedCity} onChange={(e) => setSelectedCity(e.value)} options={cities} optionLabel="name"
-                              placeholder="Vendor" className="w-full md:w-14rem" />
-                </div>
+                {/*<div className=" mx-4 flex justify-content-center">*/}
+                {/*    <Dropdown value={selectedCity} onChange={(e) => setSelectedCity(e.value)} options={cities} optionLabel="name"*/}
+                {/*              placeholder="Vendor" className="w-full md:w-14rem" />*/}
+                {/*</div>*/}
                 <Link href={""}>
                     <Button onClick={() => setVisible(true)} style={{ backgroundColor: '#FF8A38', border: "none", color: 'white',  margin:"2px" }} primary>
                         Add Resource

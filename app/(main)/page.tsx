@@ -396,9 +396,7 @@ const Dashboard = () => {
                        <div>
                            <div className={"flex my-4 p-4 justify-content-between"} >
                                <span className={"font-bold"}>Order Number: 232323</span>
-                               <span className={"font-bold"}>Cart Number:  <Button onClick={() => setVisible(true)} style={{ backgroundColor: '#FF8A38', border: "none", color: 'white',  margin:"2px" }} primary>
-                        Add Resource
-                    </Button>343434</span>
+                               <span className={"font-bold"}>Cart Number:  343434</span>
                            </div>
                                <div className="card">
                                    <div className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">

@@ -52,16 +52,15 @@ const ProductTable = () => {
         },
     ];
 
-    const [selectedVendor, setSelectedVendor] = useState(null);
+    const [selectedVendor, setSelectedVendor] = useState(false);
     const [visible, setVisible] = useState(false);
+    const [selectedDriver, setSelectedDriver] = useState(false);
     const vendorOptions = tableDataD.map((vendor, index) => ({
         label: vendor.name,
         value: index,
     }));
 
-    const handleVendorChange = (e) => {
-        setSelectedVendor(tableData[e.value]);
-    };
+
 
     const tableData = [
         {
@@ -69,7 +68,7 @@ const ProductTable = () => {
             name: 'Jon',
             location: 'Active',
             cuisine: '50',
-            vendorDetail: <div> <div onClick={() => setVisible(true)} > <Link href={"#"} className={"font-bold text-orange-500 "}>View detail</Link> </div> </div>,
+            vendorDetail: <div> <div onClick={() => setSelectedVendor(true)} > <Link href={""}  className={"font-bold text-orange-500 "}>View detail</Link> </div> </div>,
         }
     ];
 
@@ -79,7 +78,7 @@ const ProductTable = () => {
             name: 'Mr bean',
             location: 'Active',
             cuisine: '90',
-            driversDetail: <div> <div onClick={() => setVisible(true)} > <Link href={"#"} className={"font-bold text-orange-500 "}>View detail</Link> </div> </div>,
+            driversDetail: <div> <div onClick={() => setSelectedDriver(true)} > <Link href={"#"} className={"font-bold text-orange-500 "}>View detail</Link> </div> </div>,
         }
     ];
 
@@ -175,17 +174,17 @@ const ProductTable = () => {
                             <th className="p-2 whitespace-nowrap">
                                 <div className="font-semibold text-center">Cuisine</div>
                             </th>
+                            {/*<th className="p-2 whitespace-nowrap">*/}
+                            {/*    <div className="font-semibold text-center">Drivers details</div>*/}
+                            {/*</th>*/}
                             <th className="p-2 whitespace-nowrap">
                                 <div className="font-semibold text-center">Drivers details</div>
                             </th>
-                            {/*<th className="p-2 whitespace-nowrap">*/}
-                            {/*    <div className="font-semibold text-center">Drivers</div>*/}
-                            {/*</th>*/}
 
                         </tr>
                         </thead>
                         <tbody className="text-sm divide-y divide-gray-100">
-                        {tableData.map((row, index) => (
+                        {driverstableData.map((row, index) => (
                             <tr key={index}>
 
                                 <td className="p-2 d-flex flex justify-content-start align-items-center">
@@ -201,11 +200,11 @@ const ProductTable = () => {
                                 <td className="p-2 whitespace-nowrap">
                                     <div className="text-center">{row.cuisine}</div>
                                 </td>
+                                {/*<td className="p-2 whitespace-nowrap">*/}
+                                {/*    <div className="text-center">{row.vendorDetail}</div>*/}
+                                {/*</td>*/}
                                 <td className="p-2 whitespace-nowrap">
-                                    <div className="text-center">{row.vendorDetail}</div>
-                                </td>
-                                <td className="p-2 whitespace-nowrap">
-                                    <div className="text-center">{row.drivers}</div>
+                                    <div className="text-center">{row.driversDetail}</div>
                                 </td>
                                 {/*<td className="p-2 whitespace-nowrap">*/}
                                 {/*    <div className="text-center">{row.vendor}</div>*/}
@@ -272,6 +271,18 @@ const ProductTable = () => {
 
                     </Dialog>
                 </div>
+            </div>
+
+            <div>
+                <Dialog header="Vendor Details" visible={selectedVendor} style={{ width: '50vw' }} onHide={() => setSelectedVendor(false)}>
+                    <div>hi</div>
+                </Dialog>
+            </div>
+
+            <div>
+                <Dialog header="Drivers Details" visible={selectedDriver} style={{ width: '50vw' }} onHide={() => setSelectedDriver(false)}>
+                    <div>drivers</div>
+                </Dialog>
             </div>
     </div>
     );

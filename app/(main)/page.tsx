@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+
 'use client';
 import {Button} from 'primereact/button';
 import {Column} from 'primereact/column';
@@ -16,6 +16,7 @@ import  Calendar from "../(main)/calender/page"
 import {Badge} from "primereact/badge";
 import { Dialog } from 'primereact/dialog';
 const Dashboard = () => {
+
     const [products, setProducts] = useState<Demo.Product[]>([]);
     const menu1 = useRef<Menu>(null);
     const menu2 = useRef<Menu>(null);
@@ -24,12 +25,13 @@ const Dashboard = () => {
     const [customers3, setCustomers3] = useState<Demo.Customer[]>([]);
     const router = useRouter()
     const [visible, setVisible] = useState(false);
+    const [items, setItems] = useState([]);
     const sampleData = [
         { code: 'A1', name: 'Item 1', category: 'Category 1', quantity: 10, randomField1: 'Random Data 1', randomField2: 'Random Data 2' },
         { code: 'B2', name: 'Item 2', category: 'Category 2', quantity: 20, randomField1: 'Random Data 3', randomField2: 'Random Data 4' }
     ];
 
-    const [items, setItems] = useState([]);
+
 
     useEffect(() => {
         setItems(sampleData);
@@ -72,69 +74,69 @@ const Dashboard = () => {
 
     ];
 
-    const applyLightTheme = () => {
-        const lineOptions: ChartOptions = {
-            plugins: {
-                legend: {
-                    labels: {
-                        color: '#495057'
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: '#495057'
-                    },
-                    grid: {
-                        color: '#ebedef'
-                    }
-                },
-                y: {
-                    ticks: {
-                        color: '#495057'
-                    },
-                    grid: {
-                        color: '#ebedef'
-                    }
-                }
-            }
-        };
-
-        setLineOptions(lineOptions);
-    };
-
-    const applyDarkTheme = () => {
-        const lineOptions = {
-            plugins: {
-                legend: {
-                    labels: {
-                        color: '#ebedef'
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: '#ebedef'
-                    },
-                    grid: {
-                        color: 'rgba(160, 167, 181, .3)'
-                    }
-                },
-                y: {
-                    ticks: {
-                        color: '#ebedef'
-                    },
-                    grid: {
-                        color: 'rgba(160, 167, 181, .3)'
-                    }
-                }
-            }
-        };
-
-        setLineOptions(lineOptions);
-    };
+    // const applyLightTheme = () => {
+    //     const lineOptions: ChartOptions = {
+    //         plugins: {
+    //             legend: {
+    //                 labels: {
+    //                     color: '#495057'
+    //                 }
+    //             }
+    //         },
+    //         scales: {
+    //             x: {
+    //                 ticks: {
+    //                     color: '#495057'
+    //                 },
+    //                 grid: {
+    //                     color: '#ebedef'
+    //                 }
+    //             },
+    //             y: {
+    //                 ticks: {
+    //                     color: '#495057'
+    //                 },
+    //                 grid: {
+    //                     color: '#ebedef'
+    //                 }
+    //             }
+    //         }
+    //     };
+    //
+    //     setLineOptions(lineOptions);
+    // };
+    //
+    // const applyDarkTheme = () => {
+    //     const lineOptions = {
+    //         plugins: {
+    //             legend: {
+    //                 labels: {
+    //                     color: '#ebedef'
+    //                 }
+    //             }
+    //         },
+    //         scales: {
+    //             x: {
+    //                 ticks: {
+    //                     color: '#ebedef'
+    //                 },
+    //                 grid: {
+    //                     color: 'rgba(160, 167, 181, .3)'
+    //                 }
+    //             },
+    //             y: {
+    //                 ticks: {
+    //                     color: '#ebedef'
+    //                 },
+    //                 grid: {
+    //                     color: 'rgba(160, 167, 181, .3)'
+    //                 }
+    //             }
+    //         }
+    //     };
+    //
+    //     setLineOptions(lineOptions);
+    // };
 
     useEffect(() => {
         if(!sessionStorage.getItem("user")){
@@ -186,20 +188,20 @@ const Dashboard = () => {
         return <span className={`customer-badge status-${rowData.status}`}>{rowData.status}</span>;
     };
 
-    useEffect(() => {
-        if (layoutConfig.colorScheme === 'light') {
-            applyLightTheme();
-        } else {
-            applyDarkTheme();
-        }
-    }, [layoutConfig.colorScheme]);
+    // useEffect(() => {
+    //     if (layoutConfig.colorScheme === 'light') {
+    //         applyLightTheme();
+    //     } else {
+    //         applyDarkTheme();
+    //     }
+    // }, [layoutConfig.colorScheme]);
 
-    const formatCurrency = (value: number) => {
-        return value?.toLocaleString('en-US', {
-            style: 'currency',
-            currency: 'USD'
-        });
-    };
+    // const formatCurrency = (value: number) => {
+    //     return value?.toLocaleString('en-US', {
+    //         style: 'currency',
+    //         currency: 'USD'
+    //     });
+    // };
 
     return (
         <div className="grid">

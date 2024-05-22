@@ -8,7 +8,8 @@ import {Button} from "primereact/button";
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import {Dialog} from "primereact/dialog";
-
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
 import { TabView, TabPanel } from 'primereact/tabview';
 
 const ProductTable = () => {
@@ -60,7 +61,27 @@ const ProductTable = () => {
         value: index,
     }));
 
+    const [vendors, setVendors] = useState([
+        {
+            id: 1,
+            name: 'Alex',
+            pocName: 'John Doe',
+            pocNumber: '123-456-7890',
+            restaurantNumber: '987-654-3210',
+            menu: ['Burger', 'Pizza', 'Salad']
+        }
+    ]);
 
+    const [drivers, setDrivers] = useState([
+        {
+            id: 1,
+            name: 'jonny',
+            pocName: 'John Doe',
+            pocNumber: '123-456-7890',
+            restaurantNumber: '987-654-3210',
+            menu: ['Cash']
+        }
+    ]);
 
     const tableData = [
         {
@@ -274,14 +295,47 @@ const ProductTable = () => {
             </div>
 
             <div>
-                <Dialog header="Vendor Details" visible={selectedVendor} style={{ width: '50vw' }} onHide={() => setSelectedVendor(false)}>
-                    <div>hi</div>
+                <Dialog header="" visible={selectedVendor} style={{ width: '50vw' }} onHide={() => setSelectedVendor(false)}>
+                    <h2 className="text-2xl font-bold mb-4">Vendor Details</h2>
+                    <div className="bg-white shadow-md rounded-lg overflow-hidden">
+                        {vendors.map((vendor) => (
+                            <div key={vendor.id} className="border-b last:border-0 p-4">
+                                <h3 className="text-xl font-semibold">{vendor.name}</h3>
+                                <p><span className="font-medium">POC Name:</span> {vendor.pocName}</p>
+                                <p><span className="font-medium">POC Number:</span> {vendor.pocNumber}</p>
+                                <p><span className="font-medium">Restaurant Number:</span> {vendor.restaurantNumber}</p>
+                                <p className="font-medium">Menu:</p>
+                                <ul className="list-disc list-inside ml-4">
+                                    {vendor.menu.map((item, index) => (
+                                        <li key={index}>{item}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
+
                 </Dialog>
             </div>
 
             <div>
-                <Dialog header="Drivers Details" visible={selectedDriver} style={{ width: '50vw' }} onHide={() => setSelectedDriver(false)}>
-                    <div>drivers</div>
+                <Dialog header="" visible={selectedDriver} style={{ width: '50vw' }} onHide={() => setSelectedDriver(false)}>
+                    <h2 className="text-2xl font-bold mb-4">Drivers Details</h2>
+                    <div className="bg-white shadow-md rounded-lg overflow-hidden">
+                        {drivers.map((vendor) => (
+                            <div key={vendor.id} className="border-b last:border-0 p-4">
+                                {/*<h3 className="text-xl font-semibold">{vendor.name}</h3>*/}
+                                <p><span className="font-medium">Name:</span> {vendor.pocName}</p>
+                                <p><span className="font-medium">Phoen Number:</span> {vendor.pocNumber}</p>
+                                <p><span className="font-medium">Details:</span> Detail here</p>
+                                <p className="font-medium">Payment:</p>
+                                <ul className="list-disc list-inside ml-4">
+                                    {vendor.menu.map((item, index) => (
+                                        <li key={index}>{item}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
                 </Dialog>
             </div>
     </div>

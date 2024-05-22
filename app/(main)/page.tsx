@@ -24,7 +24,16 @@ const Dashboard = () => {
     const [customers3, setCustomers3] = useState<Demo.Customer[]>([]);
     const router = useRouter()
     const [visible, setVisible] = useState(false);
+    const sampleData = [
+        { code: 'A1', name: 'Item 1', category: 'Category 1', quantity: 10, randomField1: 'Random Data 1', randomField2: 'Random Data 2' },
+        { code: 'B2', name: 'Item 2', category: 'Category 2', quantity: 20, randomField1: 'Random Data 3', randomField2: 'Random Data 4' }
+    ];
 
+    const [items, setItems] = useState([]);
+
+    useEffect(() => {
+        setItems(sampleData);
+    }, []);
 
 
     const tableData = [
@@ -562,9 +571,18 @@ const Dashboard = () => {
                            <div className={"flex my-4 p-4 justify-content-between"} >
                                <span>Order Number: 232323</span>
                                <span>Card Number:343434</span>
-
-
                            </div>
+                               <div className="card">
+                                   <DataTable value={items} responsiveLayout="scroll">
+                                       <Column field="code" header="Code"></Column>
+                                       <Column field="name" header="Name"></Column>
+                                       <Column field="category" header="Category"></Column>
+                                       <Column field="quantity" header="Quantity"></Column>
+                                   </DataTable>
+                               </div>
+
+
+
                        </div>
                     </Dialog>
                 </>

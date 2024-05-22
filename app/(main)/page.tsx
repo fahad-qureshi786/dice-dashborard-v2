@@ -1,4 +1,3 @@
-
 'use client';
 import {Button} from 'primereact/button';
 import {Column} from 'primereact/column';
@@ -20,22 +19,12 @@ const Dashboard = () => {
     const [products, setProducts] = useState<Demo.Product[]>([]);
     const menu1 = useRef<Menu>(null);
     const menu2 = useRef<Menu>(null);
-    const [lineOptions, setLineOptions] = useState<ChartOptions>({});
-    const {layoutConfig} = useContext(LayoutContext);
-    const [customers3, setCustomers3] = useState<Demo.Customer[]>([]);
+    // const [lineOptions, setLineOptions] = useState<ChartOptions>({});
+    // const {layoutConfig} = useContext(LayoutContext);
+    // const [customers3, setCustomers3] = useState<Demo.Customer[]>([]);
     const router = useRouter()
     const [visible, setVisible] = useState(false);
-    const [items, setItems] = useState([]);
-    const sampleData = [
-        { code: 'A1', name: 'Item 1', category: 'Category 1', quantity: 10, randomField1: 'Random Data 1', randomField2: 'Random Data 2' },
-        { code: 'B2', name: 'Item 2', category: 'Category 2', quantity: 20, randomField1: 'Random Data 3', randomField2: 'Random Data 4' }
-    ];
 
-
-
-    useEffect(() => {
-        setItems(sampleData);
-    }, []);
 
 
     const tableData = [
@@ -74,69 +63,7 @@ const Dashboard = () => {
 
     ];
 
-    // const applyLightTheme = () => {
-    //     const lineOptions: ChartOptions = {
-    //         plugins: {
-    //             legend: {
-    //                 labels: {
-    //                     color: '#495057'
-    //                 }
-    //             }
-    //         },
-    //         scales: {
-    //             x: {
-    //                 ticks: {
-    //                     color: '#495057'
-    //                 },
-    //                 grid: {
-    //                     color: '#ebedef'
-    //                 }
-    //             },
-    //             y: {
-    //                 ticks: {
-    //                     color: '#495057'
-    //                 },
-    //                 grid: {
-    //                     color: '#ebedef'
-    //                 }
-    //             }
-    //         }
-    //     };
-    //
-    //     setLineOptions(lineOptions);
-    // };
-    //
-    // const applyDarkTheme = () => {
-    //     const lineOptions = {
-    //         plugins: {
-    //             legend: {
-    //                 labels: {
-    //                     color: '#ebedef'
-    //                 }
-    //             }
-    //         },
-    //         scales: {
-    //             x: {
-    //                 ticks: {
-    //                     color: '#ebedef'
-    //                 },
-    //                 grid: {
-    //                     color: 'rgba(160, 167, 181, .3)'
-    //                 }
-    //             },
-    //             y: {
-    //                 ticks: {
-    //                     color: '#ebedef'
-    //                 },
-    //                 grid: {
-    //                     color: 'rgba(160, 167, 181, .3)'
-    //                 }
-    //             }
-    //         }
-    //     };
-    //
-    //     setLineOptions(lineOptions);
-    // };
+
 
     useEffect(() => {
         if(!sessionStorage.getItem("user")){
@@ -146,64 +73,7 @@ const Dashboard = () => {
         }
     }, []);
 
-    const headerTemplate = (data: Demo.Customer) => {
-        return (
-            <React.Fragment>
-                <span className="font-bold ml-2">{data.representative.name}</span>
-            </React.Fragment>
-        );
-    };
-    const footerTemplate = (data: Demo.Customer) => {
-        return (
-            <React.Fragment>
-                <td colSpan={4} style={{ textAlign: 'right' }} className="text-bold pr-6">
-                    Total Customers
-                </td>
-                <td>{calculateCustomerTotal(data.representative.name)}</td>
-            </React.Fragment>
-        );
-    };
-    const calculateCustomerTotal = (name: string) => {
-        let total = 0;
-
-        if (customers3) {
-            for (let customer of customers3) {
-                if (customer.representative.name === name) {
-                    total++;
-                }
-            }
-        }
-
-        return total;
-    };
-    const countryBodyTemplate = (rowData: Demo.Customer) => {
-        return (
-            <React.Fragment>
-                <img alt="flag" src={`/demo/images/flag/flag_placeholder.png`} className={`flag flag-${rowData.country.code}`} width={30} />
-                <span style={{ marginLeft: '.5em', verticalAlign: 'middle' }}>{rowData.country.name}</span>
-            </React.Fragment>
-        );
-    };
-    const statusBodyTemplate = (rowData: Demo.Customer) => {
-        return <span className={`customer-badge status-${rowData.status}`}>{rowData.status}</span>;
-    };
-
-    // useEffect(() => {
-    //     if (layoutConfig.colorScheme === 'light') {
-    //         applyLightTheme();
-    //     } else {
-    //         applyDarkTheme();
-    //     }
-    // }, [layoutConfig.colorScheme]);
-
-    // const formatCurrency = (value: number) => {
-    //     return value?.toLocaleString('en-US', {
-    //         style: 'currency',
-    //         currency: 'USD'
-    //     });
-    // };
-
-    return (
+       return (
         <div className="grid">
             {
                 !sessionStorage.getItem("user") ? <h3 className="text-center h-auto w-auto">Login Needed</h3> : <>
@@ -263,16 +133,13 @@ const Dashboard = () => {
                             </div>
                         </div>
                     </div>
-<div className="col-12 xl:col-12">
 
-
-
+                    <div className="col-12 xl:col-12">
                         <div className="card">
                             <h5>Upcoming Orders</h5>
                             <TabView>
                               <TabPanel header={"List View"}>
-
-                                  <table className="table-auto w-full">
+                              <table className="table-auto w-full">
                                       <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
                                       <tr>
                                           <th className="p-2 whitespace-nowrap">
@@ -337,51 +204,18 @@ const Dashboard = () => {
                                               {/*<td className="p-2 whitespace-nowrap">*/}
                                               {/*    <div className="text-center">{row.category}</div>*/}
                                               {/*</td>*/}
-                                              {/*<td className="p-2 whitespace-nowrap">*/}
-                                              {/*    <div className="text-center">{row.vendor}</div>*/}
-                                              {/*</td>*/}
-                                              {/*<td className="p-2 whitespace-nowrap">*/}
-                                              {/*    <span className={"pa pa-icon"}></span>*/}
-                                              {/*</td>*/}
                                           </tr>
                                       ))}
                                       </tbody>
-                                  </table>
-
-
-                            {/*<DataTable value={products} rows={5} paginator responsiveLayout="scroll">*/}
-                            {/*    <Column header="Order Number"*/}
-                            {/*            body={(data) => <img className="shadow-2" src={`/demo/images/product/${data.image}`}*/}
-                            {/*                                 alt={data.image} width="50"/>}/>*/}
-                            {/*    <Column field="name" header="Status" sortable style={{width: '35%'}}/>*/}
-                            {/*    <Column field="price" header="Total Amount" sortable style={{width: '35%'}}*/}
-                            {/*            body={(data) => formatCurrency(data.price)}/>*/}
-                            {/*    <Column*/}
-                            {/*        header="Order date"*/}
-                            {/*        style={{width: '15%'}}*/}
-                            {/*        body={() => (*/}
-                            {/*            <>*/}
-                            {/*                <Button icon="pi pi-search text-white" text/>*/}
-                            {/*            </>*/}
-                            {/*        )}*/}
-                            {/*    />*/}
-                            {/*    <Column*/}
-                            {/*        header="View"*/}
-                            {/*        style={{width: '15%'}}*/}
-                            {/*        body={() => (*/}
-                            {/*            <>*/}
-                            {/*                <Button icon="pi pi-search text-white" text/>*/}
-                            {/*            </>*/}
-                            {/*        )}*/}
-                            {/*    />*/}
-                            {/*</DataTable>*/}
+                              </table>
                               </TabPanel>
                                 <TabPanel header={"Calendar View"}>
                                     <Calendar/>
                                 </TabPanel>
                             </TabView>
                         </div>
-</div>
+                    </div>
+
                     <div className="col-12 xl:col-6">
                         <div className="card">
                             <div className="flex justify-content-between align-items-center mb-5">
@@ -481,25 +315,15 @@ const Dashboard = () => {
                             </ul>
                         </div>
                     </div>
+
                     <div className="col-12 xl:col-6">
                         <div className="card overflow-y-scroll " style={{height: "50%"}}>
                             <div className="flex align-items-center justify-content-between mb-4">
                                 <h5>Notifications and Tasks</h5>
-                                {/*<div>*/}
-                                {/*    <Button type="button" icon="pi pi-ellipsis-v" rounded text className="p-button-plain text-white"*/}
-                                {/*            onClick={(event) => menu2.current?.toggle(event)}/>*/}
-                                {/*    <Menu*/}
-                                {/*        ref={menu2}*/}
-                                {/*        popup*/}
-                                {/*        model={[*/}
-                                {/*            {label: 'Add New', icon: 'pi pi-fw pi-plus'},*/}
-                                {/*            {label: 'Remove', icon: 'pi pi-fw pi-minus'}*/}
-                                {/*        ]}*/}
-                                {/*    />*/}
-                                {/*</div>*/}
+
                             </div>
 
-                            {/*<span className="block text-600 font-medium mb-3">TODAY</span>*/}
+
                             <ul className="p-0 mx-0 mt-0 mb-4 list-none">
                                 <li className="flex align-items-center py-2 border-bottom-1 surface-border">
                                     <div
@@ -571,16 +395,66 @@ const Dashboard = () => {
                     <Dialog header="Header" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
                        <div>
                            <div className={"flex my-4 p-4 justify-content-between"} >
-                               <span>Order Number: 232323</span>
-                               <span>Card Number:343434</span>
+                               <span className={"font-bold"}>Order Number: 232323</span>
+                               <span className={"font-bold"}>Cart Number: 343434</span>
                            </div>
                                <div className="card">
-                                   <DataTable value={items} responsiveLayout="scroll">
-                                       <Column field="code" header="Code"></Column>
-                                       <Column field="name" header="Name"></Column>
-                                       <Column field="category" header="Category"></Column>
-                                       <Column field="quantity" header="Quantity"></Column>
-                                   </DataTable>
+                                   <div className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
+                                       <div className="p-3">
+                                           <div className="overflow-x-auto">
+                                               <table className="table-auto w-full">
+                                                   <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
+                                                   <tr>
+
+                                                       <th className="p-2 whitespace-nowrap">
+                                                           <div className="font-semibold text-left">Product Name</div>
+                                                       </th>
+                                                       <th className="p-2 whitespace-nowrap">
+                                                           <div className="font-semibold text-center">Status</div>
+                                                       </th>
+                                                       <th className="p-2 whitespace-nowrap">
+                                                           <div className="font-semibold text-center">Inventory</div>
+                                                       </th>
+                                                       <th className="p-2 whitespace-nowrap">
+                                                           <div className="font-semibold text-center">Sales Channels</div>
+                                                       </th>
+
+                                                   </tr>
+                                                   </thead>
+                                                   <tbody className="text-sm divide-y divide-gray-100">
+                                                   {/* Loop through table data and render each row */}
+                                                   {tableData.map((row, index) => (
+                                                       <tr key={index}>
+
+                                                           <td className="p-2 d-flex flex justify-content-start align-items-center">
+                                                               <div className={"p-2"}>
+                                                                   <img style={{borderRadius: '10px'}} src={"/myimages/image.jpg"} alt="Product" width={35} height={30}/>
+                                                               </div>
+                                                               <div className="text-left">{row.product}</div>
+                                                           </td>
+                                                           <td className="p-2 whitespace-nowrap">
+                                                               <div className="text-center">
+                                                                   <Badge value="Active" severity="success"/>
+                                                               </div>
+                                                           </td>
+                                                           <td className="p-2 whitespace-nowrap">
+                                                               <div className="text-center">{row.inventory}</div>
+                                                           </td>
+                                                           <td className="p-2 whitespace-nowrap">
+                                                               <div className="text-center">{row.salesChannels}</div>
+                                                           </td>
+
+                                                           <td className="p-2 whitespace-nowrap">
+                                                               <span className={"pa pa-icon"}></span>
+                                                           </td>
+                                                       </tr>
+                                                   ))}
+                                                   </tbody>
+                                               </table>
+                                           </div>
+
+                                       </div>
+                                   </div>
                                </div>
 
 

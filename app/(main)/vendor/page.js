@@ -7,7 +7,10 @@ import Link from "next/link";
 import {Button} from "primereact/button";
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
-import {Dialog} from "primereact/dialog"
+import {Dialog} from "primereact/dialog";
+
+import { TabView, TabPanel } from 'primereact/tabview';
+
 const ProductTable = () => {
     const [selectedCity, setSelectedCity] = useState(null);
     const cities = [
@@ -199,6 +202,16 @@ const ProductTable = () => {
             </tbody>
         </table>
 
+            <TabView>
+                <TabPanel header={"Vendor"}>
+                    hi
+                </TabPanel>
+
+            </TabView>
+
+
+
+            {/* Dialoge Box*/}
             <div className=" flex justify-content-center">
                 <div>
                     {/*<Button label="Show Dialog" icon="pi pi-external-link" onClick={() => setVisible(true)} />*/}

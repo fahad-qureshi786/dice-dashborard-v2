@@ -14,12 +14,14 @@ import { TabView, TabPanel } from 'primereact/tabview';
 import  Calendar from "../(main)/calender/page"
 import {Badge} from "primereact/badge";
 import { Dialog } from 'primereact/dialog';
+import { InputText } from 'primereact/inputtext';
+import { InputTextarea } from 'primereact/inputtextarea';
 const Dashboard = () => {
 
     const [products, setProducts] = useState<Demo.Product[]>([]);
     const menu1 = useRef<Menu>(null);
     const menu2 = useRef<Menu>(null);
-    // const [lineOptions, setLineOptions] = useState<ChartOptions>({});
+     const [reminderbox, setReminderbox] = useState(false);
     // const {layoutConfig} = useContext(LayoutContext);
     // const [customers3, setCustomers3] = useState<Demo.Customer[]>([]);
     const router = useRouter()
@@ -216,100 +218,105 @@ const Dashboard = () => {
                         </div>
                     </div>
 
-                    <div className="col-12 xl:col-6">
-                        <div className="card">
+                    <div className="col-12 xl:col-6" >
+                        <div className="card overflow-y-scroll" style={{height: "85%"}} >
                             <div className="flex justify-content-between align-items-center mb-5">
                                 <h5>Reminders</h5>
                                 <div>
                                     <Button type="button" icon="pi pi-ellipsis-v" rounded text className="p-button-plain text-white"
+
                                             onClick={(event) => menu1.current?.toggle(event)}/>
+
                                     <Menu
+                                        onClick={() => setReminderbox(true)}
                                         ref={menu1}
                                         popup
                                         model={[
-                                            {label: 'Add New', icon: 'pi pi-fw pi-plus'},
-                                            {label: 'Remove', icon: 'pi pi-fw pi-minus'}
+                                            {label: 'Add New', icon: 'pi pi-fw pi-plus',}
+
                                         ]}
                                     />
                                 </div>
                             </div>
-                            <ul className="list-none p-0 m-0">
+                            <ul className="list-none   p-2 m-0" >
                                 <li className="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
                                     <div>
-                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0">Space T-Shirt</span>
-                                        <div className="mt-1 text-600">Clothing</div>
+                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0">School</span>
+                                        <div className="mt-1 text-600">lunch box </div>
                                     </div>
                                     <div className="mt-2 md:mt-0 flex align-items-center">
-                                        <div className="surface-300 border-round overflow-hidden w-10rem lg:w-6rem"
-                                             style={{height: '8px'}}>
-                                            <div className="bg-orange-500 h-full" style={{width: '50%'}}/>
-                                        </div>
-                                        <span className="text-orange-500 ml-3 font-medium">%50</span>
+
+                                        <span className="text-orange-500 pointer ml-3 font-medium">Delete</span>
                                     </div>
                                 </li>
                                 <li className="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
                                     <div>
-                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0">Portal Sticker</span>
-                                        <div className="mt-1 text-600">Accessories</div>
+                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0">School</span>
+                                        <div className="mt-1 text-600">lunch box </div>
                                     </div>
-                                    <div className="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
-                                        <div className="surface-300 border-round overflow-hidden w-10rem lg:w-6rem"
-                                             style={{height: '8px'}}>
-                                            <div className="bg-cyan-500 h-full" style={{width: '16%'}}/>
-                                        </div>
-                                        <span className="text-cyan-500 ml-3 font-medium">%16</span>
+                                    <div className="mt-2 md:mt-0 flex align-items-center">
+
+                                        <span className="text-orange-500 ml-3 font-medium">Delete</span>
                                     </div>
                                 </li>
                                 <li className="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
                                     <div>
-                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0">Supernova Sticker</span>
-                                        <div className="mt-1 text-600">Accessories</div>
+                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0">School</span>
+                                        <div className="mt-1 text-600">lunch box </div>
                                     </div>
-                                    <div className="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
-                                        <div className="surface-300 border-round overflow-hidden w-10rem lg:w-6rem"
-                                             style={{height: '8px'}}>
-                                            <div className="bg-pink-500 h-full" style={{width: '67%'}}/>
-                                        </div>
-                                        <span className="text-pink-500 ml-3 font-medium">%67</span>
+                                    <div className="mt-2 md:mt-0 flex align-items-center">
+
+                                        <span className="text-orange-500 ml-3 font-medium">Delete</span>
                                     </div>
                                 </li>
                                 <li className="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
                                     <div>
-                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0">Wonders Notebook</span>
-                                        <div className="mt-1 text-600">Office</div>
+                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0">School</span>
+                                        <div className="mt-1 text-600">lunch box </div>
                                     </div>
-                                    <div className="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
-                                        <div className="surface-300 border-round overflow-hidden w-10rem lg:w-6rem"
-                                             style={{height: '8px'}}>
-                                            <div className="bg-green-500 h-full" style={{width: '35%'}}/>
-                                        </div>
-                                        <span className="text-green-500 ml-3 font-medium">%35</span>
+                                    <div className="mt-2 md:mt-0 flex align-items-center">
+
+                                        <span className="text-orange-500 ml-3 font-medium">Delete</span>
                                     </div>
                                 </li>
                                 <li className="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
                                     <div>
-                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0">Mat Black Case</span>
-                                        <div className="mt-1 text-600">Accessories</div>
+                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0">School</span>
+                                        <div className="mt-1 text-600">lunch box </div>
                                     </div>
-                                    <div className="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
-                                        <div className="surface-300 border-round overflow-hidden w-10rem lg:w-6rem"
-                                             style={{height: '8px'}}>
-                                            <div className="bg-purple-500 h-full" style={{width: '75%'}}/>
-                                        </div>
-                                        <span className="text-purple-500 ml-3 font-medium">%75</span>
+                                    <div className="mt-2 md:mt-0 flex align-items-center">
+
+                                        <span className="text-orange-500 ml-3 font-medium">Delete</span>
                                     </div>
                                 </li>
                                 <li className="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
                                     <div>
-                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0">Robots T-Shirt</span>
-                                        <div className="mt-1 text-600">Clothing</div>
+                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0">School</span>
+                                        <div className="mt-1 text-600">lunch box </div>
                                     </div>
-                                    <div className="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
-                                        <div className="surface-300 border-round overflow-hidden w-10rem lg:w-6rem"
-                                             style={{height: '8px'}}>
-                                            <div className="bg-teal-500 h-full" style={{width: '40%'}}/>
-                                        </div>
-                                        <span className="text-teal-500 ml-3 font-medium">%40</span>
+                                    <div className="mt-2 md:mt-0 flex align-items-center">
+
+                                        <span className="text-orange-500 ml-3 font-medium">Delete</span>
+                                    </div>
+                                </li>
+                                <li className="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
+                                    <div>
+                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0">School</span>
+                                        <div className="mt-1 text-600">lunch box </div>
+                                    </div>
+                                    <div className="mt-2 md:mt-0 flex align-items-center">
+
+                                        <span className="text-orange-500 ml-3 font-medium">Delete</span>
+                                    </div>
+                                </li>
+                                <li className="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
+                                    <div>
+                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0">School</span>
+                                        <div className="mt-1 text-600">lunch box </div>
+                                    </div>
+                                    <div className="mt-2 md:mt-0 flex align-items-center">
+
+                                        <span className="text-orange-500 ml-3 font-medium">Delete</span>
                                     </div>
                                 </li>
                             </ul>
@@ -409,7 +416,7 @@ const Dashboard = () => {
                            </div>
                                <div className="card">
                                    <div className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
-                                       <div className="p-3">
+                                       <div className="p-2">
                                            <div className="overflow-x-auto">
                                                <table className="table-auto w-full">
                                                    <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
@@ -469,6 +476,17 @@ const Dashboard = () => {
 
 
                        </div>
+                    </Dialog>
+
+                    <Dialog header="Add New Reminder" visible={reminderbox} style={{ width: '50vw' }} onHide={() => setReminderbox(false)}>
+                        <h3>Title</h3>
+                        <InputText className={"w-full"}/>
+
+
+                        <h3>Add Description</h3>
+                        <InputTextarea className={"w-full"}/>
+
+                        <Button className={"my-4 block w-full mx-auto"}>Submit</Button>
                     </Dialog>
                 </>
             }

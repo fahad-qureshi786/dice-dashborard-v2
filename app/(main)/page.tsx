@@ -392,7 +392,7 @@ const Dashboard = () => {
 
 
 
-                    <Dialog header="Header" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
+                    <Dialog header="Order Detail" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
                        <div>
                            <div className={"flex my-4 p-4 justify-content-between"} >
                                <span className={"font-bold"}>Order Number: 232323</span>

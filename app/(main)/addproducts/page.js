@@ -50,6 +50,9 @@ const Page = () => {
     const reject = () => {
         toast.current.show({ severity: 'warn', summary: 'Rejected', detail: 'You have rejected' });
     };
+    const showSuccess = () => {
+        toast.current.show({severity:'success', summary: 'Product', detail:'Added Successfull', life: 3000});
+    }
     const [selectedOptions, setSelectedOptions] = useState([]);
 
     // // Function to handle checkbox change
@@ -207,7 +210,7 @@ const Page = () => {
                    <Button onClick={() => setVisiblebox(true)} className={"m-2"} style={{ backgroundColor: 'red', color: 'white' }} >
                        Delete
                    </Button>
-                   <Button onClick={() => setVisible(true)} className={"m-2"} style={{ backgroundColor: 'gray', color: 'white' }} >
+                   <Button onClick={showSuccess} className={"m-2"} style={{ backgroundColor: 'gray', color: 'white' }} >
                        Save
                    </Button>
                </div>

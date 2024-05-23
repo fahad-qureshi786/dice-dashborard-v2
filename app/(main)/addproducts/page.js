@@ -9,8 +9,8 @@ import { Toast } from 'primereact/toast';
 import { FileUpload } from 'primereact/fileupload';
 import 'primereact/resources/primereact.min.css'; // Prime React CSS
 import 'primereact/resources/themes/saga-blue/theme.css'; // Prime React theme CSS
-import { MultiSelect } from 'primereact/multiselect';
-import { Checkbox } from 'primereact/checkbox';
+
+import { ConfirmDialog } from 'primereact/confirmdialog'; // To use <ConfirmDialog> tag
 import { Dropdown } from 'primereact/dropdown';
 const Page = () => {
     const toast = useRef(null);
@@ -37,9 +37,18 @@ const Page = () => {
     const [selectedCity, setSelectedCity] = useState(null);
     const [selectedVendor, setSelectedVendor] = useState(null);
     const [selectedCollection, setSelectedCollection] = useState(null)
+    const [visiblebox, setVisiblebox] = useState(false);
 
     const onUpload = () => {
         toast.current.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded' });
+    };
+
+    const accept = () => {
+        toast.current.show({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
+    };
+
+    const reject = () => {
+        toast.current.show({ severity: 'warn', summary: 'Rejected', detail: 'You have rejected' });
     };
     const [selectedOptions, setSelectedOptions] = useState([]);
 
@@ -63,8 +72,13 @@ const Page = () => {
         <>
 
 
-        <div className={"flex w-full justify-content-around  "}>
-            <div className={"p-2 w-3/4"}>
+            <ConfirmDialog visible={visiblebox} onHide={() => setVisiblebox(false)} message="Are you sure you want to proceed?"
+                           header="Confirmation" icon="pi pi-exclamation-triangle" accept={accept} reject={reject} />
+
+
+
+            <div className={"flex w-full justify-content-around  "}>
+            <div className={"p-2 w-full"}>
                 <h3>Title</h3>
                 <InputText type="text" placeholder="Add Title " className={"w-full my-2 "} />
                 <h4 className={"text-gray-600"}>Description</h4>
@@ -75,30 +89,9 @@ const Page = () => {
                 {/*    Add Collection*/}
                 {/*</Button>*/}
 
-                <div >
-                    <div className={"card my-8 "}>
-                        <h4 className={"text-gray-600 my-3"}>Media</h4>
-                        <div className={" flex  justify-content-evenly "}>
-                            <div>
-                                <Image src={pic} height={400} width={250} />
-                            </div>
-                            <div>
-                                <div className="card flex bg-gray-100 justify-content-center">
-                                    <Toast ref={toast}></Toast>
-                                    <FileUpload mode="basic" name="demo[]" url="/api/upload" accept="image/*" maxFileSize={1000000} onUpload={onUpload} />
-                                </div>
-                                <div className={"card flex justify-content-center bg-gray-100"}>
-                                    <h5 className={"p-0 m-0"}>Select existing</h5>
-                                </div>
 
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
             </div>
-            <div className={"w-1/4"}>
+            <div className={"w-3/4"}>
                 <div className={"card"}>
                 <h5 className={"text-gray-500"}>Status</h5>
                     <Dropdown value={selectedCity} onChange={(e) => setSelectedCity(e.value)} options={cities} optionLabel="name"
@@ -179,18 +172,39 @@ const Page = () => {
                     <div className="flex flex-column gap-2 my-2">
                         <label htmlFor="username">Tags</label>
                         <InputText id="username" aria-describedby="username-help" />
-
                     </div>
                 </div>
             </div>
         </div>
+            <div >
+                <div className={"card my-8 w-full "}>
+                    <h4 className={"text-gray-600 my-3"}>Media</h4>
+                    <div className={" flex  justify-content-evenly "}>
+                        <div>
+                            <Image src={pic} height={400} width={400} />
+                        </div>
+                        <div>
+                            <div className="card flex bg-gray-100 justify-content-center">
+                                <Toast ref={toast}></Toast>
+                                <FileUpload mode="basic" name="demo[]" url="/api/upload" multiple  accept="image/*" maxFileSize={1000000} onUpload={onUpload} />
+                            </div>
+                            <div className={"card flex justify-content-center bg-gray-100"}>
+                                <h5 className={"p-0 m-0"}>Select existing</h5>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
 
             <div className={"flex justify-content-end align-items-end"}>
                <div>
                    <Button onClick={() => setVisible(true)} className={"m-2"} style={{ backgroundColor: 'white', color: 'black' }} primary>
                        Archive
                    </Button>
-                   <Button onClick={() => setVisible(true)} className={"m-2"} style={{ backgroundColor: 'red', color: 'white' }} >
+                   <Button onClick={() => setVisiblebox(true)} className={"m-2"} style={{ backgroundColor: 'red', color: 'white' }} >
                        Delete
                    </Button>
                    <Button onClick={() => setVisible(true)} className={"m-2"} style={{ backgroundColor: 'gray', color: 'white' }} >

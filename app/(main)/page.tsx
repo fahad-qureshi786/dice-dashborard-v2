@@ -32,8 +32,8 @@ const Dashboard = () => {
             image: '1',
             product: '123244345',
             status: 'Active',
-            inventory: '58%',
-            salesChannels: '21/5/2024',
+            inventory: '58$',
+            salesChannels: '8',
             market: <div onClick={() => setVisible(true)} > <Link href={"#"} className={"font-bold text-orange-500 "}>View detail</Link> </div>,
             category: 'Food',
             vendor: 'Local Vendor',
@@ -42,8 +42,8 @@ const Dashboard = () => {
             image: '1',
             product: '123244345',
             status: 'Active',
-            inventory: '58%',
-            salesChannels: '21/5/2024',
+            inventory: '52$',
+            salesChannels: '21',
             market: <div onClick={() => setVisible(true)}> <Link href={"#"} className={"font-bold text-orange-500 "}>View detail</Link> </div>,
             category: 'Food',
             vendor: 'Local Vendor',
@@ -52,8 +52,8 @@ const Dashboard = () => {
             image: '1',
             product: '123244345',
             status: 'Active',
-            inventory: '58%',
-            salesChannels: '21/5/2024',
+            inventory: '98$',
+            salesChannels: '8',
             market: <div onClick={() => setVisible(true)} > <Link href={"#"} className={"font-bold text-orange-500 "}>View detail</Link> </div>,
             category: 'Food',
             vendor: 'Local Vendor',
@@ -395,8 +395,17 @@ const Dashboard = () => {
                     <Dialog header="Order Detail" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
                        <div>
                            <div className={"flex my-4 p-4 justify-content-between"} >
-                               <span className={"font-bold"}>Order Number: 232323</span>
-                               <span className={"font-bold"}>Cart Number:  343434</span>
+                               <div className={""}>
+
+                                   <div className={"font-bold"}>Order Number: 232323</div>
+                                   <div className={"font-bold"}>Customer Name    : Alex</div>
+
+                               </div>
+                               <div>
+                                   <span className={"font-bold"}>Order Date:    1/6/2024</span>
+                                   <div className={"font-bold"}>Total Amount:  565$</div>
+                               </div>
+
                            </div>
                                <div className="card">
                                    <div className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
@@ -409,14 +418,14 @@ const Dashboard = () => {
                                                        <th className="p-2 whitespace-nowrap">
                                                            <div className="font-semibold text-left">Product Name</div>
                                                        </th>
+                                                       {/*<th className="p-2 whitespace-nowrap">*/}
+                                                       {/*    <div className="font-semibold text-center">Status</div>*/}
+                                                       {/*</th>*/}
                                                        <th className="p-2 whitespace-nowrap">
-                                                           <div className="font-semibold text-center">Status</div>
+                                                           <div className="font-semibold text-center">Price</div>
                                                        </th>
                                                        <th className="p-2 whitespace-nowrap">
-                                                           <div className="font-semibold text-center">Inventory</div>
-                                                       </th>
-                                                       <th className="p-2 whitespace-nowrap">
-                                                           <div className="font-semibold text-center">Sales Channels</div>
+                                                           <div className="font-semibold text-center">Qty</div>
                                                        </th>
 
                                                    </tr>
@@ -432,11 +441,11 @@ const Dashboard = () => {
                                                                </div>
                                                                <div className="text-left">{row.product}</div>
                                                            </td>
-                                                           <td className="p-2 whitespace-nowrap">
-                                                               <div className="text-center">
-                                                                   <Badge value="Active" severity="success"/>
-                                                               </div>
-                                                           </td>
+                                                           {/*<td className="p-2 whitespace-nowrap">*/}
+                                                           {/*    <div className="text-center">*/}
+                                                           {/*        <Badge value="Active" severity="success"/>*/}
+                                                           {/*    </div>*/}
+                                                           {/*</td>*/}
                                                            <td className="p-2 whitespace-nowrap">
                                                                <div className="text-center">{row.inventory}</div>
                                                            </td>

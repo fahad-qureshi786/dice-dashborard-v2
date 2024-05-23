@@ -37,3 +37,7 @@
 .p-accordion-header-text, .p-accordion-toggle-icon {
     color : #7a7979 !important;
 }
+.p-button .p-button-label {
+    transition-duration: 0.2s;
+    color: #fff;
+}

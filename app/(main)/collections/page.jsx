@@ -4,7 +4,6 @@ import React, {useEffect, useRef, useState} from 'react';
 import Link from "next/link";
 import { Button } from 'primereact/button';
 import { Paginator } from 'primereact/paginator';
-import { SplitButton } from 'primereact/splitbutton';
 import pic from "../../../public/myimages/image.jpg";
 import {Dialog} from  "primereact/dialog";
 import  {InputText} from "primereact/inputtext";

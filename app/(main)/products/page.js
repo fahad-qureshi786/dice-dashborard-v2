@@ -9,6 +9,7 @@ const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender
 import { TabView, TabPanel } from 'primereact/tabview';
 import {Toast} from "primereact/toast";
 import {ConfirmDialog} from "primereact/confirmdialog";
+import {Paginator} from "primereact/paginator";
 const App = () => {
     const [initLoading, setInitLoading] = useState(true);
     const [loading, setLoading] = useState(false);
@@ -27,12 +28,12 @@ const App = () => {
         toast.current.show({ severity: 'warn', summary: 'Rejected', detail: 'You have rejected' });
     };
 
-
-
+    const [first, setFirst] = useState(0);
+    const [rows, setRows] = useState(3);
 
     const tableData = [
         {
-            image: {pic}, // Use placeholder images or actual images
+            image: { pic }, // Use placeholder images or actual images
             product: 'Pizza',
             status: 'Active',
             inventory: '50',
@@ -42,7 +43,7 @@ const App = () => {
             vendor: 'Local Vendor',
         },
         {
-            image: {pic},
+            image: { pic },
             product: 'Burger',
             status: 'Active',
             inventory: '30',
@@ -52,7 +53,7 @@ const App = () => {
             vendor: 'FastFood Co.',
         },
         {
-            image: {pic},
+            image: { pic },
             product: 'Salad',
             status: 'Active',
             inventory: '70',
@@ -61,7 +62,32 @@ const App = () => {
             category: 'Food',
             vendor: 'Organic Co.',
         },
+        {
+            image: { pic },
+            product: 'Sandwich',
+            status: 'Active',
+            inventory: '45',
+            salesChannels: 'Store',
+            market: 'US',
+            category: 'Food',
+            vendor: 'Snack Co.',
+        },
+        {
+            image: { pic },
+            product: 'Sushi',
+            status: 'Active',
+            inventory: '25',
+            salesChannels: 'Online',
+            market: 'Asia',
+            category: 'Food',
+            vendor: 'Fresh Co.',
+        }
     ];
+
+    const onPageChange = (event) => {
+        setFirst(event.first);
+        setRows(event.rows);
+    };
     return (
         <div>
             <h3 className={"my-2 font-bold text-4xl"}>Products</h3>
@@ -212,21 +238,20 @@ const App = () => {
                                     </tr>
                                     </thead>
                                     <tbody className="text-sm divide-y divide-gray-100">
-                                    {/* Loop through table data and render each row */}
-                                    {tableData.map((row, index) => (
+                                    {tableData.slice(first, first + rows).map((row, index) => (
                                         <tr key={index}>
                                             <td className="p-2 whitespace-nowrap">
-                                                <input type="checkbox"/>
+                                                <input type="checkbox" />
                                             </td>
                                             <td className="p-2 d-flex flex justify-content-start align-items-center">
-                                                <div className={"p-2"}>
-                                                    <img style={{borderRadius: '10px'}} src={"/myimages/image.jpg"} alt="Product" width={35} height={30}/>
+                                                <div className="p-2">
+                                                    <img style={{ borderRadius: '10px' }} src={"/myimages/image.jpg"} alt="Product" width={35} height={30} />
                                                 </div>
                                                 <div className="text-left">{row.product}</div>
                                             </td>
                                             <td className="p-2 whitespace-nowrap">
                                                 <div className="text-center">
-                                                    <Badge value="Active" severity="success"/>
+                                                    <Badge value="Active" severity="success" />
                                                 </div>
                                             </td>
                                             <td className="p-2 whitespace-nowrap">
@@ -245,30 +270,28 @@ const App = () => {
                                                 <div className="text-center">{row.vendor}</div>
                                             </td>
                                             <td className="p-2 whitespace-nowrap">
-                                                  <span className={"pointer mx-2"} style={{cursor: "pointer"}} onClick={() => setEdit(true)}>
-                                            Edit
-                                        </span>
-                                                <span className={"text-red-300 pointer"} onClick={() => setVisiblebox(true)}>
-                                            Delete
-                                        </span>
+                                                <Link href={"/update-addproducts"} className="pointer mx-2" style={{ cursor: "pointer" }} onClick={() => setEdit(true)}>
+                                                    Edit
+                                                </Link>
+                                                <span className="text-red-300 pointer" onClick={() => setVisiblebox(true)}>
+                                                                Delete
+                                                            </span>
                                             </td>
-                                            {/*<td className="p-2 whitespace-nowrap">*/}
-                                            {/*    <span className={"pa pa-icon"}></span>*/}
-                                            {/*</td>*/}
                                         </tr>
                                     ))}
                                     </tbody>
                                 </table>
+                                <Paginator first={first} rows={rows} totalRecords={tableData.length} rowsPerPageOptions={[3, 5, 10]} onPageChange={onPageChange} />
                             </div>
 
                         </div>
                     </div>                </div>
             </p>
             </TabPanel>
-            <TabPanel header="Inactive">
-            <p className="m-0">
 
-            </p>
+
+            <TabPanel header="Inactive">
+
             </TabPanel>
 
             </TabView>

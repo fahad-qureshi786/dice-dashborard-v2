@@ -185,13 +185,13 @@ const Page = () => {
                             <Image src={pic} height={200} width={300} />
                         </div>
                         <div>
-                            <div className="card flex bg-gray-100 justify-content-center">
+                            <div className="card flex bg-gray-100 align-items-center justify-content-center">
                                 <Toast ref={toast}></Toast>
                                 <FileUpload mode="basic" name="demo[]" url="/api/upload" multiple  accept="image/*" maxFileSize={1000000} onUpload={onUpload} />
                             </div>
-                            <div className={"card flex justify-content-center bg-gray-100"}>
-                                <h5 className={"p-0 m-0"}>Select existing</h5>
-                            </div>
+                            {/*<div className={"card flex justify-content-center bg-gray-100"}>*/}
+                            {/*    <h5 className={"p-0 m-0"}>Select existing</h5>*/}
+                            {/*</div>*/}
 
                         </div>
                     </div>

@@ -247,7 +247,9 @@ const App = () => {
                                                 <div className="p-2">
                                                     <img style={{ borderRadius: '10px' }} src={"/myimages/image.jpg"} alt="Product" width={35} height={30} />
                                                 </div>
+                                                <Link href={`/products/${row.product.toLowerCase()}`}>
                                                 <div className="text-left">{row.product}</div>
+                                                </Link>
                                             </td>
                                             <td className="p-2 whitespace-nowrap">
                                                 <div className="text-center">
@@ -270,9 +272,9 @@ const App = () => {
                                                 <div className="text-center">{row.vendor}</div>
                                             </td>
                                             <td className="p-2 whitespace-nowrap">
-                                                <Link href={"/update-addproducts"} className="pointer mx-2" style={{ cursor: "pointer" }} onClick={() => setEdit(true)}>
-                                                    Edit
-                                                </Link>
+                                                {/*<Link href={"/update-addproducts"} className="pointer mx-2" style={{ cursor: "pointer" }} onClick={() => setEdit(true)}>*/}
+                                                {/*    Edit*/}
+                                                {/*</Link>*/}
                                                 <span className="text-red-300 pointer" onClick={() => setVisiblebox(true)}>
                                                                 Delete
                                                             </span>

@@ -11,23 +11,26 @@ import {Demo} from '@/types';
 import {ChartOptions} from 'chart.js';
 import { useRouter } from 'next/navigation';
 import { TabView, TabPanel } from 'primereact/tabview';
-import  Calendar from "../(main)/calender/page"
+import  Calendarr from "../(main)/calender/page"
 import {Badge} from "primereact/badge";
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
+import { Calendar } from 'primereact/calendar';
+import {Card} from "primereact/card";
+import {Divider} from "primereact/divider"
 const Dashboard = () => {
 
     const [products, setProducts] = useState<Demo.Product[]>([]);
     const menu1 = useRef<Menu>(null);
     const menu2 = useRef<Menu>(null);
-     const [reminderbox, setReminderbox] = useState(false);
+    const [reminderbox, setReminderbox] = useState(false);
     // const {layoutConfig} = useContext(LayoutContext);
     // const [customers3, setCustomers3] = useState<Demo.Customer[]>([]);
     const router = useRouter()
     const [visible, setVisible] = useState(false);
-
-
+    const [date, setDate] = useState(null);
+    const [updateReminderBox ,setUpdateReminderBox] = useState(false)
 
     const tableData = [
         {
@@ -35,7 +38,7 @@ const Dashboard = () => {
             product: '123244345',
             status: 'Active',
             inventory: '58$',
-            salesChannels: '8',
+            salesChannels: '8/3/2024',
             market: <div onClick={() => setVisible(true)} > <Link href={"#"} className={"font-bold text-orange-500 "}>View detail</Link> </div>,
             category: 'Food',
             vendor: 'Local Vendor',
@@ -45,7 +48,7 @@ const Dashboard = () => {
             product: '123244345',
             status: 'Active',
             inventory: '52$',
-            salesChannels: '21',
+            salesChannels: '21/3/2024',
             market: <div onClick={() => setVisible(true)}> <Link href={"#"} className={"font-bold text-orange-500 "}>View detail</Link> </div>,
             category: 'Food',
             vendor: 'Local Vendor',
@@ -55,7 +58,7 @@ const Dashboard = () => {
             product: '123244345',
             status: 'Active',
             inventory: '98$',
-            salesChannels: '8',
+            salesChannels: '8/3/2024',
             market: <div onClick={() => setVisible(true)} > <Link href={"#"} className={"font-bold text-orange-500 "}>View detail</Link> </div>,
             category: 'Food',
             vendor: 'Local Vendor',
@@ -212,7 +215,7 @@ const Dashboard = () => {
                               </table>
                               </TabPanel>
                                 <TabPanel header={"Calendar View"}>
-                                    <Calendar/>
+                                    <Calendarr/>
                                 </TabPanel>
                             </TabView>
                         </div>
@@ -239,86 +242,66 @@ const Dashboard = () => {
                                 </div>
                             </div>
                             <ul className="list-none   p-2 m-0" >
+
                                 <li className="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
                                     <div>
-                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0">School</span>
-                                        <div className="mt-1 text-600">lunch box </div>
+                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0" onClick={()  => setUpdateReminderBox(true)}>Pizza</span>
+                                        <div className="mt-1 text-600">A delicious cheesy delight.</div>
                                     </div>
                                     <div className="mt-2 md:mt-0 flex align-items-center">
+                                        <span className="text-orange-500 pointer ml-3 font-medium">Delete</span>
+                                    </div>
+                                </li>
 
+                                <li className="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
+                                    <div>
+                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0" onClick={()  => setUpdateReminderBox(true)}>Burger</span>
+                                        <div className="mt-1 text-600">Juicy patty with fresh toppings.</div>
+                                    </div>
+                                    <div className="mt-2 md:mt-0 flex align-items-center">
+                                        <span className="text-orange-500 pointer ml-3 font-medium">Delete</span>
+                                    </div>
+                                </li>
+
+                                <li className="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
+                                    <div>
+                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0" onClick={()  => setUpdateReminderBox(true)}>Salad</span>
+                                        <div className="mt-1 text-600">Fresh greens with a light dressing.</div>
+                                    </div>
+                                    <div className="mt-2 md:mt-0 flex align-items-center">
                                         <span className="text-orange-500 pointer ml-3 font-medium">Delete</span>
                                     </div>
                                 </li>
                                 <li className="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
                                     <div>
-                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0">School</span>
-                                        <div className="mt-1 text-600">lunch box </div>
+                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0" onClick={()  => setUpdateReminderBox(true)}>Pizza</span>
+                                        <div className="mt-1 text-600">A delicious cheesy delight.</div>
                                     </div>
                                     <div className="mt-2 md:mt-0 flex align-items-center">
-
-                                        <span className="text-orange-500 ml-3 font-medium">Delete</span>
+                                        <span className="text-orange-500 pointer ml-3 font-medium">Delete</span>
                                     </div>
                                 </li>
+
                                 <li className="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
                                     <div>
-                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0">School</span>
-                                        <div className="mt-1 text-600">lunch box </div>
+                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0">Burger</span>
+                                        <div className="mt-1 text-600">Juicy patty with fresh toppings.</div>
                                     </div>
                                     <div className="mt-2 md:mt-0 flex align-items-center">
-
-                                        <span className="text-orange-500 ml-3 font-medium">Delete</span>
+                                        <span className="text-orange-500 pointer ml-3 font-medium">Delete</span>
                                     </div>
                                 </li>
+
                                 <li className="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
                                     <div>
-                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0">School</span>
-                                        <div className="mt-1 text-600">lunch box </div>
+                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0">Salad</span>
+                                        <div className="mt-1 text-600">Fresh greens with a light dressing.</div>
                                     </div>
                                     <div className="mt-2 md:mt-0 flex align-items-center">
-
-                                        <span className="text-orange-500 ml-3 font-medium">Delete</span>
+                                        <span className="text-orange-500 pointer ml-3 font-medium">Delete</span>
                                     </div>
                                 </li>
-                                <li className="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
-                                    <div>
-                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0">School</span>
-                                        <div className="mt-1 text-600">lunch box </div>
-                                    </div>
-                                    <div className="mt-2 md:mt-0 flex align-items-center">
 
-                                        <span className="text-orange-500 ml-3 font-medium">Delete</span>
-                                    </div>
-                                </li>
-                                <li className="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
-                                    <div>
-                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0">School</span>
-                                        <div className="mt-1 text-600">lunch box </div>
-                                    </div>
-                                    <div className="mt-2 md:mt-0 flex align-items-center">
-
-                                        <span className="text-orange-500 ml-3 font-medium">Delete</span>
-                                    </div>
-                                </li>
-                                <li className="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
-                                    <div>
-                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0">School</span>
-                                        <div className="mt-1 text-600">lunch box </div>
-                                    </div>
-                                    <div className="mt-2 md:mt-0 flex align-items-center">
-
-                                        <span className="text-orange-500 ml-3 font-medium">Delete</span>
-                                    </div>
-                                </li>
-                                <li className="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
-                                    <div>
-                                        <span className="text-900 font-medium mr-2 mb-1 md:mb-0">School</span>
-                                        <div className="mt-1 text-600">lunch box </div>
-                                    </div>
-                                    <div className="mt-2 md:mt-0 flex align-items-center">
-
-                                        <span className="text-orange-500 ml-3 font-medium">Delete</span>
-                                    </div>
-                                </li>
                             </ul>
                         </div>
                     </div>
@@ -479,14 +462,22 @@ const Dashboard = () => {
                     </Dialog>
 
                     <Dialog header="Add New Reminder" visible={reminderbox} style={{ width: '50vw' }} onHide={() => setReminderbox(false)}>
-                        <h3>Title</h3>
+                        <h4>Title</h4>
                         <InputText className={"w-full"}/>
-
-
-                        <h3>Add Description</h3>
+                        <h4>Add Description</h4>
                         <InputTextarea className={"w-full"}/>
-
+                        <h4>Select Date</h4>
+                        <Calendar value={date} onChange={(e) => setDate(e.value)} dateFormat="dd/mm/yy" />
                         <Button className={"my-4 block w-full mx-auto"}>Submit</Button>
+                    </Dialog>
+
+                    <Dialog visible={updateReminderBox} style={{ width: '50vw' }} onHide={() => setUpdateReminderBox(false)}>
+                        <div className="">
+                           <h3>Pizza</h3>
+                           <h6>Fresh greens with a light dressing.</h6>
+
+                            <h6>Date: 23/05/2024</h6>
+                        </div>
                     </Dialog>
                 </>
             }

@@ -10,6 +10,7 @@ import  {InputText} from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import {ConfirmDialog} from "primereact/confirmdialog";
 import { Toast } from 'primereact/toast';
+
 const App = () => {
     const [initLoading, setInitLoading] = useState(true);
     const [loading, setLoading] = useState(false);
@@ -114,7 +115,9 @@ const App = () => {
                                     </td>
                                     <td className="flex d-flex justify-between align-items-center">
                                         <img style={{ borderRadius: '10px', marginRight: '2rem' }} height={40} width={40} src={pic.src} alt="" />
-                                        <h5 className="ms-2">{item.name.first}</h5>
+                                        <Link href={`/collections/${item.name.first.toLowerCase()}`}>
+                                            <span className="ms-2">{item.name.first}</span>
+                                        </Link>
                                     </td>
                                     <td className="text-start font-medium text-green-500">
                                         <h4 style={{ marginLeft: '2rem' }}>3</h4>
@@ -123,9 +126,9 @@ const App = () => {
                                         Products Condition
                                     </td>
                                     <td className="p-2 text-sm text-start whitespace-nowrap">
-                                        <span className={"pointer mx-2"} style={{cursor: "pointer"}} onClick={() => setEdit(true)}>
-                                            Edit
-                                        </span>
+                                        {/*<span className={"pointer mx-2"} style={{cursor: "pointer"}} onClick={() => setEdit(true)}>*/}
+                                        {/*    Edit*/}
+                                        {/*</span>*/}
                                         <span className={"text-red-300"} onClick={() => setVisiblebox(true)}>
                                             Delete
                                         </span>

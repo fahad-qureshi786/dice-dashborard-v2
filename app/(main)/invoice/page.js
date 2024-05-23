@@ -131,13 +131,6 @@ const Page = () => {
 
 
     const [visible , setVisible] = useState(false)
-   const [pencilvisible , setPencilvisible] = useState(false)
-    // const [placement, setPlacement] = useState('topLeft');
-    // const [dateRange, setDateRange] = useState([null, null]);
-    // const placementChange = (e) => {
-    //     SetPlacement(e.target.value);
-    // };
-
     const [dates, setDates] = useState(null);
 
     const itemTemplate = (item) => {
@@ -154,80 +147,108 @@ const Page = () => {
         );
     };
 
+
+    const [itemss, setItemss] = useState([
+        { name: '', price: '', quantity: '' }
+    ]);
+
+    const addItem = () => {
+        setItemss([...itemss, { name: '', price: '', quantity: '' }]);
+    };
+
+    const handleItemChange = (index, field, value) => {
+        const updatedItems = [...itemss];
+        updatedItems[index][field] = value;
+        setItemss(updatedItems);
+    };
+
+
     return (
         <>
+
             <Dialog header="Add your custom item" className={"p-8"} visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
-               <div className={"flex justify-content-evenly  "}>
-                   <div className={"w-8/12 px-2"}>
-                        <span className="p-input-icon-right w-full">
-             <AutoComplete
-                 field="name"
-                 value={selectedFood}
-                 suggestions={filteredFoodItems}
-                 completeMethod={search}
-                 onChange={(e) => setSelectedFood(e.value)}
-                 itemTemplate={itemTemplate}
-                 panelFooterTemplate={panelFooterTemplate}
-                 placeholder={"Search Prodcuts"}
-             />
-                <i className="pi pi-search" />
-            </span>
-                   </div>
-                   <div className={"w-2/12 px-2"}>            <span className="p-input-icon-right w-full">
-                <InputText type="text" placeholder="Price" className="w-full" />
-
-            </span></div>
-                   <div className={"w-2/12 px-2"}>
-                                  <span className="p-input-icon-right w-full">
-                <InputText type="text" placeholder="Quantity" className="w-full" />
-
-            </span>
-
-
-                   </div>
-
-
-               </div>
-                <div className={"my-4 "}>
-               </div>
+                <div className={"flex justify-content-evenly"}>
+                    {/*<div className={"w-8/12 px-2"}>*/}
+                    {/*<span className="p-input-icon-right w-full">*/}
+                    {/*    <AutoComplete*/}
+                    {/*        field="name"*/}
+                    {/*        value={selectedFood}*/}
+                    {/*        suggestions={filteredFoodItems}*/}
+                    {/*        completeMethod={search}*/}
+                    {/*        onChange={(e) => setSelectedFood(e.value)}*/}
+                    {/*        itemTemplate={itemTemplate}*/}
+                    {/*        panelFooterTemplate={panelFooterTemplate}*/}
+                    {/*        placeholder={"Search Products"}*/}
+                    {/*    />*/}
+                    {/*    <i className="pi pi-search" />*/}
+                    {/*</span>*/}
+                    {/*</div>*/}
+                    {/*<div className={"w-2/12 px-2"}>*/}
+                    {/*<span className="p-input-icon-right w-full">*/}
+                    {/*    <InputText type="text" placeholder="Price" className="w-full" />*/}
+                    {/*</span>*/}
+                    {/*</div>*/}
+                    {/*<div className={"w-2/12 px-2"}>*/}
+                    {/*<span className="p-input-icon-right w-full">*/}
+                    {/*    <InputText type="text" placeholder="Quantity" className="w-full" />*/}
+                    {/*</span>*/}
+                    {/*</div>*/}
+                </div>
+                <div className={"my-4"}>
+                    {itemss.map((item, index) => (
+                        <div key={index} className={"flex justify-content-evenly mt-2"}>
+                            <div className={"w-8/12 px-2"}>
+                            <span className="p-input-icon-right w-full">
+                                <InputText
+                                    type="text"
+                                    placeholder="Item"
+                                    className="w-full"
+                                    value={item.name}
+                                    onChange={(e) => handleItemChange(index, 'name', e.target.value)}
+                                />
+                            </span>
+                            </div>
+                            <div className={"w-2/12 px-2"}>
+                            <span className="p-input-icon-right w-full">
+                                <InputText
+                                    type="text"
+                                    placeholder="Price"
+                                    className="w-full"
+                                    value={item.price}
+                                    onChange={(e) => handleItemChange(index, 'price', e.target.value)}
+                                />
+                            </span>
+                            </div>
+                            <div className={"w-2/12 px-2"}>
+                            <span className="p-input-icon-right w-full">
+                                <InputText
+                                    type="text"
+                                    placeholder="Quantity"
+                                    className="w-full"
+                                    value={item.quantity}
+                                    onChange={(e) => handleItemChange(index, 'quantity', e.target.value)}
+                                />
+                            </span>
+                            </div>
+                        </div>
+                    ))}
+                </div>
                 <div className={"flex justify-content-end space-x-2 m-4"}>
-
-                    <Button onClick={() => setVisible(true)}  primary>
+                    <Button onClick={addItem} primary>
                         Add item
                     </Button>
-
-                    <Button onClick={() => setVisible(true)} style={{ backgroundColor: 'gray', color: 'white',  margin:"2px" }} primary>
-                    Cancel
+                    <Button onClick={() => setVisible(false)} style={{ backgroundColor: 'gray', color: 'white', margin: "2px" }} primary>
+                        Cancel
                     </Button>
-
                 </div>
             </Dialog>
 
-            {/* This is my pincil icon */}
-            <Dialog header="Add your custom item" className={"p-8"} visible={pencilvisible} style={{ width: '50vw' }} onHide={() => setPencilvisible(false)}>
 
-                <InputText type="text" placeholder="Search" className="w-full my-4" />
-                <div className={"flex justify-content-center "}>
-                    <Button onClick={() => setVisible(true)} children={"text-center"} style={{ backgroundColor: 'oragne', color: 'white',  margin:"2px" }} primary>
-                        Update
-                    </Button>
-                </div>
-
-
-            </Dialog>
 
             <div className={"flex justify-content-end space-x-2 m-4"}>
-
                     <Button onClick={() => setVisible(true)} style={{ backgroundColor: '#FF8A38', border: "none", color: 'white',  margin:"2px" }} >
-                        Create Order
+                        Create Invoice
                     </Button>
-
-                <Button onClick={() => setVisible(true)} style={{ backgroundColor: '#ffa15f', border: "none", color: 'white',  margin:"2px" }} primary>
-                    More actions
-                </Button>
-                <Button onClick={() => setVisible(true)} style={{ backgroundColor: '#ffa15f', border: "none", color: 'white',  margin:"2px" }} primary>
-                   Export
-                </Button>
             </div>
             <div className={"flex card justify-content-evenly my-4"}>
                 <div>
@@ -356,40 +377,6 @@ const Page = () => {
                         </TabView>
                     </div>
                 </div>
-                { /*
-                <div style={{width: "30%"}} className={"mx-2"} >
-                    <div className="card mb-4">
-                    <div className={"flex justify-content-between mb-4"}>
-                        <span>Add Notes</span>
-                        <i className=" pi pi-pencil  ml-2" onClick={() => setPencilvisible(true)}></i>
-                    </div>
-                        <span className={"text-gray-700 font-bold "} style={{paddingTop: "12px"}}>No notes</span>
-                    </div>
-                    <div className="card mb-4">
-                        <div className={"flex justify-content-between mb-4"}>
-                            <span>Market</span>
-                            <i className=" pi pi-pencil  ml-2" onClick={() => setPencilvisible(true)}></i>
-                        </div>
-                        <span className={"text-gray-700 font-bold "} style={{paddingTop: "12px"}}>Pricing</span>
-                    </div>
-                    <div className="card mb-4">
-                        <div className={"flex justify-content-between mb-4"}>
-                            <span>Customer</span>
-                            <i className=" pi pi-pencil  ml-2" onClick={() => setPencilvisible(true)}></i>
-                        </div>
-                        <span className={"text-gray-700 font-bold "} style={{paddingTop: "12px"}}>customer </span>
-                    </div>
-                    <div className="card mb-4">
-                        <div className={"flex justify-content-between mb-4"}>
-                            <span>Tags</span>
-                            <i className=" pi pi-pencil  ml-2" onClick={() => setPencilvisible(true)}></i>
-                        </div>
-                        <span className={"text-gray-700 font-bold "} style={{paddingTop: "12px"}}>No notes</span>
-                    </div>
-
-
-                </div>
-                */}
             </div>
             <Button onClick={downloadPDF} className={"m-2"}>Download invoice</Button>
         </>

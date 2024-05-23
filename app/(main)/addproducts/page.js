@@ -73,8 +73,6 @@ const Page = () => {
 
     return (
         <>
-
-
             <ConfirmDialog visible={visiblebox} onHide={() => setVisiblebox(false)} message="Are you sure you want to proceed?"
                            header="Confirmation" icon="pi pi-exclamation-triangle" accept={accept} reject={reject} />
 
@@ -184,7 +182,7 @@ const Page = () => {
                     <h4 className={"text-gray-600 my-3"}>Media</h4>
                     <div className={" flex  justify-content-evenly "}>
                         <div>
-                            <Image src={pic} height={400} width={400} />
+                            <Image src={pic} height={200} width={300} />
                         </div>
                         <div>
                             <div className="card flex bg-gray-100 justify-content-center">

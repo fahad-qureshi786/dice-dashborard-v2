@@ -401,15 +401,15 @@ const Dashboard = () => {
 
                     <Dialog header="Order Detail" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
                        <div>
-                           <div className={"flex my-4 p-4 justify-content-between"} >
+                           <div className={"flex my-4 p-2 justify-content-between"} >
                                <div className={""}>
-
+                                   <div className={"font-bold my-2"}>Customer Name    : Alex</div>
                                    <div className={"font-bold"}>Order Number: 232323</div>
-                                   <div className={"font-bold"}>Customer Name    : Alex</div>
+
 
                                </div>
                                <div>
-                                   <span className={"font-bold"}>Order Date:    1/6/2024</span>
+                                   <div className={"font-bold my-2"}>Order Date:    1/6/2024</div>
                                    <div className={"font-bold"}>Total Amount:  565$</div>
                                </div>
 

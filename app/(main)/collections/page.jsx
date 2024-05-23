@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Link from "next/link";
 import { Button } from 'primereact/button';
 import { Paginator } from 'primereact/paginator';
@@ -9,6 +9,8 @@ import pic from "../../../public/myimages/image.jpg";
 import {Dialog} from  "primereact/dialog";
 import  {InputText} from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
+import {ConfirmDialog} from "primereact/confirmdialog";
+import { Toast } from 'primereact/toast';
 const App = () => {
     const [initLoading, setInitLoading] = useState(true);
     const [loading, setLoading] = useState(false);
@@ -19,6 +21,7 @@ const App = () => {
     const [first, setFirst] = useState(0);
     const [rows, setRows] = useState(3);
     const [edit, setEdit] = useState(false);
+    const [visiblebox, setVisiblebox] = useState(false);
     const fakeDataUrl = `https://randomuser.me/api/?results=12&inc=name,gender,email,nat,picture&noinfo`;
 
     const items = [
@@ -26,6 +29,18 @@ const App = () => {
         { label: 'Draft' }
     ];
 
+    const accept = () => {
+        toast.current.show({ severity: 'error', summary: 'Confirmed', detail: 'Product deleted successfully' });
+    };
+
+    const reject = () => {
+        toast.current.show({ severity: 'warn', summary: 'Rejected', detail: 'You have rejected' });
+    };
+
+    const showSuccess = () => {
+        toast.current.show({severity:'success', summary: 'Product', detail:'Added Successfull', life: 3000});
+    }
+    const toast = useRef(null);
     useEffect(() => {
         fetch(fakeDataUrl)
             .then((res) => res.json())
@@ -43,6 +58,9 @@ const App = () => {
 
     return (
         <div>
+            <ConfirmDialog visible={visiblebox} onHide={() => setVisiblebox(false)} message="Are you sure you want to proceed?"
+            header="Confirmation" icon="pi pi-exclamation-triangle" accept={accept} reject={reject} />
+            <Toast ref={toast}></Toast>
             <div className="flex justify-content-between m-4">
                 <h3 className="my-2 font-bold text-4xl">Collection</h3>
                 <div>
@@ -84,11 +102,9 @@ const App = () => {
                                     <div className="font-semibold text-left">Products Conditions</div>
                                 </th>
                                 <th className="p-2 whitespace-nowrap">
-                                    <div className="font-semibold text-left">Products Edit</div>
+                                    <div className="font-semibold text-left">Actions</div>
                                 </th>
-                                <th className="p-2 whitespace-nowrap">
-                                    <div className="font-semibold text-left">Products Delete</div>
-                                </th>
+
                             </tr>
                             </thead>
                             <tbody className="text-sm divide-y divide-gray-100">
@@ -108,16 +124,14 @@ const App = () => {
                                         Products Condition
                                     </td>
                                     <td className="p-2 text-sm text-start whitespace-nowrap">
-                                        <span className={"pointer"} style={{cursor: "pointer"}} onClick={() => setEdit(true)}>
+                                        <span className={"pointer mx-2"} style={{cursor: "pointer"}} onClick={() => setEdit(true)}>
                                             Edit
                                         </span>
-                                    </td>
-                                    <td className="p-2 text-sm text-start whitespace-nowrap">
-                                        <span className={"text-red-300"}>
+                                        <span className={"text-red-300"} onClick={() => setVisiblebox(true)}>
                                             Delete
                                         </span>
-
                                     </td>
+
                                 </tr>
                             ))}
                             </tbody>
@@ -137,6 +151,11 @@ const App = () => {
                 <div className="">
                 <InputTextarea  rows={5} cols={30} className={"w-full"} />
                 </div>
+                    <div className={"flex justify-content-center"}>
+
+
+                    <Button className={"my-2"}>Submit</Button>
+                    </div>
                 </div>
 
 

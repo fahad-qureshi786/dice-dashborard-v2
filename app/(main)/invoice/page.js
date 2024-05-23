@@ -11,7 +11,21 @@ import { Dialog } from 'primereact/dialog';
 import html2canvas from "html2canvas";
 import {Dropdown } from "primereact/dropdown"
 import  jsPDF from "jspdf";
+import { AutoComplete } from "primereact/autocomplete";
 
+const foodItems = [
+    { name: 'Apple' },
+    { name: 'Banana' },
+    { name: 'Carrot' },
+    { name: 'Doughnut' },
+    { name: 'Eggplant' },
+    { name: 'Fig' },
+    { name: 'Grapes' },
+    { name: 'Hamburger' },
+    { name: 'Ice Cream' },
+    { name: 'Jelly' },
+    // Add more food items as needed
+];
 
 const Page = () => {
 
@@ -77,7 +91,46 @@ const Page = () => {
             ),
         },
     ];
-   const [visible , setVisible] = useState(false)
+
+
+    const [selectedFood, setSelectedFood] = useState(null);
+    const [filteredFoodItems, setFilteredFoodItems] = useState(null);
+
+    const panelFooterTemplate = () => {
+        const isFoodSelected = (filteredFoodItems || []).some(food => food.name === selectedFood);
+        return (
+            <div className="py-2 px-3">
+                {isFoodSelected ? (
+                    <span>
+                        <b>{selectedFood}</b> selected.
+                    </span>
+                ) : (
+                    'No food item selected.'
+                )}
+            </div>
+        );
+    };
+
+    const search = (event) => {
+        // Timeout to emulate a network connection
+        setTimeout(() => {
+            let _filteredFoodItems;
+
+            if (!event.query.trim().length) {
+                _filteredFoodItems = [...foodItems];
+            }
+            else {
+                _filteredFoodItems = foodItems.filter((food) => {
+                    return food.name.toLowerCase().startsWith(event.query.toLowerCase());
+                });
+            }
+
+            setFilteredFoodItems(_filteredFoodItems);
+        }, 250);
+    }
+
+
+    const [visible , setVisible] = useState(false)
    const [pencilvisible , setPencilvisible] = useState(false)
     // const [placement, setPlacement] = useState('topLeft');
     // const [dateRange, setDateRange] = useState([null, null]);
@@ -86,13 +139,37 @@ const Page = () => {
     // };
 
     const [dates, setDates] = useState(null);
+
+    const itemTemplate = (item) => {
+        return (
+            <div className="flex align-items-center">
+                <img
+                    alt={item.name}
+                    src={`https://via.placeholder.com/18x18?text=${item.name.charAt(0)}`}
+                    className="mr-2"
+                    style={{ width: '18px' }}
+                />
+                <div>{item.name}</div>
+            </div>
+        );
+    };
+
     return (
         <>
             <Dialog header="Add your custom item" className={"p-8"} visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
                <div className={"flex justify-content-evenly  "}>
                    <div className={"w-8/12 px-2"}>
                         <span className="p-input-icon-right w-full">
-                <InputText type="text" placeholder="Item Name" className="w-full" />
+             <AutoComplete
+                 field="name"
+                 value={selectedFood}
+                 suggestions={filteredFoodItems}
+                 completeMethod={search}
+                 onChange={(e) => setSelectedFood(e.value)}
+                 itemTemplate={itemTemplate}
+                 panelFooterTemplate={panelFooterTemplate}
+                 placeholder={"Search Prodcuts"}
+             />
                 <i className="pi pi-search" />
             </span>
                    </div>
@@ -105,6 +182,8 @@ const Page = () => {
                 <InputText type="text" placeholder="Quantity" className="w-full" />
 
             </span>
+
+
                    </div>
 
 
@@ -113,7 +192,7 @@ const Page = () => {
                </div>
                 <div className={"flex justify-content-end space-x-2 m-4"}>
 
-                    <Button onClick={() => setVisible(true)} style={{ backgroundColor: 'black', color: 'white',  margin:"2px" }} primary>
+                    <Button onClick={() => setVisible(true)}  primary>
                         Add item
                     </Button>
 
@@ -177,24 +256,16 @@ const Page = () => {
                     </div>
 
                 </div>
-                <div>
-                    <span className={"font-semibold"}>Returns</span>
-                    <div>
-                        <span className={"text-4xl font-bold text-gray-500"}>34</span>
-                        <span className={"text-green-400 mx-2"}>100%</span>
-                        <i className=" pi pi-arrow-up text-green-400 ml-2"></i>
-                    </div>
 
-                </div>
-                <div>
-                    <span className={"font-semibold"}>Fulfilled Orders</span>
-                    <div>
-                        <span className={"text-4xl font-bold text-gray-500"}>14</span>
-                        <span className={"text-red-400 mx-2"}>10%</span>
-                        <i className=" pi pi-arrow-down text-red-400 ml-2"></i>
-                    </div>
+                {/*<div>*/}
+                {/*    <span className={"font-semibold"}>Fulfilled Orders</span>*/}
+                {/*    <div>*/}
+                {/*        <span className={"text-4xl font-bold text-gray-500"}>14</span>*/}
+                {/*        <span className={"text-red-400 mx-2"}>10%</span>*/}
+                {/*        <i className=" pi pi-arrow-down text-red-400 ml-2"></i>*/}
+                {/*    </div>*/}
 
-                </div>
+                {/*</div>*/}
                 <div>
                     <span className={"font-semibold"}>Delivered Orders</span>
                     <div>
@@ -207,7 +278,7 @@ const Page = () => {
             </div>
             <div className={"flex justify-content-between w-full"} ref={pdfRef} >
 
-                <div style={{width: "80%"}} >
+                <div style={{width: "100%"}} >
                     <div className="card">
                         <TabView style={{color: "green-200"}} className={"text-red-300"}>
                             <TabPanel header="All" >
@@ -224,11 +295,11 @@ const Page = () => {
             </span>
 
                                                    {/* Button to open file explorer */}
-                                                   <FileUpload mode="basic" chooseLabel="browser" icon="pi pi-folder-open" className={"mx-2 "}  />
-
+                                                   {/*<FileUpload mode="basic" chooseLabel="browser" icon="pi pi-folder-open" className={"mx-2 "}  />*/}
+                                                    <Button className={"mx-2"}>Browse</Button>
                                                </div>
                                            </div>
-                                           <div className={"card my-4"}>
+                                           <div className={"my-2"}>
                                                <h3>Payment</h3>
                                                <div className={""}>
                                                    <div className="p-d-flex p-jc-center">
@@ -285,6 +356,7 @@ const Page = () => {
                         </TabView>
                     </div>
                 </div>
+                { /*
                 <div style={{width: "30%"}} className={"mx-2"} >
                     <div className="card mb-4">
                     <div className={"flex justify-content-between mb-4"}>
@@ -317,6 +389,7 @@ const Page = () => {
 
 
                 </div>
+                */}
             </div>
             <Button onClick={downloadPDF} className={"m-2"}>Download invoice</Button>
         </>

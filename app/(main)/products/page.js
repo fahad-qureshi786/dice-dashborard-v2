@@ -246,16 +246,12 @@ const App = () => {
                     </div>                </div>
             </p>
             </TabPanel>
-            <TabPanel header="Draft">
+            <TabPanel header="Inactive">
             <p className="m-0">
 
             </p>
             </TabPanel>
-            <TabPanel header="Archive">
-                    <p className="m-0">
 
-                    </p>
-                </TabPanel>
             </TabView>
             </div>
 

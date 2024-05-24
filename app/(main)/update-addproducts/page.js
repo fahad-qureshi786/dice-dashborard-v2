@@ -51,7 +51,7 @@ const Page = () => {
         toast.current.show({ severity: 'warn', summary: 'Rejected', detail: 'You have rejected' });
     };
     const showSuccess = () => {
-        toast.current.show({severity:'success', summary: 'Product', detail:'Added Successfull', life: 3000});
+        toast.current.show({severity:'success', summary: 'Product', detail:'Updated Successfully', life: 3000});
     }
     const [selectedOptions, setSelectedOptions] = useState([]);
 
@@ -80,7 +80,7 @@ const Page = () => {
 
             <div className={"flex w-full justify-content-around  "}>
             <div className={"p-2 w-full"}>
-                <h3>Title</h3>
+                <h3>Update Title</h3>
                 <InputText type="text" placeholder="Add Title " className={"w-full my-2 "} />
                 <h4 className={"text-gray-600"}>Description</h4>
                 <div className="">
@@ -185,13 +185,13 @@ const Page = () => {
                             <Image src={pic} height={200} width={300} />
                         </div>
                         <div>
-                            <div className="card flex bg-gray-100 align-items-center justify-content-center">
+                            <div className="card flex bg-gray-100 justify-content-center">
                                 <Toast ref={toast}></Toast>
                                 <FileUpload mode="basic" name="demo[]" url="/api/upload" multiple  accept="image/*" maxFileSize={1000000} onUpload={onUpload} />
                             </div>
-                            {/*<div className={"card flex justify-content-center bg-gray-100"}>*/}
-                            {/*    <h5 className={"p-0 m-0"}>Select existing</h5>*/}
-                            {/*</div>*/}
+                            <div className={"card flex justify-content-center bg-gray-100"}>
+                                <h5 className={"p-0 m-0"}>Select existing</h5>
+                            </div>
 
                         </div>
                     </div>
@@ -209,7 +209,7 @@ const Page = () => {
                        Delete
                    </Button>
                    <Button onClick={showSuccess} className={"m-2"} style={{ backgroundColor: 'gray', color: 'white' }} >
-                       Save
+                       Update
                    </Button>
                </div>
             </div>

@@ -4,36 +4,33 @@ import { InputText } from "primereact/inputtext";
 import { Calendar } from 'primereact/calendar';
 import {TabPanel, TabView} from "primereact/tabview";
 import { Button } from 'primereact/button';
-import { FileUpload } from 'primereact/fileupload';
+import Link  from 'next/Link';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Dialog } from 'primereact/dialog';
-import html2canvas from "html2canvas";
+import {Badge} from 'primereact/badge'
 import {Dropdown } from "primereact/dropdown"
-import  jsPDF from "jspdf";
 
+
+const foodItems = [
+    { name: 'Apple' },
+    { name: 'Banana' },
+    { name: 'Carrot' },
+    { name: 'Doughnut' },
+    { name: 'Eggplant' },
+    { name: 'Fig' },
+    { name: 'Grapes' },
+    { name: 'Hamburger' },
+    { name: 'Ice Cream' },
+    { name: 'Jelly' },
+    // Add more food items as needed
+];
 
 const Page = () => {
 
-// for pdf downlaod
-    const downloadPDF = () => {
+    const[selectedCustomer , setSelectedCustomer] = useState(false)
+    const [InvoiceDetail, setInvoiceDetail] = useState(false)
 
-        const input = pdfRef.current;
-        html2canvas(input).then((canvas) => {
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF('p', 'mm', 'a4', true);
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = pdf.internal.pageSize.getHeight();
-            const imgWidth = canvas.width;
-            const imgHeight = canvas.height;
-            const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
-            const imgX = (pdfWidth - imgWidth * ratio) / 2;
-            const imgY = 30;
-            pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
-            pdf.save('invoice.pdf');
-        });
-    };
-    const pdfRef = useRef()
     const data = [
         {
             invoiceNumber: '001',
@@ -41,7 +38,7 @@ const Page = () => {
             customerName: 'John Doe',
             company: 'ABC Corporation',
             orderTotal: '$100.00',
-            paymentStatus: 'Paid'
+            paymentStatus: <div><Badge value="Paid" severity="success"></Badge></div>
         },
         {
             invoiceNumber: '002',
@@ -49,9 +46,18 @@ const Page = () => {
             customerName: 'Doe',
             company: 'xyz Corporation',
             orderTotal: '$100.00',
-            paymentStatus: 'unpaid'
+            paymentStatus: <div><Badge value="Paid" severity="success"></Badge></div>
         }
     ];
+
+    const [selectedCustomerbox, setSelectedCustomerbox] = useState(null);
+    const customers = [
+        { label: 'Customer 1', value: 'customer1' },
+        { label: 'Customer 2', value: 'customer2' },
+        { label: 'Customer 3', value: 'customer3' },
+        // Add more customers as needed
+    ];
+
 
     const items = [
         {
@@ -77,78 +83,171 @@ const Page = () => {
             ),
         },
     ];
-   const [visible , setVisible] = useState(false)
-   const [pencilvisible , setPencilvisible] = useState(false)
-    // const [placement, setPlacement] = useState('topLeft');
-    // const [dateRange, setDateRange] = useState([null, null]);
-    // const placementChange = (e) => {
-    //     SetPlacement(e.target.value);
+
+
+    const [selectedFood, setSelectedFood] = useState(null);
+    const [filteredFoodItems, setFilteredFoodItems] = useState(null);
+
+    const panelFooterTemplate = () => {
+        const isFoodSelected = (filteredFoodItems || []).some(food => food.name === selectedFood);
+        return (
+            <div className="py-2 px-3">
+                {isFoodSelected ? (
+                    <span>
+                        <b>{selectedFood}</b> selected.
+                    </span>
+                ) : (
+                    'No food item selected.'
+                )}
+            </div>
+        );
+    };
+
+    const search = (event) => {
+        // Timeout to emulate a network connection
+        setTimeout(() => {
+            let _filteredFoodItems;
+
+            if (!event.query.trim().length) {
+                _filteredFoodItems = [...foodItems];
+            }
+            else {
+                _filteredFoodItems = foodItems.filter((food) => {
+                    return food.name.toLowerCase().startsWith(event.query.toLowerCase());
+                });
+            }
+
+            setFilteredFoodItems(_filteredFoodItems);
+        }, 250);
+    }
+
+
+    const [visible , setVisible] = useState(false)
+    const [dates, setDates] = useState(null);
+
+    const itemTemplate = (item) => {
+        return (
+            <div className="flex align-items-center">
+                <img
+                    alt={item.name}
+                    src={`https://via.placeholder.com/18x18?text=${item.name.charAt(0)}`}
+                    className="mr-2"
+                    style={{ width: '18px' }}
+                />
+                <div>{item.name}</div>
+            </div>
+        );
+    };
+
+
+    // const [itemss, setItemss] = useState([
+    //     { name: '', price: '', quantity: '' }
+    // ]);
+
+    // const addItem = () => {
+    //     setItemss([...itemss, { name: '', price: '', quantity: '' }]);
     // };
 
-    const [dates, setDates] = useState(null);
+    const handleItemChange = (index, field, value) => {
+        const updatedItems = [...itemss];
+        updatedItems[index][field] = value;
+        setItemss(updatedItems);
+    };
+
+  //  const [visible, setVisible] = useState(false);
+    const [itemss, setItemss] = useState([]);
+    const [newItem, setNewItem] = useState({ description: '', price: '', quantity: '' });
+
+    const addItem = () => {
+        setItemss([...itemss, newItem]);
+        setNewItem({ description: '', price: '', quantity: '' });
+    };
+
+    const handleNewItemChange = (field, value) => {
+        setNewItem(prevState => ({ ...prevState, [field]: value }));
+    };
+
     return (
         <>
+
             <Dialog header="Add your custom item" className={"p-8"} visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
-               <div className={"flex justify-content-evenly  "}>
-                   <div className={"w-8/12 px-2"}>
-                        <span className="p-input-icon-right w-full">
-                <InputText type="text" placeholder="Item Name" className="w-full" />
-                <i className="pi pi-search" />
-            </span>
-                   </div>
-                   <div className={"w-2/12 px-2"}>            <span className="p-input-icon-right w-full">
-                <InputText type="text" placeholder="Price" className="w-full" />
-
-            </span></div>
-                   <div className={"w-2/12 px-2"}>
-                                  <span className="p-input-icon-right w-full">
-                <InputText type="text" placeholder="Quantity" className="w-full" />
-
-            </span>
-                   </div>
-
-
-               </div>
-                <div className={"my-4 "}>
-               </div>
+                <div className={"flex justify-content-evenly"}>
+                    <div className={"w-8/12 px-2"}>
+                    <span className="p-input-icon-right w-full">
+                        <InputText
+                            type="text"
+                            placeholder="Description"
+                            className="w-full"
+                            value={newItem.description}
+                            onChange={(e) => handleNewItemChange('description', e.target.value)}
+                        />
+                    </span>
+                    </div>
+                    <div className={"w-2/12 px-2"}>
+                    <span className="p-input-icon-right w-full">
+                        <InputText
+                            type="text"
+                            placeholder="Price"
+                            className="w-full"
+                            value={newItem.price}
+                            onChange={(e) => handleNewItemChange('price', e.target.value)}
+                        />
+                    </span>
+                    </div>
+                    <div className={"w-2/12 px-2"}>
+                    <span className="p-input-icon-right w-full">
+                        <InputText
+                            type="text"
+                            placeholder="Quantity"
+                            className="w-full"
+                            value={newItem.quantity}
+                            onChange={(e) => handleNewItemChange('quantity', e.target.value)}
+                        />
+                    </span>
+                    </div>
+                </div>
                 <div className={"flex justify-content-end space-x-2 m-4"}>
-
-                    <Button onClick={() => setVisible(true)} style={{ backgroundColor: 'black', color: 'white',  margin:"2px" }} primary>
+                    <Button onClick={addItem} primary>
                         Add item
                     </Button>
-
-                    <Button onClick={() => setVisible(true)} style={{ backgroundColor: 'gray', color: 'white',  margin:"2px" }} primary>
-                    Cancel
+                    <Button onClick={() => setVisible(false)} style={{ backgroundColor: 'gray', color: 'white', margin: "2px" }} primary>
+                        Cancel
                     </Button>
-
                 </div>
+                <DataTable value={itemss} className={"mt-4"}>
+                    <Column field="description" header="Description"></Column>
+                    <Column field="price" header="Price"></Column>
+                    <Column field="quantity" header="Quantity"></Column>
+                </DataTable>
+                {items.length > 0 && (
+                    <div className="flex justify-content-end mt-4">
+                        <Button primary onClick={() => {
+                            setSelectedCustomer(true);
+                            setVisible(false);
+                        }}>
+                            Next
+                        </Button>
+                    </div>
+                )}
             </Dialog>
+            <Dialog header={"Select Customer"} visible={selectedCustomer} style={{ width: '50vw' }} onHide={() => setSelectedCustomer(false)}>
 
-            {/* This is my pincil icon */}
-            <Dialog header="Add your custom item" className={"p-8"} visible={pencilvisible} style={{ width: '50vw' }} onHide={() => setPencilvisible(false)}>
-
-                <InputText type="text" placeholder="Search" className="w-full my-4" />
-                <div className={"flex justify-content-center "}>
-                    <Button onClick={() => setVisible(true)} children={"text-center"} style={{ backgroundColor: 'oragne', color: 'white',  margin:"2px" }} primary>
-                        Update
-                    </Button>
+                <div className="p-field w-full">
+                    {/*<label htmlFor="customerDropdown">Select Customer</label>*/}
+                     <Dropdown  className={"w-full my-4"} id="customerDropdown" value={selectedCustomerbox} options={customers} onChange={(e) => setSelectedCustomerbox(e.value)} placeholder="Select a Customer" />
                 </div>
 
-
+             <Link href={"/invoice-down"}>
+                 <Button  style={{ backgroundColor: '#FF8A38', border: "none", color: 'white',  margin:"2px" }} >
+                     Generate Invoice
+                 </Button>
+             </Link>
             </Dialog>
 
             <div className={"flex justify-content-end space-x-2 m-4"}>
-
                     <Button onClick={() => setVisible(true)} style={{ backgroundColor: '#FF8A38', border: "none", color: 'white',  margin:"2px" }} >
-                        Create Order
+                        Create Invoice
                     </Button>
-
-                <Button onClick={() => setVisible(true)} style={{ backgroundColor: '#ffa15f', border: "none", color: 'white',  margin:"2px" }} primary>
-                    More actions
-                </Button>
-                <Button onClick={() => setVisible(true)} style={{ backgroundColor: '#ffa15f', border: "none", color: 'white',  margin:"2px" }} primary>
-                   Export
-                </Button>
             </div>
             <div className={"flex card justify-content-evenly my-4"}>
                 <div>
@@ -177,24 +276,16 @@ const Page = () => {
                     </div>
 
                 </div>
-                <div>
-                    <span className={"font-semibold"}>Returns</span>
-                    <div>
-                        <span className={"text-4xl font-bold text-gray-500"}>34</span>
-                        <span className={"text-green-400 mx-2"}>100%</span>
-                        <i className=" pi pi-arrow-up text-green-400 ml-2"></i>
-                    </div>
 
-                </div>
-                <div>
-                    <span className={"font-semibold"}>Fulfilled Orders</span>
-                    <div>
-                        <span className={"text-4xl font-bold text-gray-500"}>14</span>
-                        <span className={"text-red-400 mx-2"}>10%</span>
-                        <i className=" pi pi-arrow-down text-red-400 ml-2"></i>
-                    </div>
+                {/*<div>*/}
+                {/*    <span className={"font-semibold"}>Fulfilled Orders</span>*/}
+                {/*    <div>*/}
+                {/*        <span className={"text-4xl font-bold text-gray-500"}>14</span>*/}
+                {/*        <span className={"text-red-400 mx-2"}>10%</span>*/}
+                {/*        <i className=" pi pi-arrow-down text-red-400 ml-2"></i>*/}
+                {/*    </div>*/}
 
-                </div>
+                {/*</div>*/}
                 <div>
                     <span className={"font-semibold"}>Delivered Orders</span>
                     <div>
@@ -205,16 +296,16 @@ const Page = () => {
 
                 </div>
             </div>
-            <div className={"flex justify-content-between w-full"} ref={pdfRef} >
+            <div className={"flex justify-content-between w-full"}  >
 
-                <div style={{width: "80%"}} >
+                <div style={{width: "100%"}} >
                     <div className="card">
                         <TabView style={{color: "green-200"}} className={"text-red-300"}>
                             <TabPanel header="All" >
                                     <div className="flex flex-col justify-center w-full h-full">
                                        <div className={"w-full"}>
                                            <div>
-                                               <h3 className={"my-2"}>Products</h3>
+                                               <h3 className={"my-2"}>Invoices</h3>
 
                                                <div className="w-full flex items-center">
                                                    {/* Search input */}
@@ -224,16 +315,16 @@ const Page = () => {
             </span>
 
                                                    {/* Button to open file explorer */}
-                                                   <FileUpload mode="basic" chooseLabel="browser" icon="pi pi-folder-open" className={"mx-2 "}  />
-
+                                                   {/*<FileUpload mode="basic" chooseLabel="browser" icon="pi pi-folder-open" className={"mx-2 "}  />*/}
+                                                    <Button className={"mx-2"}>Search</Button>
                                                </div>
                                            </div>
-                                           <div className={"card my-4"}>
+                                           <div className={"my-2"}>
                                                <h3>Payment</h3>
                                                <div className={""}>
                                                    <div className="p-d-flex p-jc-center">
                                                        <DataTable value={data} className="p-datatable-striped">
-                                                           <Column field="invoiceNumber" header="Invoice number"   />
+                                                           <Column field="invoiceNumber" header="Invoice number"  body={(rowData) => <span onClick={() => setInvoiceDetail(true)}>{rowData.invoiceNumber}</span>}   />
                                                            <Column field="orderDate" header="Order date"   />
                                                            <Column field="customerName" header="Customer name"   />
                                                            <Column field="company" header="Company" />
@@ -244,6 +335,9 @@ const Page = () => {
                                                </div>
                                            </div>
 
+                                           <Dialog header={"Order detail"} visible={InvoiceDetail} style={{width: "35vw"}} onHide={() => setInvoiceDetail(false)}>
+                                              Update fields
+                                           </Dialog>
 
                                        </div>
 
@@ -285,40 +379,8 @@ const Page = () => {
                         </TabView>
                     </div>
                 </div>
-                <div style={{width: "30%"}} className={"mx-2"} >
-                    <div className="card mb-4">
-                    <div className={"flex justify-content-between mb-4"}>
-                        <span>Add Notes</span>
-                        <i className=" pi pi-pencil  ml-2" onClick={() => setPencilvisible(true)}></i>
-                    </div>
-                        <span className={"text-gray-700 font-bold "} style={{paddingTop: "12px"}}>No notes</span>
-                    </div>
-                    <div className="card mb-4">
-                        <div className={"flex justify-content-between mb-4"}>
-                            <span>Market</span>
-                            <i className=" pi pi-pencil  ml-2" onClick={() => setPencilvisible(true)}></i>
-                        </div>
-                        <span className={"text-gray-700 font-bold "} style={{paddingTop: "12px"}}>Pricing</span>
-                    </div>
-                    <div className="card mb-4">
-                        <div className={"flex justify-content-between mb-4"}>
-                            <span>Customer</span>
-                            <i className=" pi pi-pencil  ml-2" onClick={() => setPencilvisible(true)}></i>
-                        </div>
-                        <span className={"text-gray-700 font-bold "} style={{paddingTop: "12px"}}>customer </span>
-                    </div>
-                    <div className="card mb-4">
-                        <div className={"flex justify-content-between mb-4"}>
-                            <span>Tags</span>
-                            <i className=" pi pi-pencil  ml-2" onClick={() => setPencilvisible(true)}></i>
-                        </div>
-                        <span className={"text-gray-700 font-bold "} style={{paddingTop: "12px"}}>No notes</span>
-                    </div>
-
-
-                </div>
             </div>
-            <Button onClick={downloadPDF} className={"m-2"}>Download invoice</Button>
+
         </>
     );
 };
